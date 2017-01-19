@@ -30,6 +30,7 @@
 #include <QDialog>
 #include <QProcess>
 #include <QMessageBox>
+#include <QMultiMap>
 
 namespace Ui {
 class MainWindow;
@@ -40,13 +41,16 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QString arg, QWidget *parent = 0);
     ~MainWindow();
 
     QString getVersion(QString name);    
-
     QString getCmdOut(QString cmd);
+    QString getFileName();
+    void processLine(QString line);
+    void readFile(QString file_name);
     void setup();
+
 
 public slots:
 
@@ -54,10 +58,16 @@ private slots:
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
 
-private:
-    Ui::MainWindow *ui;
+private:    
+    QList<QString> categories;
+    QMultiMap<QString, QStringList> category_map;
     QProcess *proc;
+    QString file_location;
+    QString file_name;
     QString version;
+
+
+    Ui::MainWindow *ui;
 
 };
 
