@@ -31,6 +31,7 @@
 #include <QProcess>
 #include <QMessageBox>
 #include <QMultiMap>
+#include <QIcon>
 
 namespace Ui {
 class MainWindow;
@@ -44,9 +45,13 @@ public:
     explicit MainWindow(QString arg, QWidget *parent = 0);
     ~MainWindow();
 
+    QIcon findIcon(QString icon_name);
     QString getVersion(QString name);    
     QString getCmdOut(QString cmd);
     QString getFileName();
+    QString getDesktopFileName(QString app_name);
+    QStringList getDesktopFileInfo(QString file_name);
+    void addButtons();
     void processLine(QString line);
     void readFile(QString file_name);
     void setup();
@@ -55,10 +60,12 @@ public:
 public slots:
 
 private slots:
+    void btn_clicked();
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
 
 private:    
+    FlatButton *btn;
     QList<QString> categories;
     QMultiMap<QString, QStringList> category_map;
     QProcess *proc;
@@ -68,7 +75,6 @@ private:
 
 
     Ui::MainWindow *ui;
-
 };
 
 

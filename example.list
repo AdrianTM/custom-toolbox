@@ -1,0 +1,22 @@
+# EXAMPLE LAUNCHER
+
+# Simple text file containing Name= Comment= Category= keywords
+# with the list of app names under each coresponding category
+
+Name=Example Launcher
+Comment=This is a comment for the launcher
+
+Category=Live
+live-usb-maker-gui
+mx-snapshot
+
+Category=Maintenance
+mx-bootrepair
+mx-user
+mx-menu-editor
+mx-flash-manager
+
+Category=Utilities
+mx-usb-unmounter
+mx-findshares
+

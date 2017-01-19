@@ -10,6 +10,12 @@
     <height>424</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>400</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Custom Toolbox</string>
   </property>
@@ -207,7 +213,7 @@
            <x>0</x>
            <y>0</y>
            <width>626</width>
-           <height>255</height>
+           <height>253</height>
           </rect>
          </property>
          <property name="autoFillBackground">
@@ -236,7 +242,7 @@
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>This is a custom launcher</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
