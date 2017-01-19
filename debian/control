@@ -1,0 +1,14 @@
+Source: custom-toolbox
+Section: admin
+Priority: optional
+Maintainer: Steven Pusser (Stevo) <maintainer@mepiscommunity.org>
+Build-Depends: qt5-qmake,
+	debhelper (>=7.0.50~)
+Standards-Version: 3.9.5
+Vcs-Git: git://github.com/AdrianTM/custom-toolbox
+
+Package: custom-toolbox
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Custom Toolbox
+ Custom Toolbox is a tool used for creating collections of icons

@@ -1,0 +1,8 @@
+custom-toolbox 		usr/bin
+custom-toolbox.desktop 	usr/share/applications/mx
+custom-toolbox.conf 	etc
+translations/*.qm 	usr/share/custom-toolbox/locale
+custom-toolbox.png	usr/share/pixmaps
+icons/*                 usr/share/custom-toolbox/icons
+license.html            usr/share/doc/custom-toolbox
+
