@@ -29,10 +29,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    mainwindow.cpp
+    mainwindow.cpp \
+    flatbutton.cpp
 
 HEADERS  += \
-    mainwindow.h
+    mainwindow.h \
+    flatbutton.h
 
 FORMS    += \
     mainwindow.ui
