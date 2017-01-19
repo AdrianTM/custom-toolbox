@@ -27,18 +27,24 @@
 #include "ui_mainwindow.h"
 #include "flatbutton.h"
 
-//#include <QFileDialog>
+#include <QFileDialog>
 #include <QScrollBar>
-//#include <QTextStream>
+#include <QTimer>
 
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QString arg, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setup();    
+    setup();
+
+    file_location = QDir::homePath() + "/.config/custom-toolbar";
+    file_name =  QFile(arg).exists() ? arg : getFileName();
+    readFile(file_name);
+    qDebug() << "Categories: " << categories;
+    qDebug() <<  "Cat_map: " << category_map;
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +70,59 @@ QString MainWindow::getCmdOut(QString cmd) {
     proc->setReadChannelMode(QProcess::MergedChannels);
     proc->waitForFinished(-1);
     return proc->readAllStandardOutput().trimmed();
+}
+
+// select .list file to open
+QString MainWindow::getFileName()
+{
+   QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
+   if (!QFile(file_name).exists()) {
+       int ans = QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
+       if (ans == QMessageBox::No) {
+           //QTimer::singleShot(0, this, SLOT(close()));
+           exit(-1);
+       } else {
+           return getFileName();
+       }
+   }
+   return file_name;
+}
+
+// process read line
+void MainWindow::processLine(QString line)
+{
+    if (line.startsWith("#") || line == "") { // filter out comment and empty lines
+        return;
+    }
+    QStringList line_list= line.split("=");
+    QString name = line_list[0].toLower().trimmed();
+    QString content = line_list[1].remove("\"").trimmed();
+    if (name == "name") {
+        this->setWindowTitle(content);
+    } else if (name == "comment") {
+        ui->commentLabel->setText(content);
+    } else if (name == "category") {
+        categories.append(content);
+    } else if (name == "item") {
+        QStringList item_list = content.split(" ", QString::SkipEmptyParts);
+        category_map.insert(categories.last(), item_list);
+    }
+}
+
+// open the .list file and process it
+void MainWindow::readFile(QString file_name)
+{
+    QFile file(file_name);
+    if(!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+        QTimer::singleShot(0, this, SLOT(close()));
+    }
+    QTextStream in(&file);
+    QString line;
+    while(!in.atEnd()) {
+        processLine(in.readLine());
+    }
+    file.close();
 }
 
 

@@ -43,8 +43,10 @@ int main(int argc, char *argv[])
     appTran.load(QString("custom-toolbox_") + QLocale::system().name(), "/usr/share/custom-toolbox/locale");
     a.installTranslator(&appTran);
 
+    QString file_name = argc > 1 ? QString(argv[1]) : QString();
+
 //    if (getuid() == 0) {
-        MainWindow w;
+        MainWindow w(file_name);
         w.show();
         return a.exec();
 //    } else {
