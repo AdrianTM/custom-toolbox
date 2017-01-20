@@ -44,7 +44,7 @@ MainWindow::MainWindow(QString arg, QWidget *parent) :
     if (QFile(file_name).exists()){
         readFile(file_name);        
     }
-    addButtons();
+    addButtons(category_map);
 }
 
 MainWindow::~MainWindow()
@@ -131,7 +131,7 @@ QString MainWindow::getDesktopFileName(QString app_name)
 }
 
 // return the app info needed for the button
-QStringList MainWindow::getDesktopFileInfo(QString file_name)
+QStringList MainWindow::getDesktopFileInfo(QString file_name, QString category)
 {          
     QStringList app_info;
 
@@ -166,12 +166,12 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     icon_name = getCmdOut("grep ^Icon= " + file_name + " | cut -f2 -d=");
     terminal = getCmdOut("grep ^Terminal= " + file_name + " | cut -f2 -d=");
 
-    app_info << name << comment << icon_name << exec << terminal.toLower();
+    app_info << name << comment << icon_name << exec << category << terminal.toLower();
     return app_info;
 }
 
 // add the buttoms to the window
-void MainWindow::addButtons()
+void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 {
     int col = 0;
     int row = 0;
@@ -182,7 +182,7 @@ void MainWindow::addButtons()
     QString icon_name;
     QString terminal;
 
-    foreach (QString category, categories) {
+    foreach (QString category, map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
             QLabel *label = new QLabel(this);
             QFont font;
@@ -195,7 +195,7 @@ void MainWindow::addButtons()
             ui->gridLayout_btn->addWidget(label, row, col);
             ui->gridLayout_btn->setRowStretch(row, 0);
             row += 1;
-            foreach (QStringList item, category_map.values(category)) {
+            foreach (QStringList item, map.values(category)) {
                 name = item[0];
                 comment = item[1];
                 icon_name = item[2];
@@ -224,7 +224,7 @@ void MainWindow::addButtons()
             }
         }
         // add empty row if it's not the last key
-        if (category != category_map.lastKey()) {
+        if (category != map.lastKey()) {
             col = 0;
             row += 1;
             QFrame *line = new QFrame();
@@ -237,8 +237,8 @@ void MainWindow::addButtons()
     ui->gridLayout_btn->setRowStretch(row, 1);
     this->adjustSize();
     this->resize(ui->gridLayout_btn->sizeHint().width() + 90, this->height());
-    qDebug() << "width window" << this->width();
-    qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
+    //qDebug() << "width window" << this->width();
+    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
 
 }
 
@@ -262,7 +262,7 @@ void MainWindow::processLine(QString line)
     } else { // assume it's the name of the app
         QString desktop_file = getDesktopFileName(key);
         if (desktop_file != "") {
-            category_map.insert(categories.last(), getDesktopFileInfo(desktop_file));
+            category_map.insert(categories.last(), getDesktopFileInfo(desktop_file, categories.last()));
         }
     }
 }
@@ -316,4 +316,33 @@ void MainWindow::on_buttonHelp_clicked()
     QString cmd = QString("mx-viewer https://mxlinux.org/user_manual_mx15/mxum.html#test '%1'").arg(tr("Custom Toolbox"));
     system(cmd.toUtf8());
     this->show();
+}
+
+// search
+void MainWindow::on_lineSearch_textChanged(const QString &arg1)
+{
+    // remove all items from the layout
+    QLayoutItem *child;
+    while ((child = ui->gridLayout_btn->takeAt(0)) != 0) {
+        delete child->widget();
+        delete child;
+    }
+
+    QMultiMap<QString, QStringList> new_map;
+
+    // create a new_map with items that match the search argument
+    foreach (QString category, categories) {
+        foreach (QStringList item, category_map.values(category)) {
+            QString name = item[0];
+            QString comment = item[1];
+            QString category = item[4];
+            if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
+                    || category.contains(arg1, Qt::CaseInsensitive)) {
+                new_map.insert(category, item);
+            }
+        }
+    }
+    if (!new_map.empty()) {
+        arg1 == "" ? addButtons(category_map) : addButtons(new_map);
+    }
 }

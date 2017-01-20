@@ -50,8 +50,8 @@ public:
     QString getCmdOut(QString cmd);
     QString getFileName();
     QString getDesktopFileName(QString app_name);
-    QStringList getDesktopFileInfo(QString file_name);
-    void addButtons();
+    QStringList getDesktopFileInfo(QString file_name, QString category);
+    void addButtons(QMultiMap<QString, QStringList> map);
     void processLine(QString line);
     void readFile(QString file_name);
     void setup();
@@ -64,7 +64,9 @@ private slots:
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
 
-private:    
+    void on_lineSearch_textChanged(const QString &arg1);
+
+private:
     FlatButton *btn;
     QList<QString> categories;
     QMultiMap<QString, QStringList> category_map;
