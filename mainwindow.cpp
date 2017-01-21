@@ -39,9 +39,11 @@ MainWindow::MainWindow(QString arg, QWidget *parent) :
     ui->setupUi(this);
     setup();
 
-    file_location = QDir::homePath() + "/.config/custom-toolbox";
+    file_location = "/etc/custom-toolbox";
     file_name =  QFile(arg).exists() ? arg : getFileName();
     if (QFile(file_name).exists()){
+        base_name = QFileInfo(file_name).baseName();
+        file_location= QFileInfo(file_name).path();
         readFile(file_name);        
     }
     addButtons(category_map);
@@ -304,18 +306,16 @@ void MainWindow::on_buttonAbout_clicked()
     msgBox.addButton(tr("Cancel"), QMessageBox::AcceptRole); // because we want to display the buttons in reverse order we use counter-intuitive roles.
     msgBox.addButton(tr("License"), QMessageBox::RejectRole);
     if (msgBox.exec() == QMessageBox::RejectRole) {
-        system("mx-viewer file:///usr/share/doc/custom-toolbox/license.html '" + tr("Custom Toolbox").toUtf8() + " " + tr("License").toUtf8() + "'");
+        system("xdg-open file:///usr/share/doc/custom-toolbox/license.html");
     }
     this->show();
 }
 
 // Help button clicked
 void MainWindow::on_buttonHelp_clicked()
-{
-    this->hide();
-    QString cmd = QString("mx-viewer https://mxlinux.org/user_manual_mx15/mxum.html#test '%1'").arg(tr("Custom Toolbox"));
+{    
+    QString cmd = QString("xdg-open file:///usr/share/doc/custom-toolbox/help.html");
     system(cmd.toUtf8());
-    this->show();
 }
 
 // search
@@ -344,5 +344,30 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     }
     if (!new_map.empty()) {
         arg1 == "" ? addButtons(category_map) : addButtons(new_map);
+    }
+}
+
+// add a .desktop file to the ~/.config/autostart
+void MainWindow::on_checkBoxStartup_clicked(bool checked)
+{
+    QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
+    if (checked) {
+        QFile file(file_name);
+        if(!file.open(QFile::WriteOnly | QFile::Text)) {
+            QMessageBox::critical(0, tr("File Open Error"), tr("Could not write file: ") + file_name);
+        }
+        QTextStream out(&file);
+        out << "[Desktop Entry]" << "\n";
+        out << "Name=" << this->windowTitle() << "\n";
+        out << "Comment=" << ui->commentLabel->text() << "\n";
+        out << "Exec=" <<  "custom-toolbox " + file_location + "/" + base_name + ".list" << "\n";
+        out << "Terminal=false" << "\n";
+        out << "Type=Application" << "\n";
+        out << "Icon=custom-toolbox" << "\n";
+        out << "Categories=XFCE;System" << "\n";
+        out << "StartupNotify=false";
+        file.close();
+    } else {
+        QDir().remove(file_name);
     }
 }

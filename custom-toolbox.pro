@@ -50,4 +50,7 @@ TRANSLATIONS += translations/custom-toolbox_ca.ts \
                 translations/custom-toolbox_ro.ts \
                 translations/custom-toolbox_sv.ts
 
+RESOURCES += \
+    icons.qrc
+
 
