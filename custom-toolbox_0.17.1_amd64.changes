@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Wed, 18 Jan 2017 19:44:43 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.17.1
+Distribution: mx
+Urgency: medium
+Maintainer: Steven Pusser (Stevo) <maintainer@mepiscommunity.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.17.1) mx; urgency=medium
+ .
+   * initial release
+Checksums-Sha1:
+ 91876c58500b6fd3963a199b21b9d5123d1a5fed 1161 custom-toolbox_0.17.1.dsc
+ 56303f277572f71f41fb3a1fbf87c65cf8253f8f 327788 custom-toolbox_0.17.1.tar.xz
+ 9a0de749aea337b78cd122a1e10e375fff18c5be 40294 custom-toolbox_0.17.1_amd64.deb
+Checksums-Sha256:
+ 6577719c4de541ff940d5f7f7070c72ac6014867dfd9885ff299a142e764aba5 1161 custom-toolbox_0.17.1.dsc
+ 45edc44665ed1102e4a6b950da1816b020acb3eb8d15d47607534ab1141c6782 327788 custom-toolbox_0.17.1.tar.xz
+ 7cd6cefd47580647d627d69cf0f7322f655e172f197e03eebbf0e015b4c54c6d 40294 custom-toolbox_0.17.1_amd64.deb
+Files:
+ a088cedec8de97069334274aafee3fc8 1161 admin optional custom-toolbox_0.17.1.dsc
+ d69bc6ec9a2fb404b752ef6dea64e7f9 327788 admin optional custom-toolbox_0.17.1.tar.xz
+ 0bddf32d572f2e5e5bbc4823c4292a39 40294 admin optional custom-toolbox_0.17.1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJYg+8vAAoJEHCTjHgGee6YY3AH/jvxf9W0Ig0cbso+fyWR1LuE
+A9asxg6MbojlKw7+XdDona7onYVF59bV+NdSPzcNYpa9bKSttjvwKQcv9GvUzT3A
+2uV5pewanbVnL1wLg/HwxsEV6JdGdgK9/iv8N/xvfSJ6r4PyvM9CwDh1q25fFRvM
+GzXCjhDrmL8V+3zaHvHEeaSuGQUbh2oWU0YYZZJ9rM8Bsm3MrdO64SuMoW6R10Yf
+pD2BPtiMnRCCC8JIROze18aYOOIGUQyfOulsYVRFA/F9ea+Aj8MKy0/cO4cxku4F
+M6JqAtPN3KQ/6TMtsysrP0DGpE2qd5kjgo7Oc3tbJAwF64Au6vRRNQcEm/qTGOo=
+=gxSS
+-----END PGP SIGNATURE-----

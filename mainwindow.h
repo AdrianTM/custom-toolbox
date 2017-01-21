@@ -56,15 +56,14 @@ public:
     void readFile(QString file_name);
     void setup();
 
-
 public slots:
 
 private slots:
     void btn_clicked();
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
-
-    void on_lineSearch_textChanged(const QString &arg1);
+    void on_checkBoxStartup_clicked(bool checked);
+    void on_lineSearch_textChanged(const QString &arg1);         
 
 private:
     FlatButton *btn;
@@ -73,6 +72,7 @@ private:
     QProcess *proc;
     QString file_location;
     QString file_name;
+    QString base_name;
     QString version;
 
 
