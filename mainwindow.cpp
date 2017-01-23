@@ -32,7 +32,7 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(QString arg, QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
@@ -40,11 +40,19 @@ MainWindow::MainWindow(QString arg, QWidget *parent) :
     setup();
 
     file_location = "/etc/custom-toolbox";
-    file_name =  QFile(arg).exists() ? arg : getFileName();
+
+    QStringList args = qApp->arguments();
+    if (args.size() > 1) {
+        file_name =  QFile(args[1]).exists() ? args[1] : getFileName();
+    } else {
+        file_name = getFileName();
+    }
     if (QFile(file_name).exists()){
         base_name = QFileInfo(file_name).baseName();
         file_location= QFileInfo(file_name).path();
         readFile(file_name);        
+    } else {
+        exit(-1);
     }
     addButtons(category_map);
 }
