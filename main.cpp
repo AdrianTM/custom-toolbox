@@ -43,16 +43,8 @@ int main(int argc, char *argv[])
     appTran.load(QString("custom-toolbox_") + QLocale::system().name(), "/usr/share/custom-toolbox/locale");
     a.installTranslator(&appTran);
 
-    QString file_name = argc > 1 ? QString(argv[1]) : QString();
+    MainWindow w;
+    w.show();
+    return a.exec();
 
-//    if (getuid() == 0) {
-        MainWindow w(file_name);
-        w.show();
-        return a.exec();
-//    } else {
-//        QApplication::beep();
-//        QMessageBox::critical(0, QString::null,
-//                              QApplication::tr("You must run this program as root."));
-//        return 1;
-//    }
 }
