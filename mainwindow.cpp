@@ -55,6 +55,10 @@ MainWindow::MainWindow(QWidget *parent) :
         exit(-1);
     }
     addButtons(category_map);
+    this->adjustSize();
+    this->resize(ui->gridLayout_btn->sizeHint().width() + 90, this->height());
+    //qDebug() << "width window" << this->width();
+    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
 }
 
 MainWindow::~MainWindow()
@@ -90,6 +94,18 @@ QIcon MainWindow::findIcon(QString icon_name)
     }
 }
 
+// fix varios exec= items to make sure they run correctly
+QString MainWindow::fixExecItem(QString item)
+{
+    item.remove(" %f");  // remove %f if exec expects a file name since it's called without a name
+
+//    if (item == "mc") {  // launch mc in terminal
+//        item = "su-to-root -X -c 'x-terminal-emulator -e mc'";
+//    }
+
+    return item;
+}
+
 // setup versious items first time program runs
 void MainWindow::setup()
 {
@@ -101,10 +117,13 @@ void MainWindow::setup()
 
 void MainWindow::btn_clicked()
 {
-    this->hide();
+    this->hide();    
     //qDebug() << sender()->objectName();
     system(sender()->objectName().toUtf8());
     this->show();
+    if(sender()->objectName().startsWith("x-terminal-emulator") || sender()->objectName().startsWith("xfce4-terminal")) {
+        this->lower();
+    }
 }
 
 
@@ -141,7 +160,7 @@ QString MainWindow::getDesktopFileName(QString app_name)
 }
 
 // return the app info needed for the button
-QStringList MainWindow::getDesktopFileInfo(QString file_name, QString category)
+QStringList MainWindow::getDesktopFileInfo(QString file_name)
 {          
     QStringList app_info;
 
@@ -176,7 +195,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name, QString category)
     icon_name = getCmdOut("grep ^Icon= " + file_name + " | cut -f2 -d=");
     terminal = getCmdOut("grep ^Terminal= " + file_name + " | cut -f2 -d=");
 
-    app_info << name << comment << icon_name << exec << category << terminal.toLower();
+    app_info << name << comment << icon_name << exec << terminal.toLower();
     return app_info;
 }
 
@@ -190,7 +209,8 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString comment;
     QString exec;
     QString icon_name;
-    QString terminal;
+    QString root;
+    QString terminal;    
 
     foreach (QString category, map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
@@ -209,8 +229,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 name = item[0];
                 comment = item[1];
                 icon_name = item[2];
-                exec = item[3];
+                exec = fixExecItem(item[3]);
                 terminal = item[4];
+                root = item[5];
 
                 btn = new FlatButton(name);
                 btn->setToolTip(comment);
@@ -222,14 +243,18 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 if (col >= max) {
                     col = 0;
                     row += 1;
-                }
-                //add "x-termial-emulator -e " if terminal = true
-                QString cmd = "x-terminal-emulator -e ";
+                }                                
+
                 if (terminal == "true") {
-                    btn->setObjectName(cmd + exec); // add the command to be executed to the object name
-                } else {
-                    btn->setObjectName(exec); // add the command to be executed to the object name
+                    exec = "x-terminal-emulator -e "  + exec;
+                    qDebug() << "terminal exec: " << exec;
                 }
+                if (root == "true") {
+                    exec = "su-to-root -X -c '" + exec + "'";
+                    qDebug() << "root exec: " << exec;
+                }
+
+                btn->setObjectName(exec);
                 QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
             }
         }
@@ -244,12 +269,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->setRowStretch(row, 0);
         }
     }
-    ui->gridLayout_btn->setRowStretch(row, 1);
-    this->adjustSize();
-    this->resize(ui->gridLayout_btn->sizeHint().width() + 90, this->height());
-    //qDebug() << "width window" << this->width();
-    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
-
+    ui->gridLayout_btn->setRowStretch(row, 1);    
 }
 
 
@@ -261,18 +281,29 @@ void MainWindow::processLine(QString line)
         return;
     }
     QStringList line_list = line.split("=");
-    QString key = line_list[0].toLower().trimmed();
+    QString key = line_list[0].trimmed();
     QString value = line_list.size() > 1 ? line_list[1].remove("\"").trimmed() : QString();
-    if (key == "name") {
+    if (key.toLower() == "name") {
         this->setWindowTitle(value);
-    } else if (key == "comment") {
+    } else if (key.toLower() == "comment") {
         ui->commentLabel->setText(value);
-    } else if (key == "category") {
+    } else if (key.toLower() == "category") {
         categories.append(value);
-    } else { // assume it's the name of the app
-        QString desktop_file = getDesktopFileName(key);
+    } else { // assume it's the name of the app and potentially a "root" flag
+        QStringList list = key.split(" ");
+        QString desktop_file = getDesktopFileName(list[0]);
         if (desktop_file != "") {
-            category_map.insert(categories.last(), getDesktopFileInfo(desktop_file, categories.last()));
+            QStringList info = getDesktopFileInfo(desktop_file);
+            if (list.size() > 1) { // check if root flag present
+                if (list[1].toLower() == "root") {
+                    info << "true";
+                } else {
+                    info << "false";
+                }
+            } else {
+                info << "false";
+            }
+            category_map.insert(categories.last(), info);
         }
     }
 }
@@ -342,8 +373,7 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     foreach (QString category, categories) {
         foreach (QStringList item, category_map.values(category)) {
             QString name = item[0];
-            QString comment = item[1];
-            QString category = item[4];
+            QString comment = item[1];            
             if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
                     || category.contains(arg1, Qt::CaseInsensitive)) {
                 new_map.insert(category, item);
