@@ -46,11 +46,12 @@ public:
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);
+    QString fixExecItem(QString item);
     QString getVersion(QString name);    
     QString getCmdOut(QString cmd);
     QString getFileName();
     QString getDesktopFileName(QString app_name);
-    QStringList getDesktopFileInfo(QString file_name, QString category);
+    QStringList getDesktopFileInfo(QString file_name);
     void addButtons(QMultiMap<QString, QStringList> map);
     void processLine(QString line);
     void readFile(QString file_name);
