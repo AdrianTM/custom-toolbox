@@ -175,25 +175,25 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     name = "";
     comment = "";
     if (lang != "en") {
-        name = getCmdOut("grep -i ^'Name\\￼Close[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
-        comment = getCmdOut("grep -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        name = getCmdOut("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        comment = getCmdOut("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && name == "") { // Brazilian if Portuguese and name empty
-        name = getCmdOut("grep -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        name = getCmdOut("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && comment == "") { // Brazilian if Portuguese and comment empty
-        comment = getCmdOut("grep -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        comment = getCmdOut("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (name == "") { // backup if Name is not translated
-        name = getCmdOut("grep -i ^Name= " + file_name + " | cut -f2 -d=");
-        name = name.remove("MX ");
+        name = getCmdOut("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
+        name = name.remove(QRegExp("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
     }
     if (comment == "") { // backup if Comment is not translated
-        comment = getCmdOut("grep ^Comment= " + file_name + " | cut -f2 -d=");
+        comment = getCmdOut("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
     }
-    exec = getCmdOut("grep ^Exec= " + file_name + " | cut -f2 -d=");
-    icon_name = getCmdOut("grep ^Icon= " + file_name + " | cut -f2 -d=");
-    terminal = getCmdOut("grep ^Terminal= " + file_name + " | cut -f2 -d=");
+    exec = getCmdOut("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
+    icon_name = getCmdOut("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
+    terminal = getCmdOut("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
 
     app_info << name << comment << icon_name << exec << terminal.toLower();
     return app_info;
@@ -246,14 +246,11 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 }                                
 
                 if (terminal == "true") {
-                    exec = "x-terminal-emulator -e "  + exec;
-                    qDebug() << "terminal exec: " << exec;
+                    exec = "x-terminal-emulator -e "  + exec;                
                 }
                 if (root == "true") {
                     exec = "su-to-root -X -c '" + exec + "'";
-                    qDebug() << "root exec: " << exec;
-                }
-
+                }                
                 btn->setObjectName(exec);
                 QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
             }
