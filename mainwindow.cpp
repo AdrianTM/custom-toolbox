@@ -98,11 +98,7 @@ QIcon MainWindow::findIcon(QString icon_name)
 QString MainWindow::fixExecItem(QString item)
 {
     item.remove(" %f");  // remove %f if exec expects a file name since it's called without a name
-
-//    if (item == "mc") {  // launch mc in terminal
-//        item = "su-to-root -X -c 'x-terminal-emulator -e mc'";
-//    }
-
+    item.remove(" %F");
     return item;
 }
 
