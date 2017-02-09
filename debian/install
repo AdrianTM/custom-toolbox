@@ -1,6 +1,6 @@
 custom-toolbox 		usr/bin
 custom-toolbox.desktop 	usr/share/applications/mx
-#custom-toolbox.conf 	etc/custom-toolbox
+custom-toolbox.conf 	etc/custom-toolbox
 translations/*.qm 	usr/share/custom-toolbox/locale
 custom-toolbox.png	usr/share/pixmaps
 license.html            usr/share/doc/custom-toolbox

@@ -67,6 +67,10 @@ private slots:
     void on_lineSearch_textChanged(const QString &arg1);         
 
 private:
+    bool hideGUI;
+    int min_height;
+    int min_width;
+
     FlatButton *btn;
     QList<QString> categories;
     QMultiMap<QString, QStringList> category_map;
@@ -75,7 +79,6 @@ private:
     QString file_name;
     QString base_name;
     QString version;
-
 
     Ui::MainWindow *ui;
 };
