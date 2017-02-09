@@ -29,6 +29,7 @@
 
 #include <QFileDialog>
 #include <QScrollBar>
+#include <QSettings>
 
 #include <QDebug>
 
@@ -56,7 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     addButtons(category_map);
     this->adjustSize();
-    this->resize(ui->gridLayout_btn->sizeHint().width() + 90, this->height());
+    this->setMinimumSize(min_height, min_height);
+    this->resize(ui->gridLayout_btn->sizeHint().width() + 70, this->height());
     //qDebug() << "width window" << this->width();
     //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
 }
@@ -109,16 +111,28 @@ void MainWindow::setup()
     this->setWindowTitle(tr("Custom Toolbox"));
     this->adjustSize();
 
+    QSettings settings("/etc/custom-toolbox/custom-toolbox.conf", QSettings::IniFormat);
+    hideGUI = settings.value("hideGUI", "false").toBool();
+    min_height = settings.value("min_height").toInt();
+    min_width = settings.value("min_width").toInt();
 }
 
 void MainWindow::btn_clicked()
 {
-    this->hide();    
     //qDebug() << sender()->objectName();
-    system(sender()->objectName().toUtf8());
-    this->show();
-    if(sender()->objectName().startsWith("x-terminal-emulator") || sender()->objectName().startsWith("xfce4-terminal")) {
+
+    if (hideGUI) {
+        this->hide();
+    } else {
         this->lower();
+    }
+
+    system(sender()->objectName().toUtf8());
+
+    if (hideGUI) {
+        this->show();
+    } else {
+        this->raise();
     }
 }
 
