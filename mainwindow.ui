@@ -168,7 +168,9 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="edit"/>
+        <iconset theme="edit">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -316,6 +318,7 @@
   <tabstop>lineSearch</tabstop>
   <tabstop>buttonAbout</tabstop>
   <tabstop>buttonHelp</tabstop>
+  <tabstop>buttonEdit</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <resources>
