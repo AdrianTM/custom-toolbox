@@ -1,4 +1,4 @@
-/**********************************************************************
+ /**********************************************************************
  *  MainWindow.cpp
  **********************************************************************
  * Copyright (C) 2017 MX Authors
@@ -48,19 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     } else {
         file_name = getFileName();
     }
-    if (QFile(file_name).exists()){
-        base_name = QFileInfo(file_name).baseName();
-        file_location= QFileInfo(file_name).path();
-        readFile(file_name);        
-    } else {
-        exit(-1);
-    }
-    addButtons(category_map);
-    this->adjustSize();
-    this->setMinimumSize(min_height, min_height);
-    this->resize(ui->gridLayout_btn->sizeHint().width() + 70, this->height());
-    //qDebug() << "width window" << this->width();
-    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
+    readFile(file_name);
+    setGui();
 }
 
 MainWindow::~MainWindow()
@@ -104,7 +93,7 @@ QString MainWindow::fixExecItem(QString item)
     return item;
 }
 
-// setup versious items first time program runs
+// setup versious items and load configurations first time program runs
 void MainWindow::setup()
 {
     version = getVersion("custom-toolbox");
@@ -115,6 +104,26 @@ void MainWindow::setup()
     hideGUI = settings.value("hideGUI", "false").toBool();
     min_height = settings.value("min_height").toInt();
     min_width = settings.value("min_width").toInt();
+    gui_editor = settings.value("gui_editor").toString();
+}
+
+// add buttons and resize GUI
+void MainWindow::setGui()
+{
+    // remove all items from the layout
+    QLayoutItem *child;
+    while ((child = ui->gridLayout_btn->takeAt(0)) != 0) {
+        delete child->widget();
+        delete child;
+    }
+
+    addButtons(category_map);
+    this->adjustSize();
+    this->setMinimumSize(min_height, min_height);
+    this->resize(ui->gridLayout_btn->sizeHint().width() + 70, this->height());
+    //qDebug() << "width window" << this->width();
+    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
+    this->show();
 }
 
 void MainWindow::btn_clicked()
@@ -318,17 +327,27 @@ void MainWindow::processLine(QString line)
 // open the .list file and process it
 void MainWindow::readFile(QString file_name)
 {
+    // reset categories, category_map
+    categories.clear();
+    category_map.clear();
+
     QFile file(file_name);
-    if(!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+    if (file.exists()){
+        base_name = QFileInfo(file_name).baseName();
+        file_location= QFileInfo(file_name).path();
+        if(!file.open(QFile::ReadOnly | QFile::Text)) {
+            QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+            exit(-1);
+        }
+        QTextStream in(&file);
+        QString line;
+        while(!in.atEnd()) {
+            processLine(in.readLine());
+        }
+        file.close();
+    } else {
         exit(-1);
     }
-    QTextStream in(&file);
-    QString line;
-    while(!in.atEnd()) {
-        processLine(in.readLine());
-    }
-    file.close();
 }
 
 
@@ -415,4 +434,18 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
     } else {
         QDir().remove(file_name);
     }
+}
+
+
+// edit launcher .list file
+void MainWindow::on_buttonEdit_clicked()
+{
+    if (!QFile(gui_editor).exists()) {
+        QMessageBox::critical(this, tr("Error"), tr("Could not find the '%1' editor. Please change the default editor in '/etc/custom-toolbox/custom-toolbox.conf' file.").arg(gui_editor));
+        return;
+    }
+    this->hide();
+    system("su-to-root -X -c 'leafpad " + file_name.toUtf8() + "'");
+    readFile(file_name);
+    setGui();
 }

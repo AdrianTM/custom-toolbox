@@ -56,6 +56,7 @@ public:
     void processLine(QString line);
     void readFile(QString file_name);
     void setup();
+    void setGui();
 
 public slots:
 
@@ -66,10 +67,13 @@ private slots:
     void on_checkBoxStartup_clicked(bool checked);
     void on_lineSearch_textChanged(const QString &arg1);         
 
+    void on_buttonEdit_clicked();
+
 private:
     bool hideGUI;
     int min_height;
     int min_width;
+    QString gui_editor;
 
     FlatButton *btn;
     QList<QString> categories;
