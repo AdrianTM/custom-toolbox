@@ -60,9 +60,7 @@
         <string>About...</string>
        </property>
        <property name="icon">
-        <iconset theme="text-plain">
-         <normaloff/>
-        </iconset>
+        <iconset theme="help-about"/>
        </property>
        <property name="shortcut">
         <string>Alt+B</string>
@@ -129,7 +127,9 @@
         <string>Close</string>
        </property>
        <property name="icon">
-        <iconset theme="window-close"/>
+        <iconset theme="window-close">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="shortcut">
         <string>Alt+N</string>
@@ -154,9 +154,7 @@
         <string>Help</string>
        </property>
        <property name="icon">
-        <iconset theme="help-about">
-         <normaloff/>
-        </iconset>
+        <iconset theme="system-help"/>
        </property>
       </widget>
      </item>
@@ -169,7 +167,9 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="accessories-text-editor"/>
+        <iconset theme="accessories-text-editor">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
