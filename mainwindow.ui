@@ -60,8 +60,9 @@
         <string>About...</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/Icons/icons/accessories-text-editor.png</normaloff>:/Icons/icons/accessories-text-editor.png</iconset>
+        <iconset theme="text-plain">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="shortcut">
         <string>Alt+B</string>
@@ -128,8 +129,7 @@
         <string>Close</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/Icons/icons/gtk-cancel.png</normaloff>:/Icons/icons/gtk-cancel.png</iconset>
+        <iconset theme="window-close"/>
        </property>
        <property name="shortcut">
         <string>Alt+N</string>
@@ -154,8 +154,9 @@
         <string>Help</string>
        </property>
        <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/Icons/icons/gnome-help.png</normaloff>:/Icons/icons/gnome-help.png</iconset>
+        <iconset theme="help-about">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -168,9 +169,7 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="edit">
-         <normaloff/>
-        </iconset>
+        <iconset theme="accessories-text-editor"/>
        </property>
       </widget>
      </item>

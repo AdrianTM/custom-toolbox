@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/Icons">
-        <file>icons/accessories-text-editor.png</file>
-        <file>icons/dialog-ok.png</file>
-        <file>icons/gnome-help.png</file>
-        <file>icons/gtk-cancel.png</file>
         <file>icons/mxfcelogo.png</file>
         <file>icons/custom-toolbox.png</file>
     </qresource>
