@@ -60,7 +60,9 @@
         <string>About...</string>
        </property>
        <property name="icon">
-        <iconset theme="help-about"/>
+        <iconset theme="help-about">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="shortcut">
         <string>Alt+B</string>
@@ -154,7 +156,7 @@
         <string>Help</string>
        </property>
        <property name="icon">
-        <iconset theme="system-help"/>
+        <iconset theme="help-browser"/>
        </property>
       </widget>
      </item>
