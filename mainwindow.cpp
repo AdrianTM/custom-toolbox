@@ -123,6 +123,13 @@ void MainWindow::setGui()
     this->resize(ui->gridLayout_btn->sizeHint().width() + 70, this->height());
     //qDebug() << "width window" << this->width();
     //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
+
+    // check if .desktop file is in autostart
+    QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
+    if (QFile(file_name).exists()) {
+        ui->checkBoxStartup->setChecked(true);
+    }
+
     this->show();
 }
 
