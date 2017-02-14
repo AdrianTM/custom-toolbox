@@ -126,21 +126,19 @@ void MainWindow::setGui()
     this->show();
 }
 
+// execute command when button is clicked
 void MainWindow::btn_clicked()
 {
-    //qDebug() << sender()->objectName();
+    QString cmd = sender()->objectName();
 
     if (hideGUI) {
         this->hide();
-    } else {
-        this->lower();
-    }
-
-    system(sender()->objectName().toUtf8());
-
-    if (hideGUI) {
+        system(cmd.toUtf8());
         this->show();
-    } else {
+    } else {        
+        this->lower();
+        proc = new QProcess(this);
+        proc->start("/bin/bash", QStringList() << "-c" << cmd);
         this->raise();
     }
 }
