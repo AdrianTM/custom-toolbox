@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     readFile(file_name);
     setGui();
+
 }
 
 MainWindow::~MainWindow()
@@ -282,7 +283,14 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     exec = "x-terminal-emulator -e "  + exec;                
                 }
                 if (root == "true") {
-                    exec = "gksudo '" + exec + "'";
+                    QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
+                    QString xdg_str;
+                    if (xdg_var == "") { // if not available use XFCE
+                        xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
+                    } else {
+                        xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
+                    }
+                    exec = "gksudo '" + xdg_str + " " + exec + "'";
                 }                
                 btn->setObjectName(exec);
                 QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
