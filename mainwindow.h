@@ -47,6 +47,7 @@ public:
 
     QIcon findIcon(QString icon_name);
     QString fixExecItem(QString item);
+    QString fixNameItem(QString item);
     QString getVersion(QString name);    
     QString getCmdOut(QString cmd);
     QString getFileName();
