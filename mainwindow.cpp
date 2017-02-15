@@ -93,6 +93,15 @@ QString MainWindow::fixExecItem(QString item)
     return item;
 }
 
+// fix name of the item
+QString MainWindow::fixNameItem(QString item)
+{
+   if(item == "System Profiler and Benchmark") {
+       item = "System Information";
+   }
+   return item;
+}
+
 // setup versious items and load configurations first time program runs
 void MainWindow::setup()
 {
@@ -250,7 +259,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->setRowStretch(row, 0);
             row += 1;
             foreach (QStringList item, map.values(category)) {
-                name = item[0];
+                name = fixNameItem(item[0]);
                 comment = item[1];
                 icon_name = item[2];
                 exec = fixExecItem(item[3]);
@@ -273,7 +282,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     exec = "x-terminal-emulator -e "  + exec;                
                 }
                 if (root == "true") {
-                    exec = "su-to-root -X -c '" + exec + "'";
+                    exec = "gksudo '" + exec + "'";
                 }                
                 btn->setObjectName(exec);
                 QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
