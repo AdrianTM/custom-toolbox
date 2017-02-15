@@ -13,20 +13,20 @@ Build-Depends: qt5-qmake, debhelper (>= 7.0.50~)
 Package-List:
  custom-toolbox deb admin optional arch=any
 Checksums-Sha1:
- a4e6c4c7a585f36ae754095a0681ea1653c27314 79444 custom-toolbox_0.17.2.tar.xz
+ aa1705eb07bb8b1e1de29a2db793cb603ffceccb 63384 custom-toolbox_0.17.2.tar.xz
 Checksums-Sha256:
- 4a012b9f9de8c63dc038d0b737c4e6234a645443c4655ddb161dda7b1e453532 79444 custom-toolbox_0.17.2.tar.xz
+ 32c0ced7c5d77bdee11848267ecf92256fd366d749cd07c89602cefd4a8309a3 63384 custom-toolbox_0.17.2.tar.xz
 Files:
- 7235822928fcaa01bd7830664f1c3ec1 79444 custom-toolbox_0.17.2.tar.xz
+ c51be69dfa44e9ecb549cde41a0b4be3 63384 custom-toolbox_0.17.2.tar.xz
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJYpKsMAAoJEHCTjHgGee6Y5KwH/08zZaAdwGGm5Ub32OCmKuO+
-N/Lry3krywcqhq6D7tIo97Vh7lWy1frTTICFYmM1tnnr5GC1Tl/jIR78jxsbIoaJ
-Mx5wW7rOCcLm3G3HWG6+bs7NYdRibo3tXGDECot1ea5uKP4o1maW5GyyoAHm+JVS
-a5+YbbJ6Wx5GL6bc2S5OsVvWZJcqqElmxQTQ6M5UqduX2BC3vNpfjClELNv5BPv2
-8TV7dce3YD+Lcaz//73F4nll+yob9OrCPQv2JfLSZ1NL7XHBw6ktq4BOjVpvcHVW
-JPbMsYWiwwFVGuke07DlLVYjZNo/6SYFK+S/Sed9ZFuEpmgwFUpQAemP+Af7EuI=
-=K5GI
+iQEcBAEBAgAGBQJYpL+jAAoJEHCTjHgGee6YTJIIAMpLu6djdpYjIegy3zjqpGA8
+6lRRt3gcfkHepslAHcfFHAKy4egkpPxcCL3XkWVZhjThqQwPY3cSBDuw5zed3l3q
+naJYh1gAlO6Wh/yi5cKpFI6bGrDWS1vzwgCAfdaLaQ/acGcOvzzl9b5LsLGZt19p
+KfR33AIWqYFw9FuJP6BCBNs4t6OQkGtXF20jCEDBtkoDLx3mMPhRx6QUig+5vGqz
+rstEnJ+B53TDabZ5C0pdTjIHOENXnhV6fK3eomh1swoY492bXCrenyykjOrLvpuy
+oyfnZ24cnk2PEavHLdR0HOgTQV8CrKRKR3UdCJbKYzstG5GVUVjdfF0zQEgy7v0=
+=NeWx
 -----END PGP SIGNATURE-----
