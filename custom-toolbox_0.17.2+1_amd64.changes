@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Fri, 17 Feb 2017 11:00:49 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.17.2+1
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.17.2+1) mx; urgency=medium
+ .
+   * bug fixes
+Checksums-Sha1:
+ 895ed266511d692680cfc53546e1db58ae4eda94 1140 custom-toolbox_0.17.2+1.dsc
+ d95f3e64b86b7c9287f721ff3406be04c106d6be 52876 custom-toolbox_0.17.2+1.tar.xz
+ e2ccc598d9c1c7a1416644044d5ceb9d88e4c5e6 43278 custom-toolbox_0.17.2+1_amd64.deb
+Checksums-Sha256:
+ 78a3a31919b5d4d0bb7763ee98f2cfe2898d3470d338887704f7c47006d00053 1140 custom-toolbox_0.17.2+1.dsc
+ 4b203fe9cf9c2b7c88ebbdc7db04fea5e41710c2175fd80b1f394d99f4f737c1 52876 custom-toolbox_0.17.2+1.tar.xz
+ e0ba0952f2e9d7ead82cc3f2cf86c93790708bf16a71027f7e5f4d8da2fa7226 43278 custom-toolbox_0.17.2+1_amd64.deb
+Files:
+ 0ddf4f5fc3b3ef64fb9a16f035018f7f 1140 admin optional custom-toolbox_0.17.2+1.dsc
+ 8d9f298d866e0162eee9b68683a51c57 52876 admin optional custom-toolbox_0.17.2+1.tar.xz
+ 528dabf9f8a785290728a1c333e22f6f 43278 admin optional custom-toolbox_0.17.2+1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJYpx5yAAoJEHCTjHgGee6YC8sIALjN0tzWBVozThfdi4xOufpZ
+xWcNTFYtaPQZJ25dWo6AkhkVrQ3ZOy3TmZlRcmUvQuY31Tg/Fu4Fum9nJJ17+y6g
+BVAMwTCvFG6NrlTg6u/OhEyKkmE2JXU14cGRyJBwWgh3MezmGyodTnajLJg6/y+T
+iwbsEoUEQur4FRF6CzM/m51or1M+vSC5l+XE3PPy5Q/iuMbGFflmvmygwVPExs4v
+J2nNg5+Ag3boDLCR+Sys2Ty2hiMs9cDOu7wNnIkmiTRrS18Qj3x1fVpVztjeWkZp
+4VAC0cMFytpsE2pHP4e0U6DUCbUVS2ULM2XPAOVSf49iz1MxkF1rJSQkukxxqGI=
+=sHM+
+-----END PGP SIGNATURE-----

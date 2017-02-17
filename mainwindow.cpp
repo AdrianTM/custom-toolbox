@@ -467,7 +467,15 @@ void MainWindow::on_buttonEdit_clicked()
         return;
     }
     this->hide();
-    system("su-to-root -X -c 'leafpad " + file_name.toUtf8() + "'");
+    QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
+    QString xdg_str;
+    if (xdg_var == "") { // if not available use XFCE
+        xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
+    } else {
+        xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
+    }
+    QString cmd = "gksudo '"+ xdg_str + " " + gui_editor + " " + file_name + "'";
+    system(cmd.toUtf8());
     readFile(file_name);
     setGui();
 }
