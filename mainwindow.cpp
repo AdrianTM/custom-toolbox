@@ -91,6 +91,7 @@ QString MainWindow::fixExecItem(QString item)
 {
     item.remove(" %f");  // remove %f if exec expects a file name since it's called without a name
     item.remove(" %F");
+    item.remove(" %U");
     return item;
 }
 
