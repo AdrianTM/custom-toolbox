@@ -1,6 +1,6 @@
 <RCC>
-    <qresource prefix="/Icons">
-        <file>icons/mxfcelogo.png</file>
+    <qresource prefix="/">
+        <file>icons/logo.png</file>
         <file>icons/custom-toolbox.png</file>
     </qresource>
 </RCC>

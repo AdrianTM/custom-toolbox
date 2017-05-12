@@ -20,8 +20,8 @@
    <string>Custom Toolbox</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
-    <normaloff>:/Icons/icons/custom-toolbox.png</normaloff>:/Icons/icons/custom-toolbox.png</iconset>
+   <iconset resource="images.qrc">
+    <normaloff>:/icons/custom-toolbox.png</normaloff>:/icons/custom-toolbox.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" rowminimumheight="0,0,0,0">
    <property name="sizeConstraint">
@@ -113,7 +113,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="icons.qrc">:/Icons/icons/mxfcelogo.png</pixmap>
+        <pixmap resource="images.qrc">:/icons/logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -156,7 +156,7 @@
         <string>Help</string>
        </property>
        <property name="icon">
-        <iconset theme="help-browser"/>
+        <iconset theme="help-contents"/>
        </property>
       </widget>
      </item>
@@ -323,7 +323,7 @@
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections>
   <connection>
