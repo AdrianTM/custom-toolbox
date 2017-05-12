@@ -153,7 +153,7 @@ void MainWindow::btn_clicked()
         this->hide();
         system(cmd.toUtf8());
         this->show();
-    } else {        
+    } else {
         this->lower();
         proc = new QProcess(this);
         proc->start("/bin/bash", QStringList() << "-c" << cmd);
@@ -178,7 +178,7 @@ QString MainWindow::getFileName()
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
    if (!QFile(file_name).exists()) {
        int ans = QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
-       if (ans == QMessageBox::No) {           
+       if (ans == QMessageBox::No) {
            exit(-1);
        } else {
            return getFileName();
@@ -196,7 +196,7 @@ QString MainWindow::getDesktopFileName(QString app_name)
 
 // return the app info needed for the button
 QStringList MainWindow::getDesktopFileInfo(QString file_name)
-{          
+{
     QStringList app_info;
 
     QString name;
@@ -245,7 +245,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString exec;
     QString icon_name;
     QString root;
-    QString terminal;    
+    QString terminal;
 
     foreach (QString category, map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
@@ -278,10 +278,10 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 if (col >= max) {
                     col = 0;
                     row += 1;
-                }                                
+                }
 
                 if (terminal == "true") {
-                    exec = "x-terminal-emulator -e "  + exec;                
+                    exec = "x-terminal-emulator -e "  + exec;
                 }
                 if (root == "true") {
                     QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
@@ -292,7 +292,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                         xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
                     }
                     exec = "gksudo '" + xdg_str + " " + exec + "'";
-                }                
+                }
                 btn->setObjectName(exec);
                 QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
             }
@@ -308,7 +308,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->setRowStretch(row, 0);
         }
     }
-    ui->gridLayout_btn->setRowStretch(row, 1);    
+    ui->gridLayout_btn->setRowStretch(row, 1);
 }
 
 
@@ -391,9 +391,9 @@ void MainWindow::on_buttonAbout_clicked()
                        tr("Custom Toolbox is a tool used for creating a custom launcher") +
                        "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
                        tr("Copyright (c) MX Linux") + "<br /><br /></p>", 0, this);
-    msgBox.addButton(tr("Cancel"), QMessageBox::AcceptRole); // because we want to display the buttons in reverse order we use counter-intuitive roles.
-    msgBox.addButton(tr("License"), QMessageBox::RejectRole);
-    if (msgBox.exec() == QMessageBox::RejectRole) {
+    msgBox.addButton(tr("License"), QMessageBox::AcceptRole);
+    msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
+    if (msgBox.exec() == QMessageBox::AcceptRole) {
         system("xdg-open file:///usr/share/doc/custom-toolbox/license.html");
     }
     this->show();
@@ -401,7 +401,7 @@ void MainWindow::on_buttonAbout_clicked()
 
 // Help button clicked
 void MainWindow::on_buttonHelp_clicked()
-{    
+{
     QString cmd = QString("xdg-open file:///usr/share/doc/custom-toolbox/help.html");
     system(cmd.toUtf8());
 }
@@ -422,7 +422,7 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     foreach (QString category, categories) {
         foreach (QStringList item, category_map.values(category)) {
             QString name = item[0];
-            QString comment = item[1];            
+            QString comment = item[1];
             if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
                     || category.contains(arg1, Qt::CaseInsensitive)) {
                 new_map.insert(category, item);

@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Fri, 12 May 2017 12:59:15 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.17.5
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.17.5) mx; urgency=medium
+ .
+   * update icons
+Checksums-Sha1:
+ 04568e92192b396fcbb73512fbc01995cfae4408 1132 custom-toolbox_0.17.5.dsc
+ dd245a9de50adc2fa106c07e47c288523964ce3e 63884 custom-toolbox_0.17.5.tar.xz
+ 245d1a50e4d12e4bbbd0595f69caaafff23965b7 43388 custom-toolbox_0.17.5_amd64.deb
+Checksums-Sha256:
+ ec868de23af0357ce8e73ba3e77065d5bb420263924e2ee18ac7b289c4426778 1132 custom-toolbox_0.17.5.dsc
+ 5e460998fd14cb3421bc6cf11f1f414aa2f46784d5d140a468755f0d96ab5059 63884 custom-toolbox_0.17.5.tar.xz
+ baf16a0e95cf91998beaa04ddb569839e4296a7424bc645076ea159ca49d6c26 43388 custom-toolbox_0.17.5_amd64.deb
+Files:
+ 7e082a0be4940589025fb147b2f42f26 1132 admin optional custom-toolbox_0.17.5.dsc
+ dc4c38777b0ff7fc4232439c21b053f1 63884 admin optional custom-toolbox_0.17.5.tar.xz
+ ee3494a9e4a79b2f6d0bc2ad4b868c34 43388 admin optional custom-toolbox_0.17.5_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJZFepCAAoJEHCTjHgGee6YTl4H/0c8tau0fQ4CT56FpCobZSp8
+mY2jpqwGwnZTCxvkh6INPTNDHFDt1is85IuSNxrY09hhwe0qIrEZgNP7iGyUT1k5
+rZzODS0xzEecZ9FqmuR1u1/XVbOh7eN1FDfGN+sdKbMro19t01kR/a2PMSNWxCG5
+aQMXgzcfA5IvXnvM9p2F7WPokN4qQFkhsd0N9RS7xE/uwf3fBX5+Je4XJCIdf/+r
+rA+/x+vOL3LCP3EEw0AXWo8pTEI3hQuqZtX65nBY061cuPUAPlbEuav9/RziG5ZP
+d0LMXGN6Qg7EeiP3cvSA+r32sK7Pn9nc522KuY8oWWamZThavmxdYyC0OGC6hBo=
+=xcA0
+-----END PGP SIGNATURE-----
