@@ -262,6 +262,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             row += 1;
             foreach (QStringList item, map.values(category)) {
                 name = fixNameItem(item[0]);
+                qDebug() << "name = " << name;
                 comment = item[1];
                 icon_name = item[2];
                 exec = fixExecItem(item[3]);

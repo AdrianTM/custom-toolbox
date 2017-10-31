@@ -156,7 +156,9 @@
         <string>Help</string>
        </property>
        <property name="icon">
-        <iconset theme="help-contents"/>
+        <iconset theme="help-contents">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -169,9 +171,7 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="accessories-text-editor">
-         <normaloff/>
-        </iconset>
+        <iconset theme="edit"/>
        </property>
       </widget>
      </item>
@@ -233,7 +233,7 @@
            <x>0</x>
            <y>0</y>
            <width>626</width>
-           <height>372</height>
+           <height>376</height>
           </rect>
          </property>
          <property name="autoFillBackground">

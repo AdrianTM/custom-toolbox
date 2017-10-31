@@ -1,3 +1,9 @@
+custom-toolbox (0.17.10) mx; urgency=medium
+
+  * update icon
+
+ -- Adrian <adrian@mxlinux.org>  Tue, 31 Oct 2017 13:11:20 -0400
+
 custom-toolbox (0.17.5) mx; urgency=medium
 
   * update icons
