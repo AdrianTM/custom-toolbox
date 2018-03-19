@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Mon, 19 Mar 2018 12:01:52 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.18.3
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.18.3) mx; urgency=medium
+ .
+   * generalized text editor
+Checksums-Sha1:
+ 32c2e43546bc0d421498ed9e47e910888207f54c 44632 custom-toolbox_0.18.3_i386.deb
+Checksums-Sha256:
+ b0d61d311d1cfa969a5a41f88dcf17dfbd7f67e47542f417bd6d8643cc49e1c2 44632 custom-toolbox_0.18.3_i386.deb
+Files:
+ 54ddf8540f39154542b11a8a8fde15a1 44632 admin optional custom-toolbox_0.18.3_i386.deb

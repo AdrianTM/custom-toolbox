@@ -1,3 +1,9 @@
+custom-toolbox (0.18.3) mx; urgency=medium
+
+  * generalized text editor
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 19 Mar 2018 12:01:52 -0400
+
 custom-toolbox (0.17.10) mx; urgency=medium
 
   * update icon
