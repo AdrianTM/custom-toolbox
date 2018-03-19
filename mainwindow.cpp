@@ -169,7 +169,9 @@ QString MainWindow::getCmdOut(QString cmd) {
     proc->setReadChannel(QProcess::StandardOutput);
     proc->setReadChannelMode(QProcess::MergedChannels);
     proc->waitForFinished(-1);
-    return proc->readAllStandardOutput().trimmed();
+    QString out = proc->readAllStandardOutput().trimmed();
+    delete proc;
+    return out;
 }
 
 // select .list file to open
