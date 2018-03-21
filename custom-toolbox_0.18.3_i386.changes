@@ -1,3 +1,6 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
 Format: 1.8
 Date: Mon, 19 Mar 2018 12:01:52 -0400
 Source: custom-toolbox
@@ -15,8 +18,20 @@ Changes:
  .
    * generalized text editor
 Checksums-Sha1:
- 32c2e43546bc0d421498ed9e47e910888207f54c 44632 custom-toolbox_0.18.3_i386.deb
+ 255d7f1aaa2995f3a1c8ff8c695abeaffda4eba4 44876 custom-toolbox_0.18.3_i386.deb
 Checksums-Sha256:
- b0d61d311d1cfa969a5a41f88dcf17dfbd7f67e47542f417bd6d8643cc49e1c2 44632 custom-toolbox_0.18.3_i386.deb
+ 0a91d514650da30c65c0d9d19846f708747170fbe7f81d61268fa4528b7c4a26 44876 custom-toolbox_0.18.3_i386.deb
 Files:
- 54ddf8540f39154542b11a8a8fde15a1 44632 admin optional custom-toolbox_0.18.3_i386.deb
+ d6d502a8e455c0feaacb5e947553529f 44876 admin optional custom-toolbox_0.18.3_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJasrzfAAoJEHCTjHgGee6YrZ4IALHq6DO5TCOzt2JvxZmSOwNs
+eEzdY9JeS+thOC7wbSPckLAYU1KeE5Qe5PsdaYJc1cu+DIW1GYy7kE+sksPb21Tq
+yOzNtTdQTMgVTSzgdP66lWQGhbPfcKp5dZxJ5HI2s4msOwGMVbQD0wg5P2/OpzXP
+h8ZaHNAh9XnXsjhSFpLCM1yg4q7AENnYL6BAc/j9n2isIxRg850jP39uvxbdVyuo
+ZGDC17nQKiPuK1iPIF6lHQpm8fGSF20mulCJ8lIErNj2dp1bCLHc4jbf3fRggfAN
+h+8Yf7npRsikFGPJTWkLdVhYH0vyl4cpBF1sdfuFIYwjh2JCmzcUSmhfeUtA/Aw=
+=2MSy
+-----END PGP SIGNATURE-----

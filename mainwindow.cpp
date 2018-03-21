@@ -467,8 +467,12 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile(gui_editor).exists()) {
-        QMessageBox::critical(this, tr("Error"), tr("Could not find the '%1' editor. Please change the default editor in '/etc/custom-toolbox/custom-toolbox.conf' file.").arg(gui_editor));
-        return;
+        if (QFile("/usr/bin/leafpad").exists()) {
+            gui_editor = "/usr/bin/leafpad";
+        } else {
+            QMessageBox::critical(this, tr("Error"), tr("Could not find the '%1' editor. Please change the default editor in '/etc/custom-toolbox/custom-toolbox.conf' file.").arg(gui_editor));
+            return;
+        }
     }
     this->hide();
     QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
