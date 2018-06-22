@@ -380,8 +380,7 @@ void MainWindow::readFile(QString file_name)
 // Get version of the program
 QString MainWindow::getVersion(QString name)
 {
-    QString cmd_str = QString("dpkg -l %1 | awk 'NR==6 {print $3}'").arg(name);
-    return getCmdOut(cmd_str);
+    return getCmdOut("dpkg-query -f '${Version}' -W " + name);
 }
 
 // About button clicked
