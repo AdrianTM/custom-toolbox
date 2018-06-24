@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QScrollBar>
 #include <QSettings>
+#include <QTextEdit>
 
 #include <QDebug>
 
@@ -140,6 +141,7 @@ void MainWindow::setGui()
     if (QFile(file_name).exists()) {
         ui->checkBoxStartup->setChecked(true);
     }
+    ui->lineSearch->setFocus();
 
     this->show();
 }
@@ -249,6 +251,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString root;
     QString terminal;
 
+
     foreach (QString category, map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
             QLabel *label = new QLabel(this);
@@ -272,6 +275,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 root = item[5];
 
                 btn = new FlatButton(name);
+                btn->setIconSize(40, 40);
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
                 btn->setIcon(findIcon(icon_name));
@@ -297,7 +301,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     exec = "gksudo '" + xdg_str + " " + exec + "'";
                 }
                 btn->setObjectName(exec);
-                QObject::connect(btn, SIGNAL(clicked()), this, SLOT(btn_clicked()));
+                QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
         }
         // add empty row if it's not the last key
@@ -393,10 +397,32 @@ void MainWindow::on_buttonAbout_clicked()
                        tr("Custom Toolbox is a tool used for creating a custom launcher") +
                        "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
                        tr("Copyright (c) MX Linux") + "<br /><br /></p>", 0, this);
-    msgBox.addButton(tr("License"), QMessageBox::AcceptRole);
-    msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
-    if (msgBox.exec() == QMessageBox::AcceptRole) {
+    QPushButton *btnLicense = msgBox.addButton(tr("License"), QMessageBox::HelpRole);
+    QPushButton *btnChangelog = msgBox.addButton(tr("Changelog"), QMessageBox::HelpRole);
+    QPushButton *btnCancel = msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
+    btnCancel->setIcon(QIcon::fromTheme("window-close"));
+
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == btnLicense) {
         system("xdg-open file:///usr/share/doc/custom-toolbox/license.html");
+    } else if (msgBox.clickedButton() == btnChangelog) {
+        QDialog *changelog = new QDialog(this);
+        changelog->resize(600,800);
+
+        QTextEdit *text = new QTextEdit;
+        text->setReadOnly(true);
+        text->setText(getCmdOut("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
+
+        QPushButton *btnClose = new QPushButton(tr("&Close"));
+        btnClose->setIcon(QIcon::fromTheme("window-close"));
+        connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
+
+        QVBoxLayout *layout = new QVBoxLayout;
+        layout->addWidget(text);
+        layout->addWidget(btnClose);
+        changelog->setLayout(layout);
+        changelog->exec();
     }
     this->show();
 }
