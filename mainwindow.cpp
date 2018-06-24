@@ -408,7 +408,7 @@ void MainWindow::on_buttonAbout_clicked()
         system("xdg-open file:///usr/share/doc/custom-toolbox/license.html");
     } else if (msgBox.clickedButton() == btnChangelog) {
         QDialog *changelog = new QDialog(this);
-        changelog->resize(600,800);
+        changelog->resize(600, 500);
 
         QTextEdit *text = new QTextEdit;
         text->setReadOnly(true);
