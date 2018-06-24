@@ -53,4 +53,4 @@ TRANSLATIONS += translations/custom-toolbox_ca.ts \
 RESOURCES += \
     images.qrc
 
-
+unix:!macx: LIBS += -lcmd

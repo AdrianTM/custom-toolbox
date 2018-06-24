@@ -33,6 +33,8 @@
 #include <QMultiMap>
 #include <QIcon>
 
+#include "cmd.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -48,8 +50,7 @@ public:
     QIcon findIcon(QString icon_name);
     QString fixExecItem(QString item);
     QString fixNameItem(QString item);
-    QString getVersion(QString name);    
-    QString getCmdOut(QString cmd);
+    QString getVersion(QString name);
     QString getFileName();
     QString getDesktopFileName(QString app_name);
     QStringList getDesktopFileInfo(QString file_name);
@@ -66,7 +67,7 @@ private slots:
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
     void on_checkBoxStartup_clicked(bool checked);
-    void on_lineSearch_textChanged(const QString &arg1);         
+    void on_lineSearch_textChanged(const QString &arg1);
 
     void on_buttonEdit_clicked();
 
@@ -76,10 +77,10 @@ private:
     int min_width;
     QString gui_editor;
 
+    Cmd *shell;
     FlatButton *btn;
     QList<QString> categories;
     QMultiMap<QString, QStringList> category_map;
-    QProcess *proc;
     QString file_location;
     QString file_name;
     QString base_name;
