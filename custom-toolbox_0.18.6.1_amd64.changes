@@ -20,26 +20,26 @@ Changes:
    * increased icon sizes
    * default focus on search
 Checksums-Sha1:
- 203516f04db946cfad903ce6171d8b9256cda2b3 1208 custom-toolbox_0.18.6.1.dsc
- 3b7d9aaee69172c2b60e704e3966430627c0839e 26540 custom-toolbox_0.18.6.1.tar.xz
- 90613e28e5eefdedd843a8b2ecb77017f872c37f 45188 custom-toolbox_0.18.6.1_amd64.deb
+ 3313bda6603a610ea2ec8e6c482f34a82bfc5303 1208 custom-toolbox_0.18.6.1.dsc
+ b1d8feae5da709f69d3656afd675ef188a977ff1 26528 custom-toolbox_0.18.6.1.tar.xz
+ 9e393722a61e750cd31cff70f54b1940ddba3a9d 45230 custom-toolbox_0.18.6.1_amd64.deb
 Checksums-Sha256:
- 58b3e38a21f438be2dffc6e8d5213515d2d5f647e2a8a44a8b0ebb21a251c02b 1208 custom-toolbox_0.18.6.1.dsc
- 101b8db9360b681d8bdcb39711f13538c15b177ae6b4b32239acc86e5348a68f 26540 custom-toolbox_0.18.6.1.tar.xz
- b7d953bb2cb9b57368dae6ad73469349576cad30435b5f33a3fc0c0bb59beb5a 45188 custom-toolbox_0.18.6.1_amd64.deb
+ 10aa14b36018380afae969820cb611eed83a35e9706dee5976aa19644248498f 1208 custom-toolbox_0.18.6.1.dsc
+ 5c88c3d06a8d2901f6645caeb2bb3562929ee431c19c981a5cff46e2a35852cb 26528 custom-toolbox_0.18.6.1.tar.xz
+ bfdbc71dc585b182730a6760dffdfee55b19a9eb21ab9cc13e888f96c5e3c7ad 45230 custom-toolbox_0.18.6.1_amd64.deb
 Files:
- 4e49558b10b76e9f173fbfc85c19e30f 1208 admin optional custom-toolbox_0.18.6.1.dsc
- 7f40279b8280ae9b8caf4e2c33075e73 26540 admin optional custom-toolbox_0.18.6.1.tar.xz
- a9c1759690d53e0503abbf4bc8916a79 45188 admin optional custom-toolbox_0.18.6.1_amd64.deb
+ 51f91b5f101e99d3bae37e61e1c29694 1208 admin optional custom-toolbox_0.18.6.1.dsc
+ f36f3ccb004c2d1b5253b435d99fa794 26528 admin optional custom-toolbox_0.18.6.1.tar.xz
+ 4aa3c0ba6d4beed6d23cd9cade72f28b 45230 admin optional custom-toolbox_0.18.6.1_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAlsvljQTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumE35CADVGvpk7/T0ozseJO2/ek1B1TQoOXQM
-1V7u/sU6zq9t4tWsbQDl1DhhngLAag+cYLvrxNjlROlceTW+Ha40UOCtuGic30/i
-28WCnG9lZWj9zXf6uZ84ShwW9LjIUUyiXGLdiCUPZEaH1BClaTI2YctIOPYCP7Po
-+TFvPbNZYCDoON9q3B7x7wMYtZ2krrE0k2ElBBKF0RSdgBkCy2l+t4Eth2gxrM6/
-Q8RbB4uZvSs5jLaZoC1wZ8RtphN3LTrj3wkDadz7Spr/wLsf7SIBHUGQmBr4dypW
-UKDU4ovIpxQc9L27bQw7Mae4pEK96yGtFoIc2X6ixUPaQzFkLYyYyDcL
-=gdJ6
+iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAlsvoyMTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumI39CACIRn9CRPsQMAgqtmojkdR2f+e+Tvwg
+jXkIOZP7YTfvUNBB4AOFLi+Pz4RCifZNjb594CT3hFfBZnzrQF5B01SA2WVdByKG
+2yTYzY2EGpAwChFA5f6xOkkeFAmsaTMf6A77Ei/Oa0wAa5+OEfkGF0N+UPAIJPd+
+v+3ZjRp7stuVzesSkjfhbWFPs55yq3HVbkV1HaG/AJ6k0NP8B4ce8RMPglEYXhaz
+J0pIobbj7eDz8pOHweQAq0OLx4CDcXpPQ/iYQO3BycI+ChFcjhq6uOMYgMW86uM1
+ZzNNJ0HyGFSQMHjlHsGJmLvBnZHiyo01ny1BMWgfecuMXJzRnfWYALzz
+=Ye0O
 -----END PGP SIGNATURE-----
