@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    shell = new Cmd;
     setup();
 
     file_location = "/etc/custom-toolbox";
@@ -157,24 +158,11 @@ void MainWindow::btn_clicked()
         this->show();
     } else {
         this->lower();
-        proc = new QProcess(this);
-        proc->start("/bin/bash", QStringList() << "-c" << cmd);
+        shell->run(cmd);
         this->raise();
     }
 }
 
-
-// Util function
-QString MainWindow::getCmdOut(QString cmd) {
-    proc = new QProcess(this);
-    proc->start("/bin/bash", QStringList() << "-c" << cmd);
-    proc->setReadChannel(QProcess::StandardOutput);
-    proc->setReadChannelMode(QProcess::MergedChannels);
-    proc->waitForFinished(-1);
-    QString out = proc->readAllStandardOutput().trimmed();
-    delete proc;
-    return out;
-}
 
 // select .list file to open
 QString MainWindow::getFileName()
@@ -195,7 +183,7 @@ QString MainWindow::getFileName()
 QString MainWindow::getDesktopFileName(QString app_name)
 {
     QString home = QDir::homePath();
-    return getCmdOut("find /usr/share/applications " + home + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
+    return shell->getOutput("find /usr/share/applications " + home + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
 }
 
 // return the app info needed for the button
@@ -214,25 +202,25 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     name = "";
     comment = "";
     if (lang != "en") {
-        name = getCmdOut("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
-        comment = getCmdOut("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        name = shell->getOutput("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        comment = shell->getOutput("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && name == "") { // Brazilian if Portuguese and name empty
-        name = getCmdOut("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        name = shell->getOutput("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && comment == "") { // Brazilian if Portuguese and comment empty
-        comment = getCmdOut("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        comment = shell->getOutput("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (name == "") { // backup if Name is not translated
-        name = getCmdOut("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
+        name = shell->getOutput("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
         name = name.remove(QRegExp("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
     }
     if (comment == "") { // backup if Comment is not translated
-        comment = getCmdOut("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
+        comment = shell->getOutput("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
     }
-    exec = getCmdOut("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
-    icon_name = getCmdOut("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
-    terminal = getCmdOut("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
+    exec = shell->getOutput("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
+    icon_name = shell->getOutput("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
+    terminal = shell->getOutput("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
 
     app_info << name << comment << icon_name << exec << terminal.toLower();
     return app_info;
@@ -384,7 +372,8 @@ void MainWindow::readFile(QString file_name)
 // Get version of the program
 QString MainWindow::getVersion(QString name)
 {
-    return getCmdOut("dpkg-query -f '${Version}' -W " + name);
+    Cmd cmd;
+    return cmd.getOutput("dpkg-query -f '${Version}' -W " + name);
 }
 
 // About button clicked
@@ -412,7 +401,8 @@ void MainWindow::on_buttonAbout_clicked()
 
         QTextEdit *text = new QTextEdit;
         text->setReadOnly(true);
-        text->setText(getCmdOut("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
+        Cmd cmd;
+        text->setText(cmd.getOutput("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
 
         QPushButton *btnClose = new QPushButton(tr("&Close"));
         btnClose->setIcon(QIcon::fromTheme("window-close"));

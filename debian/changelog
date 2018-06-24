@@ -3,6 +3,7 @@ custom-toolbox (0.18.6.1) mx; urgency=medium
   * added changelog
   * increased icon sizes
   * default focus on search
+  * use libcmd
 
  -- Adrian <adrian@mxlinux.org>  Sun, 24 Jun 2018 08:37:29 -0400
 

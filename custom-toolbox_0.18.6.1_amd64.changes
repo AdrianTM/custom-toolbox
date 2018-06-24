@@ -19,27 +19,28 @@ Changes:
    * added changelog
    * increased icon sizes
    * default focus on search
+   * use libcmd
 Checksums-Sha1:
- 3313bda6603a610ea2ec8e6c482f34a82bfc5303 1208 custom-toolbox_0.18.6.1.dsc
- b1d8feae5da709f69d3656afd675ef188a977ff1 26528 custom-toolbox_0.18.6.1.tar.xz
- 9e393722a61e750cd31cff70f54b1940ddba3a9d 45230 custom-toolbox_0.18.6.1_amd64.deb
+ 446d199ee9a16aea17c3fc41cbff1457de1400dc 1216 custom-toolbox_0.18.6.1.dsc
+ 660724106db65c3d2a3b89a0b072b9ecdef9b531 26448 custom-toolbox_0.18.6.1.tar.xz
+ f0e52289c689cac91d740156c52ed2a2d0b62f91 45622 custom-toolbox_0.18.6.1_amd64.deb
 Checksums-Sha256:
- 10aa14b36018380afae969820cb611eed83a35e9706dee5976aa19644248498f 1208 custom-toolbox_0.18.6.1.dsc
- 5c88c3d06a8d2901f6645caeb2bb3562929ee431c19c981a5cff46e2a35852cb 26528 custom-toolbox_0.18.6.1.tar.xz
- bfdbc71dc585b182730a6760dffdfee55b19a9eb21ab9cc13e888f96c5e3c7ad 45230 custom-toolbox_0.18.6.1_amd64.deb
+ 11f9ab2307260ef93372ac9a817d309a906129a09b98b4a9a7f07f806d3f9a69 1216 custom-toolbox_0.18.6.1.dsc
+ 24a53c3e538e97ea3e6167c39c6c8f3784db6553fe0480558268d0f6bb41167d 26448 custom-toolbox_0.18.6.1.tar.xz
+ 846bf71956f091729c19e2a38686c145a7a21b710b5ed69621bb0165d4e7bb7b 45622 custom-toolbox_0.18.6.1_amd64.deb
 Files:
- 51f91b5f101e99d3bae37e61e1c29694 1208 admin optional custom-toolbox_0.18.6.1.dsc
- f36f3ccb004c2d1b5253b435d99fa794 26528 admin optional custom-toolbox_0.18.6.1.tar.xz
- 4aa3c0ba6d4beed6d23cd9cade72f28b 45230 admin optional custom-toolbox_0.18.6.1_amd64.deb
+ cc711a4371d06433f1699d20fb994cb9 1216 admin optional custom-toolbox_0.18.6.1.dsc
+ 0cb4d44fe4a1a50d7b4a43374358340b 26448 admin optional custom-toolbox_0.18.6.1.tar.xz
+ 3e620fc9b047214d45632b830fca3a9c 45622 admin optional custom-toolbox_0.18.6.1_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAlsvoyMTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumI39CACIRn9CRPsQMAgqtmojkdR2f+e+Tvwg
-jXkIOZP7YTfvUNBB4AOFLi+Pz4RCifZNjb594CT3hFfBZnzrQF5B01SA2WVdByKG
-2yTYzY2EGpAwChFA5f6xOkkeFAmsaTMf6A77Ei/Oa0wAa5+OEfkGF0N+UPAIJPd+
-v+3ZjRp7stuVzesSkjfhbWFPs55yq3HVbkV1HaG/AJ6k0NP8B4ce8RMPglEYXhaz
-J0pIobbj7eDz8pOHweQAq0OLx4CDcXpPQ/iYQO3BycI+ChFcjhq6uOMYgMW86uM1
-ZzNNJ0HyGFSQMHjlHsGJmLvBnZHiyo01ny1BMWgfecuMXJzRnfWYALzz
-=Ye0O
+iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAlsvt/0THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumMwMB/9/K3xvdjLMcmMhWPiZlEMeVQ1ZXyzL
+EebgVPEY+CxVya8SS1gsYvP2c41Xfo5j3okMSLK80cVhTpkVCm5+Ppa/VRmn/Eu6
+MqJ6U8HoP7zCLvdx4wCcQEMx2ZkISkNevuOFd6Ogwb6LBMEo1yLGv+jtLL9ZyPxS
+EdhNqW5k5EHMaquc+zZjjPXM2joOpsp3uLoQ5Qp4pweMvDexTDmkkkBZLkYCpoXa
+pTE5dLpth7sP1RBNSXt5txzzN1+oTlmj44RzCaIUGqkJxiW9tGQjFpmy6iJcinSy
+VXkYnQDgN5f/+5ahYG4+5jcqGO/BmefE/wQAAbNdSCaiPfXpqZY6kDB3
+=Gf7J
 -----END PGP SIGNATURE-----
