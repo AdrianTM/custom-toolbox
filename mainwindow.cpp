@@ -483,7 +483,7 @@ void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile(gui_editor).exists()) {  // if specified editor doesn't exist get the default one
         QString editor = shell->getOutput("grep Exec $(locate $(xdg-mime query default text/plain))|cut -d= -f2|cut -d\" \" -f1");
-        if (system(editor.toUtf8() + " '" + file_name.toUtf8() + "'") != 0) { // if default one doesn't exit use nano as backup editor
+        if (editor == "" || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         }
         gui_editor = editor;
