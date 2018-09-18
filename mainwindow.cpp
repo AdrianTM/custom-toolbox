@@ -71,7 +71,7 @@ QIcon MainWindow::findIcon(QString icon_name)
         icon_name = icon_name.remove(".svg");
         icon_name = icon_name.remove(".xpm");
         // return the icon from the theme if it exists
-        if (QIcon::fromTheme(icon_name).name() != "") {
+        if (!QIcon::fromTheme(icon_name).name().isEmpty()) {
             return QIcon::fromTheme(icon_name);
         // return png, svg, xpm icons from /usr/share/pixmaps
         } else if (QFile("/usr/share/pixmaps/" + icon_name + ".png").exists()) {
@@ -205,17 +205,17 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
         name = shell->getOutput("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
         comment = shell->getOutput("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
     }
-    if (lang == "pt" && name == "") { // Brazilian if Portuguese and name empty
+    if (lang == "pt" && name.isEmpty()) { // Brazilian if Portuguese and name empty
         name = shell->getOutput("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
-    if (lang == "pt" && comment == "") { // Brazilian if Portuguese and comment empty
+    if (lang == "pt" && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
         comment = shell->getOutput("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
-    if (name == "") { // backup if Name is not translated
+    if (name.isEmpty()) { // backup if Name is not translated
         name = shell->getOutput("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
         name = name.remove(QRegExp("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
     }
-    if (comment == "") { // backup if Comment is not translated
+    if (comment.isEmpty()) { // backup if Comment is not translated
         comment = shell->getOutput("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
     }
     exec = shell->getOutput("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
@@ -281,7 +281,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 if (root == "true") {
                     QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
                     QString xdg_str;
-                    if (xdg_var == "") { // if not available use XFCE
+                    if (xdg_var.isEmpty()) { // if not available use XFCE
                         xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
                     } else {
                         xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
@@ -311,7 +311,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 // process read line
 void MainWindow::processLine(QString line)
 {
-    if (line.startsWith("#") || line == "") { // filter out comment and empty lines
+    if (line.startsWith("#") || line.isEmpty()) { // filter out comment and empty lines
         return;
     }
     QStringList line_list = line.split("=");
@@ -326,7 +326,7 @@ void MainWindow::processLine(QString line)
     } else { // assume it's the name of the app and potentially a "root" flag
         QStringList list = key.split(" ");
         QString desktop_file = getDesktopFileName(list[0]);
-        if (desktop_file != "") {
+        if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root flag present
                 if (list[1].toLower() == "root") {
@@ -448,7 +448,7 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
         }
     }
     if (!new_map.empty()) {
-        arg1 == "" ? addButtons(category_map) : addButtons(new_map);
+        arg1.isEmpty() ? addButtons(category_map) : addButtons(new_map);
     }
 }
 
@@ -483,7 +483,7 @@ void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile(gui_editor).exists()) {  // if specified editor doesn't exist get the default one
         QString editor = shell->getOutput("grep Exec $(locate $(xdg-mime query default text/plain))|cut -d= -f2|cut -d\" \" -f1");
-        if (editor == "" || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
+        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         }
         gui_editor = editor;
@@ -491,7 +491,7 @@ void MainWindow::on_buttonEdit_clicked()
     this->hide();
     QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
     QString xdg_str;
-    if (xdg_var == "") { // if not available use XFCE
+    if (xdg_var.isEmpty()) { // if not available use XFCE
         xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
     } else {
         xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
