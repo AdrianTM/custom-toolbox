@@ -240,7 +240,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString terminal;
 
 
-    foreach (QString category, map.uniqueKeys()) {
+    for (const QString &category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
             QLabel *label = new QLabel(this);
             QFont font;
@@ -253,9 +253,8 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->addWidget(label, row, col);
             ui->gridLayout_btn->setRowStretch(row, 0);
             row += 1;
-            foreach (QStringList item, map.values(category)) {
+            for (const QStringList &item : map.values(category)) {
                 name = fixNameItem(item[0]);
-                qDebug() << "name = " << name;
                 comment = item[1];
                 icon_name = item[2];
                 exec = fixExecItem(item[3]);
@@ -437,8 +436,8 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     QMultiMap<QString, QStringList> new_map;
 
     // create a new_map with items that match the search argument
-    foreach (QString category, categories) {
-        foreach (QStringList item, category_map.values(category)) {
+    for (const QString &category : categories) {
+        for (const QStringList &item : category_map.values(category)) {
             QString name = item[0];
             QString comment = item[1];
             if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
