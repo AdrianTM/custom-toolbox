@@ -22,7 +22,6 @@
  * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "flatbutton.h"
