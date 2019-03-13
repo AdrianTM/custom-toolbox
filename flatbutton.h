@@ -23,15 +23,14 @@
 #ifndef FLATBUTTON_H
 #define FLATBUTTON_H
 
-
 #include <QPushButton>
 #include <QEvent>
 
 class FlatButton : public QPushButton
 {
 public:
-    FlatButton(QWidget * parent = 0);
-    FlatButton(QString name, QWidget * parent = 0);
+    FlatButton(QWidget *parent = 0);
+    FlatButton(QString name, QWidget *parent = 0);
     void setIconSize(int, int);
 protected:
     void enterEvent(QEvent *e);
@@ -39,4 +38,3 @@ protected:
 };
 
 #endif // FLATBUTTON_H
-

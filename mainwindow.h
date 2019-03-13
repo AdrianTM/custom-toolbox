@@ -22,7 +22,6 @@
  * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -91,4 +90,3 @@ private:
 
 
 #endif // MAINWINDOW_H
-

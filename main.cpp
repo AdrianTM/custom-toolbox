@@ -23,12 +23,10 @@
  **********************************************************************/
 
 #include "mainwindow.h"
-#include <unistd.h>
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
 #include <QIcon>
-
 
 int main(int argc, char *argv[])
 {
