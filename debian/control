@@ -2,16 +2,12 @@ Source: custom-toolbox
 Section: admin
 Priority: optional
 Maintainer: Adrian <adrian@mxlinux.org>
-Build-Depends: qt5-qmake,
-        qtbase5-dev,
-        qttools5-dev-tools,
-	debhelper (>=9),
-	libcmd
+Build-Depends: debhelper (>=9), libcmd, qtbase5-dev, qttools5-dev-tools
 Standards-Version: 3.9.8
 Vcs-Git: git://github.com/AdrianTM/custom-toolbox
 
 Package: custom-toolbox
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, gksu
+Depends: gksu, ${misc:Depends}, ${shlibs:Depends}
 Description: Custom Toolbox
  Custom Toolbox is a tool used for creating collections of icons
