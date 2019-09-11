@@ -22,9 +22,11 @@
  * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
+#include "about.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "flatbutton.h"
+#include "version.h"
 
 #include <QFileDialog>
 #include <QScrollBar>
@@ -37,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
+    qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
     shell = new Cmd;
     setup();
@@ -182,7 +185,7 @@ QString MainWindow::getFileName()
 QString MainWindow::getDesktopFileName(QString app_name)
 {
     QString home = QDir::homePath();
-    return shell->getOutput("find /usr/share/applications " + home + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
+    return shell->getCmdOut("find /usr/share/applications " + home + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
 }
 
 // return the app info needed for the button
@@ -201,25 +204,25 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     name = "";
     comment = "";
     if (lang != "en") {
-        name = shell->getOutput("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
-        comment = shell->getOutput("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        name = shell->getCmdOut("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        comment = shell->getCmdOut("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && name.isEmpty()) { // Brazilian if Portuguese and name empty
-        name = shell->getOutput("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        name = shell->getCmdOut("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (lang == "pt" && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
-        comment = shell->getOutput("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        comment = shell->getCmdOut("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
     }
     if (name.isEmpty()) { // backup if Name is not translated
-        name = shell->getOutput("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
+        name = shell->getCmdOut("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
         name = name.remove(QRegExp("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
     }
     if (comment.isEmpty()) { // backup if Comment is not translated
-        comment = shell->getOutput("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
+        comment = shell->getCmdOut("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
     }
-    exec = shell->getOutput("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
-    icon_name = shell->getOutput("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
-    terminal = shell->getOutput("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
+    exec = shell->getCmdOut("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
+    icon_name = shell->getCmdOut("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
+    terminal = shell->getCmdOut("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
 
     app_info << name << comment << icon_name << exec << terminal.toLower();
     return app_info;
@@ -371,55 +374,27 @@ void MainWindow::readFile(QString file_name)
 QString MainWindow::getVersion(QString name)
 {
     Cmd cmd;
-    return cmd.getOutput("dpkg-query -f '${Version}' -W " + name);
+    return cmd.getCmdOut("dpkg-query -f '${Version}' -W " + name);
 }
 
 // About button clicked
 void MainWindow::on_buttonAbout_clicked()
 {
     this->hide();
-    QMessageBox msgBox(QMessageBox::NoIcon,
-                       tr("About Custom Toolbox"), "<p align=\"center\"><b><h2>" +
-                       tr("Custom Toolbox") + "</h2></b></p><p align=\"center\">" + tr("Version: ") + version + "</p><p align=\"center\"><h3>" +
+    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle() +"</h2></b></p><p align=\"center\">" +
+                       tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" +
                        tr("Custom Toolbox is a tool used for creating a custom launcher") +
                        "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
-                       tr("Copyright (c) MX Linux") + "<br /><br /></p>", 0, this);
-    QPushButton *btnLicense = msgBox.addButton(tr("License"), QMessageBox::HelpRole);
-    QPushButton *btnChangelog = msgBox.addButton(tr("Changelog"), QMessageBox::HelpRole);
-    QPushButton *btnCancel = msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
-    btnCancel->setIcon(QIcon::fromTheme("window-close"));
-
-    msgBox.exec();
-
-    if (msgBox.clickedButton() == btnLicense) {
-        system("xdg-open file:///usr/share/doc/custom-toolbox/license.html");
-    } else if (msgBox.clickedButton() == btnChangelog) {
-        QDialog *changelog = new QDialog(this);
-        changelog->resize(600, 500);
-
-        QTextEdit *text = new QTextEdit;
-        text->setReadOnly(true);
-        Cmd cmd;
-        text->setText(cmd.getOutput("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
-
-        QPushButton *btnClose = new QPushButton(tr("&Close"));
-        btnClose->setIcon(QIcon::fromTheme("window-close"));
-        connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
-
-        QVBoxLayout *layout = new QVBoxLayout;
-        layout->addWidget(text);
-        layout->addWidget(btnClose);
-        changelog->setLayout(layout);
-        changelog->exec();
-    }
+                       tr("Copyright (c) MX Linux") + "<br /><br /></p>",
+                       "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), true);
     this->show();
 }
 
 // Help button clicked
 void MainWindow::on_buttonHelp_clicked()
 {
-    QString cmd = QString("xdg-open file:///usr/share/doc/custom-toolbox/help.html");
-    system(cmd.toUtf8());
+    QString url = "/usr/share/doc/custom-toolbox/help.html";
+    displayDoc(url, tr("%1 Help").arg(this->windowTitle()), true);
 }
 
 // search
@@ -480,7 +455,7 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile(gui_editor).exists()) {  // if specified editor doesn't exist get the default one
-        QString editor = shell->getOutput("grep Exec $(locate $(xdg-mime query default text/plain))|cut -d= -f2|cut -d\" \" -f1");
+        QString editor = shell->getCmdOut("grep Exec $(locate $(xdg-mime query default text/plain))|cut -d= -f2|cut -d\" \" -f1");
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         }

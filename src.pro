@@ -31,11 +31,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    flatbutton.cpp
+    flatbutton.cpp \
+    about.cpp \
+    cmd.cpp
 
 HEADERS  += \
     mainwindow.h \
-    flatbutton.h
+    flatbutton.h \
+    about.h \
+    cmd.h
 
 FORMS    += \
     mainwindow.ui
@@ -53,5 +57,3 @@ TRANSLATIONS += translations/custom-toolbox_ca.ts \
 
 RESOURCES += \
     images.qrc
-
-unix:!macx: LIBS += -lcmd
