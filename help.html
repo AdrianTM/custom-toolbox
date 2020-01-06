@@ -1,8 +1,8 @@
 Custom Toolbox is a utility used for building custom launchers (toolboxes) by editing a simple text file (.list extension).
-The default location of the .list files is /etc/custom-toolbar but the files can be placed in any folder. 
+The default location of the .list files is /etc/custom-toolbox but the files can be placed in any folder. 
 You can build multiple launchers using different .list files.
 <p>
-<b>Structure of .list file</b> (you can find an example in /etc/custom-toolbar)<br>
+<b>Structure of .list file</b> (you can find an example in /etc/custom-toolbox)<br>
 ----------------------------------------<br>
 # Comments that start with # are ignored<br>
 # Simple text file containing Name= Comment= Category= keywords<br>
@@ -26,10 +26,10 @@ app5<br>
 In this example app2 and app4 run as root, the other are launched as normal user. 
 <b>Only apps that have a corresponding .desktop file show up in the custom launcher.</b>
 <p>
-You can launch the app directly with the "custom-toolbar filename.list" command or you can browse the .list file 
+You can launch the app directly with the "custom-toolbox filename.list" command or you can browse the .list file 
 from the application.
 <p>
-You can select "Show this dialog at startup" checkbox to diplay the custom launcher at startup. That will place a .desktop file in ~/.custom/autostart with the name that appears in Name= field in the .list file. 
+You can select "Show this dialog at startup" checkbox to display the custom launcher at startup. That will place a .desktop file in ~/.custom/autostart with the name that appears in Name= field in the .list file. 
 You can manualy copy that .desktop file to /usr/share/applications if you want to place it in your menu. 
 In Xfce, in order to see the change, you need to run the command "xfce4-panel -r" as normal user.
 
