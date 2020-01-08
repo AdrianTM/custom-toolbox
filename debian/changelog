@@ -1,3 +1,9 @@
+custom-toolbox (0.20.1) mx; urgency=medium
+
+  * help.html update
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 06 Jan 2020 17:11:16 -0500
+
 custom-toolbox (0.19.9) mx; urgency=medium
 
   * remove libcmd dependency
