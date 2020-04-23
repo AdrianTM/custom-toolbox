@@ -287,7 +287,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     } else {
                         xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
                     }
-                    exec = "gksudo '" + xdg_str + " " + exec + "'";
+                    exec = "mx-pkexec '" + xdg_str + " " + exec + "'";
                 }
                 btn->setObjectName(exec);
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
@@ -469,7 +469,7 @@ void MainWindow::on_buttonEdit_clicked()
     } else {
         xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
     }
-    QString cmd = "gksudo '"+ xdg_str + " " + gui_editor + " " + file_name + "'";
+    QString cmd = "mx-pkexec '"+ xdg_str + " " + gui_editor + " " + file_name + "'";
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();
