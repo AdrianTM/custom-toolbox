@@ -1,3 +1,9 @@
+custom-toolbox (0.20.4) mx; urgency=medium
+
+  * replaced gksudo with mx-pkexec
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 23 Apr 2020 16:54:02 -0400
+
 custom-toolbox (0.20.1) mx; urgency=medium
 
   * help.html update
