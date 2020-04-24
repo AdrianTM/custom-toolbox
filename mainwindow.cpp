@@ -27,6 +27,7 @@
 #include "ui_mainwindow.h"
 #include "flatbutton.h"
 #include "version.h"
+#include "unistd.h"
 
 #include <QFileDialog>
 #include <QScrollBar>
@@ -127,7 +128,7 @@ void MainWindow::setGui()
 {
     // remove all items from the layout
     QLayoutItem *child;
-    while ((child = ui->gridLayout_btn->takeAt(0)) != 0) {
+    while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
     }
@@ -171,7 +172,7 @@ QString MainWindow::getFileName()
 {
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
    if (!QFile(file_name).exists()) {
-       int ans = QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
+       int ans = QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
        if (ans == QMessageBox::No) {
            exit(-1);
        } else {
@@ -355,7 +356,7 @@ void MainWindow::readFile(QString file_name)
         base_name = QFileInfo(file_name).baseName();
         file_location= QFileInfo(file_name).path();
         if(!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::critical(0, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+            QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
             exit(-1);
         }
         QTextStream in(&file);
@@ -386,7 +387,7 @@ void MainWindow::on_buttonAbout_clicked()
                        tr("Custom Toolbox is a tool used for creating a custom launcher") +
                        "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
                        tr("Copyright (c) MX Linux") + "<br /><br /></p>",
-                       "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), true);
+                       "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), (getuid() == 0));
     this->show();
 }
 
@@ -394,7 +395,7 @@ void MainWindow::on_buttonAbout_clicked()
 void MainWindow::on_buttonHelp_clicked()
 {
     QString url = "/usr/share/doc/custom-toolbox/help.html";
-    displayDoc(url, tr("%1 Help").arg(this->windowTitle()), true);
+    displayDoc(url, tr("%1 Help").arg(this->windowTitle()), (getuid() == 0));
 }
 
 // search
@@ -402,7 +403,7 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
 {
     // remove all items from the layout
     QLayoutItem *child;
-    while ((child = ui->gridLayout_btn->takeAt(0)) != 0) {
+    while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
     }
@@ -432,7 +433,7 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
     if (checked) {
         QFile file(file_name);
         if(!file.open(QFile::WriteOnly | QFile::Text)) {
-            QMessageBox::critical(0, tr("File Open Error"), tr("Could not write file: ") + file_name);
+            QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not write file: ") + file_name);
         }
         QTextStream out(&file);
         out << "[Desktop Entry]" << "\n";

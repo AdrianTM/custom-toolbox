@@ -13,20 +13,20 @@ Build-Depends: debhelper (>= 9), qtbase5-dev, qttools5-dev-tools
 Package-List:
  custom-toolbox deb admin optional arch=any
 Checksums-Sha1:
- e27b6db366f819d1dc6f153dfccf58efc096ee9f 27576 custom-toolbox_0.20.4.tar.xz
+ 8e31c0ada78fe844b6e6a704b9c7f00f6b354f55 27600 custom-toolbox_0.20.4.tar.xz
 Checksums-Sha256:
- bff16cfeed6e8d0fd2f03ac78e1f3808644f1b48c3f3c096124f5736867e604d 27576 custom-toolbox_0.20.4.tar.xz
+ 579e096b05bb4e2d9345c24aa886b886107ca4dc8ea83a554dd948e3d3d9252b 27600 custom-toolbox_0.20.4.tar.xz
 Files:
- 4844b5af744b88f4f0d40cc56732547b 27576 custom-toolbox_0.20.4.tar.xz
+ b2b4cd49539cb05373b6b5667c594b66 27600 custom-toolbox_0.20.4.tar.xz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl6iAmwTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumD++CACzZY1RYO5urVxozGbVGbUw4/pcQcrk
-DPAS3C6gFygQ80d5iMyXEkiBWpnpCdc6kZEMpW2d11wxRPbB5KWcGDDJHp66WrHC
-zOtJETSS2Yqo0TPGMk9gqGxTq4s8r1t71Q0Q12rqh0j/iLHLrW/ECo6Dyv461AfT
-4dYAZu4rtXk7u/lonnnFkdGYP72OPzYT+kfzOVuQoSV6vj2Xx07NIKrzr2R+Dz+v
-kkmt2VMotwM+uL4BLwbu9kqdmwbLihyb/ParwDr9CF1Aca26tMZvtgo354Gi5+kJ
-1c/qTTaG+norYNXey+aWCmPdynyxyFVEMtO6SDXIH5GEQb2u4/T0PJLj
-=iER3
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl6jUwoTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumFw2CAC5Ev6JGF7eyQkWYwuNV2BJhSba8H15
+ik7CpKRcOupEtFj3CWiOewETg1P8fHMUYjfuKe596ojzOgQjqH82EF+h+maMJhaO
+UIq6pe5j1NgiwQ9Qt2/l191eV6aKALZXYUws/IxBMitlh4A+8nvatnTCUuvKTR31
+YWcoyaqoyaXwrH4Z+wSEm7KP+UTQaPsuDmaOCqkhUtEGhWmMmPuV3CPBH3spkgfV
+wkB259/SW4qQMuEUI6/f0tgPYPY03AwlJhMaHHVFupSvI6clr8jOm7c8wD0pL/z/
+Uh/4Pgoo0krwRVwj0HegjDUx795bwZxg8P3LOaf2S8I2IsTowvhXiK/Y
+=CtYA
 -----END PGP SIGNATURE-----
