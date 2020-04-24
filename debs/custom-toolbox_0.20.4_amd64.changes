@@ -18,32 +18,32 @@ Changes:
  .
    * replaced gksudo with mx-pkexec
 Checksums-Sha1:
- c611d36c084aecba00a2768a089eca9140468fb3 1189 custom-toolbox_0.20.4.dsc
- e27b6db366f819d1dc6f153dfccf58efc096ee9f 27576 custom-toolbox_0.20.4.tar.xz
- 6de63190345a83df6de138b4cbee9a8bf215f991 9296 custom-toolbox-dbgsym_0.20.4_amd64.deb
- 372d361b2eec2e82ac88247747405b1455b7157c 10874 custom-toolbox_0.20.4_amd64.buildinfo
- 0f072a1d77685faa9bb199fe46996ccd781cf846 45596 custom-toolbox_0.20.4_amd64.deb
+ 9b57efe7ee394b6a77dae039a1d7afd27d2116f5 1189 custom-toolbox_0.20.4.dsc
+ 8e31c0ada78fe844b6e6a704b9c7f00f6b354f55 27600 custom-toolbox_0.20.4.tar.xz
+ 1031a428435e9da3ce5684c0909d74420f6af5d3 9268 custom-toolbox-dbgsym_0.20.4_amd64.deb
+ 1f32072bda5d044b6eef6a260634743905bc6b5a 10874 custom-toolbox_0.20.4_amd64.buildinfo
+ ca06ab0ac329113c2c49a2848ad6c54097d6d100 45668 custom-toolbox_0.20.4_amd64.deb
 Checksums-Sha256:
- d1b68b80c6c9c60e16457fed26905b53ac8fa6611a621fdc7bee71fe35f5ada1 1189 custom-toolbox_0.20.4.dsc
- bff16cfeed6e8d0fd2f03ac78e1f3808644f1b48c3f3c096124f5736867e604d 27576 custom-toolbox_0.20.4.tar.xz
- d6571823ddadce0df8e1502c04b35b183aed258a900d4302f592fd14604ee1c6 9296 custom-toolbox-dbgsym_0.20.4_amd64.deb
- 4d8717d8a850576e00fa59f9c66c1925e3f3e48ef65eb96da7ba89e447edb95f 10874 custom-toolbox_0.20.4_amd64.buildinfo
- f6928d3c5d7a23f457c99caa673e9594a062c1d712bac3a11e2923db73db1f0d 45596 custom-toolbox_0.20.4_amd64.deb
+ db8fb5b2d5ea3ef4d8fade4202858ffec47dfc57979637ca902c201229884f24 1189 custom-toolbox_0.20.4.dsc
+ 579e096b05bb4e2d9345c24aa886b886107ca4dc8ea83a554dd948e3d3d9252b 27600 custom-toolbox_0.20.4.tar.xz
+ b9d25fc322c1e4cda86f96dd2aa10c35c255cfd5312a57e5f0d544d186d5e1f9 9268 custom-toolbox-dbgsym_0.20.4_amd64.deb
+ 5a8570e9f930ff90645701b673a7aa1444f6dab129960a982a0535c2c0039d4b 10874 custom-toolbox_0.20.4_amd64.buildinfo
+ 51087d4a4314c5abb3cb61ea17b44247dd1c6eadb84a91ce4400f18c28879838 45668 custom-toolbox_0.20.4_amd64.deb
 Files:
- 8d4e23a7596843520e3f523b312b7c99 1189 admin optional custom-toolbox_0.20.4.dsc
- 4844b5af744b88f4f0d40cc56732547b 27576 admin optional custom-toolbox_0.20.4.tar.xz
- 1d4b19867859ee492b47e2d64850d9d1 9296 debug optional custom-toolbox-dbgsym_0.20.4_amd64.deb
- af6ff103e4de13e2d9caa9f008ba48d9 10874 admin optional custom-toolbox_0.20.4_amd64.buildinfo
- 83b46a103a57caea681ce8b64e158b23 45596 admin optional custom-toolbox_0.20.4_amd64.deb
+ e71c3f286554a9af0c0f4007ecbd5b48 1189 admin optional custom-toolbox_0.20.4.dsc
+ b2b4cd49539cb05373b6b5667c594b66 27600 admin optional custom-toolbox_0.20.4.tar.xz
+ 727abc9bcb72261eec7cacb4ede7b4b0 9268 debug optional custom-toolbox-dbgsym_0.20.4_amd64.deb
+ bcb9f9d0a57edc00be25590ac7ae3311 10874 admin optional custom-toolbox_0.20.4_amd64.buildinfo
+ de08cb31dd912653ef8ac90c8a93e54c 45668 admin optional custom-toolbox_0.20.4_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl6iAoITHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumOUpB/9eLRtF56YVJN6ZiURPv+ovtvm+qdAV
-zH04sgTOuZUH7xqijb178eOYAQakCzWinXFhcC9FRrB/ekpFoLLDSEjdRV1g7J/V
-Cm78Qii6dY09usYZ1QR4hvJtMwIXA203k8aPthIl4R1VWT5876wMFW3I0oQwuVuf
-MG3OO5exGCoW3nedbWYwfBu69eK1A0PhmIZi5KcgbHoeKOPzOzOxK4Bixu2/Mwo4
-+Cm9DpPeOkuFnKnHdc0LwZx0gxy7zmiSqrjVKPXU0xniWuwM1FxcEpyT+MsXYELy
-i3L8QLH0ziVbyG2ThFtrNdwEipIUFL/MbPYct4/Rilix3goarAgAXDJm
-=eyYF
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl6jUwsTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumEWkCACHjjQoikZ9JKdwEY9SlRyhvuN8m1m8
+0OlAUb5J5S7+JBRBRoJjFpZoXC4Pi1t38bNIggz3wh7MbbBfgjqABK8SJKt3SHja
+7H+sakZdMMwtDCjDuEqve2drtOAtSS1YweHDwuaOwjbdGv4aGDeu1eXC5zSxs/0Y
+ozluXqjDsJp1Vn7L7E/usNDp1214WJqXqlE7usfkAo9SUIWxUkwRHOKEDgGZQP9D
+giZ76ImpdIkgGBL8myKje649d4BZSIl+dDC9ZmTcDoixgp+/l6JjI5FI3HHir7bt
+SDUPMJtwl7iFYupCVQednALsqt/Xfhyys8zI83w/4RMPkPcOznZii0EO
+=hRnE
 -----END PGP SIGNATURE-----
