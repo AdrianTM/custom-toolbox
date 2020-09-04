@@ -112,7 +112,6 @@ QString MainWindow::fixNameItem(QString item)
 // setup versious items and load configurations first time program runs
 void MainWindow::setup()
 {
-    version = getVersion("custom-toolbox");
     this->setWindowTitle(tr("Custom Toolbox"));
     this->adjustSize();
 
@@ -121,6 +120,7 @@ void MainWindow::setup()
     min_height = settings.value("min_height").toInt();
     min_width = settings.value("min_width").toInt();
     gui_editor = settings.value("gui_editor").toString();
+    max_col = settings.value("max_col", 3).toInt();
 }
 
 // add buttons and resize GUI
@@ -153,16 +153,14 @@ void MainWindow::setGui()
 // execute command when button is clicked
 void MainWindow::btn_clicked()
 {
-    QString cmd = sender()->objectName();
+    QString cmd = sender()->property("cmd").toString();
 
     if (hideGUI) {
         this->hide();
         system(cmd.toUtf8());
         this->show();
     } else {
-        this->lower();
-        shell->run(cmd);
-        this->raise();
+        shell->run(cmd + "& detach");
     }
 }
 
@@ -171,6 +169,7 @@ void MainWindow::btn_clicked()
 QString MainWindow::getFileName()
 {
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
+   if (file_name.isEmpty()) exit(-1);
    if (!QFile(file_name).exists()) {
        int ans = QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
        if (ans == QMessageBox::No) {
@@ -185,8 +184,9 @@ QString MainWindow::getFileName()
 // find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString home = QDir::homePath();
-    return shell->getCmdOut("find /usr/share/applications " + home + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
+    QString name = shell->getCmdOut("find /usr/share/applications " + QDir::homePath() + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
+    if (name.isEmpty() && system("command -v " + app_name.toUtf8() +">/dev/null") == 0) name = app_name; // if not a desktop file, but the command exits
+    return name;
 }
 
 // return the app info needed for the button
@@ -202,8 +202,13 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     QLocale locale;
     QString lang = locale.bcp47Name();
 
-    name = "";
-    comment = "";
+
+    // if a command not a .desktop file
+    if (!file_name.endsWith(".desktop")) {
+        app_info << file_name << comment << "utilities-terminal" << file_name << "true";
+        return app_info;
+    }
+
     if (lang != "en") {
         name = shell->getCmdOut("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
         comment = shell->getCmdOut("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
@@ -234,7 +239,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 {
     int col = 0;
     int row = 0;
-    int max = 3; // no. max of col
+
     QString name;
     QString comment;
     QString exec;
@@ -272,7 +277,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 ui->gridLayout_btn->addWidget(btn, row, col);
                  ui->gridLayout_btn->setRowStretch(row, 0);
                 col += 1;
-                if (col >= max) {
+                if (col >= max_col) {
                     col = 0;
                     row += 1;
                 }
@@ -281,16 +286,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     exec = "x-terminal-emulator -e "  + exec;
                 }
                 if (root == "true") {
-                    QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
-                    QString xdg_str;
-                    if (xdg_var.isEmpty()) { // if not available use XFCE
-                        xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
-                    } else {
-                        xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
-                    }
-                    exec = "mx-pkexec '" + xdg_str + " " + exec + "'";
+                    exec = "mx-pkexec '" + exec + "'";
                 }
-                btn->setObjectName(exec);
+                btn->setProperty("cmd", exec);
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
         }
@@ -331,11 +329,7 @@ void MainWindow::processLine(QString line)
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root flag present
-                if (list[1].toLower() == "root") {
-                    info << "true";
-                } else {
-                    info << "false";
-                }
+               info << ((list[1].toLower() == "root") ? "true" : "false");
             } else {
                 info << "false";
             }
@@ -368,14 +362,6 @@ void MainWindow::readFile(QString file_name)
     } else {
         exit(-1);
     }
-}
-
-
-// Get version of the program
-QString MainWindow::getVersion(QString name)
-{
-    Cmd cmd;
-    return cmd.getCmdOut("dpkg-query -f '${Version}' -W " + name);
 }
 
 // About button clicked
@@ -463,14 +449,7 @@ void MainWindow::on_buttonEdit_clicked()
         gui_editor = editor;
     }
     this->hide();
-    QString xdg_var = qgetenv("XDG_CURRENT_DESKTOP");
-    QString xdg_str;
-    if (xdg_var.isEmpty()) { // if not available use XFCE
-        xdg_str = "env XDG_CURRENT_DESKTOP=XFCE";
-    } else {
-        xdg_str = "env XDG_CURRENT_DESKTOP=" + xdg_var;
-    }
-    QString cmd = "mx-pkexec '"+ xdg_str + " " + gui_editor + " " + file_name + "'";
+    QString cmd = "mx-pkexec '" + gui_editor + " " + file_name + "'";
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();

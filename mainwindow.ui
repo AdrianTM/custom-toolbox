@@ -61,8 +61,7 @@
        </property>
        <property name="icon">
         <iconset theme="help-about">
-         <normaloff/>
-        </iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="shortcut">
         <string>Alt+B</string>
@@ -130,8 +129,7 @@
        </property>
        <property name="icon">
         <iconset theme="window-close">
-         <normaloff/>
-        </iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="shortcut">
         <string>Alt+N</string>
@@ -157,8 +155,7 @@
        </property>
        <property name="icon">
         <iconset theme="help-contents">
-         <normaloff/>
-        </iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>
@@ -171,7 +168,7 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="edit"/>
+        <iconset theme="text-editor"/>
        </property>
       </widget>
      </item>
@@ -233,7 +230,7 @@
            <x>0</x>
            <y>0</y>
            <width>626</width>
-           <height>376</height>
+           <height>351</height>
           </rect>
          </property>
          <property name="autoFillBackground">

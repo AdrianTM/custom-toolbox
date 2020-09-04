@@ -49,7 +49,6 @@ public:
     QIcon findIcon(QString icon_name);
     QString fixExecItem(QString item);
     QString fixNameItem(QString item);
-    QString getVersion(QString name);
     QString getFileName();
     QString getDesktopFileName(QString app_name);
     QStringList getDesktopFileInfo(QString file_name);
@@ -74,6 +73,7 @@ private:
     bool hideGUI;
     int min_height;
     int min_width;
+    int max_col;
     QString gui_editor;
 
     Cmd *shell;
