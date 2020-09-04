@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Fri, 04 Sep 2020 12:11:49 -0400
+Source: custom-toolbox
+Binary: custom-toolbox custom-toolbox-dbgsym
+Architecture: source amd64
+Version: 0.20.9
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.20.9) mx; urgency=medium
+ .
+   * can add terminal applications that don't have a .desktop file
+   * launch applications in background and detached
+   * remove extra dialog if canceling file selection
+   * make maximum number of columns customizeable in custom-toolbox.conf: max_col=3 for example
+Checksums-Sha1:
+ 7585e3eb00878b14dc19c7c6f7865ed49520c9d3 1189 custom-toolbox_0.20.9.dsc
+ 248299c5e380476f3f0449a3770ab60bb4f3c1cb 27612 custom-toolbox_0.20.9.tar.xz
+ bd48422227254cf961a1c7461b308ff4802853d4 9272 custom-toolbox-dbgsym_0.20.9_amd64.deb
+ 2b8b770a89b850b82f38a901cc10f6ffd23d7994 10939 custom-toolbox_0.20.9_amd64.buildinfo
+ 5705dbebca0482a72cc394102a77d5649c687452 45380 custom-toolbox_0.20.9_amd64.deb
+Checksums-Sha256:
+ d75241f5638f0ee83cd67b4cd2db878f4e1e831adbc9fe13d4849b99befbe5aa 1189 custom-toolbox_0.20.9.dsc
+ 3bc1db83433f0384566143374b2968621e311ba41c5f3fbafffba16af3b71176 27612 custom-toolbox_0.20.9.tar.xz
+ 92edc7553cf10bd64a9f2c0ca0b0391fc5087811c43a172187ef1e6ab1e2aec7 9272 custom-toolbox-dbgsym_0.20.9_amd64.deb
+ 8be333d1b1338320b4efa7e7af709a488e92229cacdea31abd33de85af07039d 10939 custom-toolbox_0.20.9_amd64.buildinfo
+ fb350671ab220e983144daf9f98078441547434065e979176c520c0ebc923175 45380 custom-toolbox_0.20.9_amd64.deb
+Files:
+ 67fcbdbbb435fd5144b72b3a6d9b9fff 1189 admin optional custom-toolbox_0.20.9.dsc
+ b8b07a65552e9892aa8b70101ca750bb 27612 admin optional custom-toolbox_0.20.9.tar.xz
+ 1bf3db8059da4a57d065a22dcc578768 9272 debug optional custom-toolbox-dbgsym_0.20.9_amd64.deb
+ e41af0130aa3ebba786173e33822f646 10939 admin optional custom-toolbox_0.20.9_amd64.buildinfo
+ 08f6be0d16631499c2c147f6ed062cd5 45380 admin optional custom-toolbox_0.20.9_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl9ScIwTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumKhBCACX8uWN0ztf01qFbzvQEavbs63Q0VIE
+Bj2rqMF2Qqbf+SyEF/hZVRATuEHgHuJU5ONBDrc14Z5gOkxn0GS1Obxmy3R6X6nK
+r/fJ0hZohZSjecceHntknsw2LNjEOa6JVMo3+pU7HOmCR58t3ad9voJENPZ4x4C7
+nEr6diyk9TQMMdimPuww+qC1Xl0Ja0PIEOnkY1HRSsxZjXzhTUq/d/KvC4MfVvm/
+f1JKgze12PnPgI6ZE+uMJtycKD/OzzMKnD9AgpfkPVBzs5j3lgVSt/vSfGfa14xn
+1j8QQEmovqFS/uwK/z/w8/wZ0D7re3RV0eSyl5iP3kf18EdDpwMeLg+M
+=PXl4
+-----END PGP SIGNATURE-----
