@@ -160,7 +160,7 @@ void MainWindow::btn_clicked()
         system(cmd.toUtf8());
         this->show();
     } else {
-        shell->run(cmd + "& detach");
+        system(cmd.toUtf8() + "& disown");
     }
 }
 

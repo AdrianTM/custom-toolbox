@@ -168,7 +168,7 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="text-editor"/>
+        <iconset theme="edit"/>
        </property>
       </widget>
      </item>
@@ -230,7 +230,7 @@
            <x>0</x>
            <y>0</y>
            <width>626</width>
-           <height>351</height>
+           <height>366</height>
           </rect>
          </property>
          <property name="autoFillBackground">
