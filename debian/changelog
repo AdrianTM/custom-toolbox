@@ -1,3 +1,9 @@
+custom-toolbox (0.20.9.1) mx; urgency=medium
+
+  * try first to display icon for application, if not find display terminal icon
+
+ -- Adrian <adrian@mxlinux.org>  Fri, 04 Sep 2020 16:21:34 -0400
+
 custom-toolbox (0.20.9) mx; urgency=medium
 
   * can add terminal applications that don't have a .desktop file
