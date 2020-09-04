@@ -1,0 +1,49 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Fri, 04 Sep 2020 16:21:34 -0400
+Source: custom-toolbox
+Binary: custom-toolbox custom-toolbox-dbgsym
+Architecture: source amd64
+Version: 0.20.9.1
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.20.9.1) mx; urgency=medium
+ .
+   * try first to display icon for application, if not find display terminal icon
+Checksums-Sha1:
+ cbac52ffa0c4d20f7c686f43926b99863cb9743b 1197 custom-toolbox_0.20.9.1.dsc
+ 5bad2ef14aa6453eec53faff0b1c7ef5d0142e97 27640 custom-toolbox_0.20.9.1.tar.xz
+ b3a0f186e459ff7d12cc035f58d492df1c48919a 9280 custom-toolbox-dbgsym_0.20.9.1_amd64.deb
+ 069b667f3a33f24f24cd7fb1a348576f33e069a9 10961 custom-toolbox_0.20.9.1_amd64.buildinfo
+ e2b1280afa85eac4a40e9b0c92139d61c7bfc7fc 45508 custom-toolbox_0.20.9.1_amd64.deb
+Checksums-Sha256:
+ 336806dcf23e12bbbdbd31d372707ed53b35d1e40ce8aef760354f3a86f9dc73 1197 custom-toolbox_0.20.9.1.dsc
+ 12dad83d9e75540a685d1f93b50ac57de18ff3fe61f74e05d4b439a69970ef26 27640 custom-toolbox_0.20.9.1.tar.xz
+ 0580f9b08238095fa9e049d170b581dc26c6af1f1db4231a580b7c268af6ac90 9280 custom-toolbox-dbgsym_0.20.9.1_amd64.deb
+ 86642cc3090314be5ee4281249e673f046f1af8f0996dce147ee9350974e1c2e 10961 custom-toolbox_0.20.9.1_amd64.buildinfo
+ 5b39d31283cecab2550e4421b8e8babc27eb8b532fde1b58e25e4321feb47833 45508 custom-toolbox_0.20.9.1_amd64.deb
+Files:
+ 015807e9e5406ba53cc0a1bad5d9b54a 1197 admin optional custom-toolbox_0.20.9.1.dsc
+ 1335f8cabe646427e4d96088b068745b 27640 admin optional custom-toolbox_0.20.9.1.tar.xz
+ 6e60e68e761809075a252a62ca58f77a 9280 debug optional custom-toolbox-dbgsym_0.20.9.1_amd64.deb
+ 44871b693e9ade520af92b0bc30785ae 10961 admin optional custom-toolbox_0.20.9.1_amd64.buildinfo
+ 34ad39c6ddb690d0a343823ea93842d6 45508 admin optional custom-toolbox_0.20.9.1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl9SoskTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumH8jB/9/UWMrXOYcdct6c3UqXOoWz0ffm9R/
+dwnsRlJMJE4B/K8TgeH9qq8/eYLnFNbSUGkuxFZFlQbrKpCIOenyGQkbFzBNb5Bz
+qEFIk4Aog9boS/eKNLOtciYUzQudvOFER2MS4yl1ERvR8y5AT8+9Y8qGRArVKA0J
+byg4ZafSbWdIX6WwyAVJGM0Sc/O/blnxAYHLnQqpGtRUpTbFr62Z5t5LHepaafR5
++GaHI9kmB5SyRsBLGIWd8SFJY6GdWIocEE5HWGXVT0F4Hx5Ej24NrQr6EWrxzSnE
+fyRkr99b9FqayURBRtQZu3jjji1CAUR4VGj5Cfl9CFD9jmQ1pnsHXKHZ
+=Icra
+-----END PGP SIGNATURE-----

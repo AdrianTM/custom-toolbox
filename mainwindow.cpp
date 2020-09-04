@@ -86,7 +86,7 @@ QIcon MainWindow::findIcon(QString icon_name)
         } else if (QFile("/usr/share/pixmaps/" + icon_name).exists()) {
             return QIcon("/usr/share/pixmaps/" + icon_name);
         } else {
-            return QIcon();
+            return QIcon::fromTheme("utilities-terminal");
         }
     }
 }
@@ -205,7 +205,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
 
     // if a command not a .desktop file
     if (!file_name.endsWith(".desktop")) {
-        app_info << file_name << comment << "utilities-terminal" << file_name << "true";
+        app_info << file_name << comment << file_name << file_name << "true";
         return app_info;
     }
 
