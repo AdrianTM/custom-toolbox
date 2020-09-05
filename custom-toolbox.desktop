@@ -13,6 +13,6 @@ Name[sv]=Custom Toolbox
 Exec=custom-toolbox
 Terminal=false
 Type=Application
-Icon=custom-toolbox.svg
+Icon=/usr/share/pixmaps/custom-toolbox.svg
 Categories=GNOME;GTK;System;
 NoDisplay=false
