@@ -1,3 +1,9 @@
+custom-toolbox (0.20.9.3) mx; urgency=medium
+
+  * use full path for icon
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 05 Sep 2020 15:13:59 -0400
+
 custom-toolbox (0.20.9.2) mx; urgency=medium
 
   * fix launching programs 
