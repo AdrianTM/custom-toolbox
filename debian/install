@@ -1,7 +1,7 @@
 custom-toolbox 		usr/bin
 custom-toolbox.conf 	etc/custom-toolbox
 custom-toolbox.desktop 	usr/share/applications
-custom-toolbox.png	usr/share/pixmaps
+icons/custom-toolbox.svg	usr/share/pixmaps
 example.list		etc/custom-toolbox
 help.html		usr/share/doc/custom-toolbox
 license.html            usr/share/doc/custom-toolbox
