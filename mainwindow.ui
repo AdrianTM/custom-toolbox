@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="images.qrc">
-    <normaloff>:/icons/custom-toolbox.png</normaloff>:/icons/custom-toolbox.png</iconset>
+    <normaloff>:/icons/custom-toolbox.svg</normaloff>:/icons/custom-toolbox.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" rowminimumheight="0,0,0,0">
    <property name="sizeConstraint">
@@ -168,7 +168,8 @@
         <string>Edit</string>
        </property>
        <property name="icon">
-        <iconset theme="edit"/>
+        <iconset theme="edit">
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>

@@ -13,6 +13,6 @@ Name[sv]=Custom Toolbox
 Exec=custom-toolbox
 Terminal=false
 Type=Application
-Icon=custom-toolbox
+Icon=custom-toolbox.svg
 Categories=GNOME;GTK;System;
 NoDisplay=false
