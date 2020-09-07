@@ -1,0 +1,49 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 07 Sep 2020 09:30:15 -0400
+Source: custom-toolbox
+Binary: custom-toolbox custom-toolbox-dbgsym
+Architecture: source amd64
+Version: 0.20.9.4
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.20.9.4) mx; urgency=medium
+ .
+   * update icon
+Checksums-Sha1:
+ 46a0e9e3218d638540ff5314b41f55dacaba4698 1197 custom-toolbox_0.20.9.4.dsc
+ 746f28d8ef7010889553252f0eb18ea03592c963 26732 custom-toolbox_0.20.9.4.tar.xz
+ e96fd9596965ddeba2613325ad58c2d4c586ce99 9304 custom-toolbox-dbgsym_0.20.9.4_amd64.deb
+ d929340a38aef4f1280a1257cf6c9df957e16fe4 10961 custom-toolbox_0.20.9.4_amd64.buildinfo
+ 71d5b53b22df3d1f6b11d27c1226a8418b497401 44644 custom-toolbox_0.20.9.4_amd64.deb
+Checksums-Sha256:
+ 66acd0198c820bc6d5aa80be9186e36f377e1add07d94bbd60778ba21249c69b 1197 custom-toolbox_0.20.9.4.dsc
+ 3d40d397bc4a79da1abab5b1f9c4f6b96920de0421d247228f2daae2742def8e 26732 custom-toolbox_0.20.9.4.tar.xz
+ 8e28953633d47ea077ba5f3312ec5606b200adffd02acc28ae4ccb74aa35a2c4 9304 custom-toolbox-dbgsym_0.20.9.4_amd64.deb
+ 7ac42391f2ad6f1391f6c13be13f2aa23d46a7d8b51c0a59ccd522f6afb3e4d7 10961 custom-toolbox_0.20.9.4_amd64.buildinfo
+ cf1ae891d067142f8d4bc65675bc3a683f66182ebb3663a51c68ffd3a496a3c0 44644 custom-toolbox_0.20.9.4_amd64.deb
+Files:
+ 3c111d7b0250340cbaf172d5454abfc4 1197 admin optional custom-toolbox_0.20.9.4.dsc
+ 10bd1bf90aa72b435532b78fd5c22c8b 26732 admin optional custom-toolbox_0.20.9.4.tar.xz
+ 96e4f6c3c37e1ccbad6f20eaa440e1e7 9304 debug optional custom-toolbox-dbgsym_0.20.9.4_amd64.deb
+ 0a5b21a9d711ef2ec637082b80938adc 10961 admin optional custom-toolbox_0.20.9.4_amd64.buildinfo
+ 2bdae14400154df93130aa35fdbabafc 44644 admin optional custom-toolbox_0.20.9.4_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl9WNrQTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumAEXCAC/I4xbfmO39Jp5hak61F+sm/Oo445M
+5ZmOZIbA/5ogPMP/6LWtCjYPZuiH5/W8021ogqIfl6UmYi/D505p5KigBSMh2xY2
+bdTwpZcRC9gL2o4KOHkKUgbanxRr+yJ9+NjwJNyW/a+0EeuyPUjDppFAvqg7nXiZ
+L963DQpNHDgfe//rGBlOXqjhzHBnJA/XHS2bz/SNYpQH0PG/zjfwuHcGJa/A2LDj
+52pdrAlNQbh9Aw56Dqs52p90L1mc7cMH+gGtk/0v6bk+djsEI2dKUXXRaVhzaguj
+FiQ4cH4kcd/Z5ilVHqE83INWp6mRvzqGvElMC05CAl8n0hl7JpZZOh3S
+=f0p2
+-----END PGP SIGNATURE-----
