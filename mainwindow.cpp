@@ -29,12 +29,12 @@
 #include "version.h"
 #include "unistd.h"
 
+#include <QDebug>
 #include <QFileDialog>
+#include <QRegularExpression>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTextEdit>
-
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QDialog(parent),
@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
+    setWindowFlags(Qt::Window); // for the close, min and max buttons
     shell = new Cmd;
     setup();
 
@@ -184,7 +185,7 @@ QString MainWindow::getFileName()
 // find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell->getCmdOut("find /usr/share/applications " + QDir::homePath() + "/.local/share/applications -name " + app_name + ".desktop | tail -1");
+    QString name = shell->getCmdOut("find /usr/share/applications " + QDir::homePath() + "/.local/share/applications -name " + app_name + ".desktop | tail -1", true);
     if (name.isEmpty() && system("command -v " + app_name.toUtf8() +">/dev/null") == 0) name = app_name; // if not a desktop file, but the command exits
     return name;
 }
@@ -202,6 +203,8 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     QLocale locale;
     QString lang = locale.bcp47Name();
 
+    QRegularExpression re;
+    re.setPatternOptions(QRegularExpression::MultilineOption);
 
     // if a command not a .desktop file
     if (!file_name.endsWith(".desktop")) {
@@ -209,26 +212,42 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
         return app_info;
     }
 
+    QFile file(file_name);
+    if(!file.open(QFile::Text | QFile::ReadOnly)) {
+       return QStringList();
+    }
+    QString text = file.readAll();
+    file.close();
+
     if (lang != "en") {
-        name = shell->getCmdOut("grep -m1 -i ^'Name\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
-        comment = shell->getCmdOut("grep -m1 -i ^'Comment\\[" + lang + "\\]=' " + file_name + " | cut -f2 -d=");
+        re.setPattern("^Name\\[" + lang + "\\]=(.*)$");
+        name = re.match(text).captured(1);
+        re.setPattern("^Comment\\[" + lang + "\\]=(.*)$");
+        comment = re.match(text).captured(1);
     }
     if (lang == "pt" && name.isEmpty()) { // Brazilian if Portuguese and name empty
-        name = shell->getCmdOut("grep -m1 -i ^'Name\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        re.setPattern("^Name\\[pt_BR\\]=(.*)$");
+        name = re.match(text).captured(1);
     }
     if (lang == "pt" && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
-        comment = shell->getCmdOut("grep -m1 -i ^'Comment\\[pt_BR]=' " + file_name + " | cut -f2 -d=");
+        re.setPattern("^Comment\\[pt_BR\\]=(.*)$");
+        comment = re.match(text).captured(1);
     }
     if (name.isEmpty()) { // backup if Name is not translated
-        name = shell->getCmdOut("grep -m1 -i ^Name= " + file_name + " | cut -f2 -d=");
-        name = name.remove(QRegExp("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
+        re.setPattern("^Name=(.*)$");
+        name = re.match(text).captured(1);
+        name = name.remove(QRegularExpression("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
     }
     if (comment.isEmpty()) { // backup if Comment is not translated
-        comment = shell->getCmdOut("grep -m1 ^Comment= " + file_name + " | cut -f2 -d=");
+        re.setPattern("^Comment=(.*)$");
+        comment = re.match(text).captured(1);
     }
-    exec = shell->getCmdOut("grep -m1 ^Exec= " + file_name + " | cut -f2 -d=");
-    icon_name = shell->getCmdOut("grep -m1 ^Icon= " + file_name + " | cut -f2 -d=");
-    terminal = shell->getCmdOut("grep -m1 ^Terminal= " + file_name + " | cut -f2 -d=");
+    re.setPattern("^Exec=(.*)$");
+    exec = re.match(text).captured(1);
+    re.setPattern("^Icon=(.*)$");
+    icon_name = re.match(text).captured(1);
+    re.setPattern("^Terminal=(.*)$");
+    terminal = re.match(text).captured(1);
 
     app_info << name << comment << icon_name << exec << terminal.toLower();
     return app_info;
@@ -286,7 +305,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     exec = "x-terminal-emulator -e "  + exec;
                 }
                 if (root == "true") {
-                    exec = "mx-pkexec '" + exec + "'";
+                    exec = "su-to-root -X -c '" + exec + "'";
                 }
                 btn->setProperty("cmd", exec);
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
@@ -449,7 +468,7 @@ void MainWindow::on_buttonEdit_clicked()
         gui_editor = editor;
     }
     this->hide();
-    QString cmd = "mx-pkexec '" + gui_editor + " " + file_name + "'";
+    QString cmd = "su-to-root -X -c '" + gui_editor + " " + file_name + "'";
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();

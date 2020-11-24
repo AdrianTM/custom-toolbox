@@ -8,6 +8,6 @@ Vcs-Git: git://github.com/AdrianTM/custom-toolbox
 
 Package: custom-toolbox
 Architecture: any
-Depends: mx-pkexec, ${misc:Depends}, ${shlibs:Depends}
+Depends: menu, ${misc:Depends}, ${shlibs:Depends}
 Description: Custom Toolbox
  Custom Toolbox is a tool used for creating collections of icons
