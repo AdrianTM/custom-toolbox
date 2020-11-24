@@ -1,3 +1,11 @@
+custom-toolbox (0.20.11) mx; urgency=medium
+
+  * faster startup
+  * removed mx-pkexec dependency
+  * display minimize/maximize windows buttons
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 23 Nov 2020 19:17:51 -0500
+
 custom-toolbox (0.20.9.4) mx; urgency=medium
 
   * update icon

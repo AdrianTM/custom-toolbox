@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="115"/>
+        <location filename="../mainwindow.cpp" line="116"/>
         <source>Custom Toolbox</source>
         <translation type="unfinished"></translation>
     </message>
@@ -55,84 +55,84 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="263"/>
+        <location filename="../mainwindow.ui" line="262"/>
         <source>This is a custom launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="279"/>
+        <location filename="../mainwindow.ui" line="278"/>
         <source>Show this dialog at start up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="301"/>
+        <location filename="../mainwindow.ui" line="300"/>
         <source>search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="171"/>
+        <location filename="../mainwindow.cpp" line="172"/>
         <source>Open List File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="171"/>
+        <location filename="../mainwindow.cpp" line="172"/>
         <source>List Files (*.list)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="174"/>
-        <location filename="../mainwindow.cpp" line="353"/>
-        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="175"/>
+        <location filename="../mainwindow.cpp" line="372"/>
+        <location filename="../mainwindow.cpp" line="441"/>
         <source>File Open Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="174"/>
+        <location filename="../mainwindow.cpp" line="175"/>
         <source>Could not open file, do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="353"/>
+        <location filename="../mainwindow.cpp" line="372"/>
         <source>Could not open file: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="353"/>
+        <location filename="../mainwindow.cpp" line="372"/>
         <source>Application will close.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="371"/>
+        <location filename="../mainwindow.cpp" line="390"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="376"/>
+        <location filename="../mainwindow.cpp" line="395"/>
         <source>%1 License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="384"/>
+        <location filename="../mainwindow.cpp" line="403"/>
         <source>%1 Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="372"/>
+        <location filename="../mainwindow.cpp" line="391"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="373"/>
+        <location filename="../mainwindow.cpp" line="392"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="394"/>
         <source>Copyright (c) MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="441"/>
         <source>Could not write file: </source>
         <translation type="unfinished"></translation>
     </message>
