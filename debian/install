@@ -1,8 +1,7 @@
-custom-toolbox 		usr/bin
-custom-toolbox.conf 	etc/custom-toolbox
-custom-toolbox.desktop 	usr/share/applications
+custom-toolbox 			usr/bin
+custom-toolbox.conf 		etc/custom-toolbox
+custom-toolbox.desktop 		usr/share/applications
+example.list			etc/custom-toolbox
+help				usr/share/doc/custom-toolbox
 icons/custom-toolbox.svg	usr/share/pixmaps
-example.list		etc/custom-toolbox
-help.html		usr/share/doc/custom-toolbox
-license.html            usr/share/doc/custom-toolbox
-translations/*.qm 	usr/share/custom-toolbox/locale
+translations/*.qm 		usr/share/custom-toolbox/locale
