@@ -22,19 +22,21 @@
  * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
-#include "about.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "flatbutton.h"
-#include "version.h"
-#include "unistd.h"
-
 #include <QDebug>
+#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QRegularExpression>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTextEdit>
+
+#include "ui_mainwindow.h"
+#include "mainwindow.h"
+#include "flatbutton.h"
+#include "unistd.h"
+#include "about.h"
+#include "version.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QDialog(parent),
@@ -56,7 +58,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     readFile(file_name);
     setGui();
-
 }
 
 MainWindow::~MainWindow()
@@ -95,9 +96,9 @@ QIcon MainWindow::findIcon(QString icon_name)
 // fix varios exec= items to make sure they run correctly
 QString MainWindow::fixExecItem(QString item)
 {
-    item.remove(" %f");  // remove %f if exec expects a file name since it's called without a name
-    item.remove(" %F");
-    item.remove(" %U");
+    item.remove(QLatin1String(" %f"));  // remove %f if exec expects a file name since it's called without a name
+    item.remove(QLatin1String(" %F"));
+    item.remove(QLatin1String(" %U"));
     return item;
 }
 
@@ -141,6 +142,20 @@ void MainWindow::setGui()
     //qDebug() << "width window" << this->width();
     //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
 
+    int width = this->width();
+    int height = this->height();
+
+    QSettings settings(qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
+    restoreGeometry(settings.value("geometry").toByteArray());
+
+    if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
+        this->resize(width, height);
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        int x = (screenGeometry.width()-this->width()) / 2;
+        int y = (screenGeometry.height()-this->height()) / 2;
+        this->move(x, y);
+    }
+
     // check if .desktop file is in autostart
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (QFile(file_name).exists()) {
@@ -164,6 +179,13 @@ void MainWindow::btn_clicked()
         system(cmd.toUtf8() + "& disown");
     }
 }
+
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    QSettings settings(qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
+    settings.setValue("geometry", saveGeometry());
+}
+
 
 
 // select .list file to open
@@ -219,34 +241,34 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     QString text = file.readAll();
     file.close();
 
-    if (lang != "en") {
-        re.setPattern("^Name\\[" + lang + "\\]=(.*)$");
+    if (lang != QLatin1String("en")) {
+        re.setPattern(QLatin1String("^Name\\[") + lang + QLatin1String("\\]=(.*)$"));
         name = re.match(text).captured(1);
-        re.setPattern("^Comment\\[" + lang + "\\]=(.*)$");
+        re.setPattern(QLatin1String("^Comment\\[") + lang + QLatin1String("\\]=(.*)$"));
         comment = re.match(text).captured(1);
     }
-    if (lang == "pt" && name.isEmpty()) { // Brazilian if Portuguese and name empty
-        re.setPattern("^Name\\[pt_BR\\]=(.*)$");
+    if (lang == QLatin1String("pt") && name.isEmpty()) { // Brazilian if Portuguese and name empty
+        re.setPattern(QLatin1String("^Name\\[pt_BR\\]=(.*)$"));
         name = re.match(text).captured(1);
     }
-    if (lang == "pt" && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
-        re.setPattern("^Comment\\[pt_BR\\]=(.*)$");
+    if (lang == QLatin1String("pt") && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
+        re.setPattern(QLatin1String("^Comment\\[pt_BR\\]=(.*)$"));
         comment = re.match(text).captured(1);
     }
     if (name.isEmpty()) { // backup if Name is not translated
-        re.setPattern("^Name=(.*)$");
+        re.setPattern(QLatin1String("^Name=(.*)$"));
         name = re.match(text).captured(1);
-        name = name.remove(QRegularExpression("^MX ")); // remove MX from begining of the program name (most of the MX Linux apps)
+        name = name.remove(QRegularExpression(QLatin1String("^MX "))); // remove MX from begining of the program name (most of the MX Linux apps)
     }
     if (comment.isEmpty()) { // backup if Comment is not translated
-        re.setPattern("^Comment=(.*)$");
+        re.setPattern(QLatin1String("^Comment=(.*)$"));
         comment = re.match(text).captured(1);
     }
-    re.setPattern("^Exec=(.*)$");
+    re.setPattern(QLatin1String("^Exec=(.*)$"));
     exec = re.match(text).captured(1);
-    re.setPattern("^Icon=(.*)$");
+    re.setPattern(QLatin1String("^Icon=(.*)$"));
     icon_name = re.match(text).captured(1);
-    re.setPattern("^Terminal=(.*)$");
+    re.setPattern(QLatin1String("^Terminal=(.*)$"));
     terminal = re.match(text).captured(1);
 
     app_info << name << comment << icon_name << exec << terminal.toLower();
@@ -335,12 +357,12 @@ void MainWindow::processLine(QString line)
     }
     QStringList line_list = line.split("=");
     QString key = line_list[0].trimmed();
-    QString value = line_list.size() > 1 ? line_list[1].remove("\"").trimmed() : QString();
-    if (key.toLower() == "name") {
+    QString value = line_list.size() > 1 ? line_list[1].remove(QLatin1Char('"')).trimmed() : QString();
+    if (key.toLower() == QLatin1String("name")) {
         this->setWindowTitle(value);
-    } else if (key.toLower() == "comment") {
+    } else if (key.toLower() == QLatin1String("comment")) {
         ui->commentLabel->setText(value);
-    } else if (key.toLower() == "category") {
+    } else if (key.toLower() == QLatin1String("category")) {
         categories.append(value);
     } else { // assume it's the name of the app and potentially a "root" flag
         QStringList list = key.split(" ");
@@ -348,9 +370,9 @@ void MainWindow::processLine(QString line)
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root flag present
-               info << ((list[1].toLower() == "root") ? "true" : "false");
+               info << ((list[1].toLower() == QLatin1String("root")) ? QLatin1String("true") : QLatin1String("false"));
             } else {
-                info << "false";
+                info << QLatin1String("false");
             }
             category_map.insert(categories.last(), info);
         }
