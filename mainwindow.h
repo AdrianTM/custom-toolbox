@@ -61,6 +61,7 @@ public:
 public slots:
 
 private slots:
+    void closeEvent(QCloseEvent *);
     void btn_clicked();
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
