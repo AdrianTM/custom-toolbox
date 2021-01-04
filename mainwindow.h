@@ -25,14 +25,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <flatbutton.h>
 #include <QDialog>
-#include <QProcess>
+#include <QIcon>
 #include <QMessageBox>
 #include <QMultiMap>
-#include <QIcon>
+#include <QProcess>
 
 #include "cmd.h"
+#include "flatbutton.h"
 
 namespace Ui {
 class MainWindow;
