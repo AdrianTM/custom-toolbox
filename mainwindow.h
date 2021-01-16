@@ -49,14 +49,14 @@ public:
     QIcon findIcon(QString icon_name);
     QString fixExecItem(QString item);
     QString fixNameItem(QString item);
-    QString getFileName();
     QString getDesktopFileName(QString app_name);
+    QString getFileName();
     QStringList getDesktopFileInfo(QString file_name);
     void addButtons(QMultiMap<QString, QStringList> map);
     void processLine(QString line);
     void readFile(QString file_name);
-    void setup();
     void setGui();
+    void setup();
 
 public slots:
 

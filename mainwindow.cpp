@@ -176,7 +176,7 @@ void MainWindow::btn_clicked()
         system(cmd.toUtf8());
         this->show();
     } else {
-        system(cmd.toUtf8() + "& disown");
+        system(cmd.toUtf8() + "&");
     }
 }
 
