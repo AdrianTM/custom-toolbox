@@ -1,3 +1,10 @@
+custom-toolbox (0.21.1) mx; urgency=medium
+
+  * remove disown which is not present in sh
+  * root guard (shouldn't start when somebody logs in a root)
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 24 Jan 2021 13:33:54 -0500
+
 custom-toolbox (0.20.11) mx; urgency=medium
 
   * faster startup

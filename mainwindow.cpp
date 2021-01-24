@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QStringList args = qApp->arguments();
     if (args.size() > 1) {
-        file_name =  QFile(args[1]).exists() ? args[1] : getFileName();
+        file_name =  QFile(args.at(1)).exists() ? args.at(1) : getFileName();
     } else {
         file_name = getFileName();
     }
@@ -105,7 +105,7 @@ QString MainWindow::fixExecItem(QString item)
 // fix name of the item
 QString MainWindow::fixNameItem(QString item)
 {
-   if(item == "System Profiler and Benchmark") {
+   if (item == "System Profiler and Benchmark") {
        item = "System Information";
    }
    return item;
@@ -158,7 +158,7 @@ void MainWindow::setGui()
 
     // check if .desktop file is in autostart
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
-    if (QFile(file_name).exists()) {
+    if (QFile::exists(file_name)) {
         ui->checkBoxStartup->setChecked(true);
     }
     ui->lineSearch->setFocus();
@@ -193,8 +193,8 @@ QString MainWindow::getFileName()
 {
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
    if (file_name.isEmpty()) exit(-1);
-   if (!QFile(file_name).exists()) {
-       int ans = QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
+   if (!QFile::exists(file_name)) {
+       int ans = QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
        if (ans == QMessageBox::No) {
            exit(-1);
        } else {
@@ -235,7 +235,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     }
 
     QFile file(file_name);
-    if(!file.open(QFile::Text | QFile::ReadOnly)) {
+    if (!file.open(QFile::Text | QFile::ReadOnly)) {
        return QStringList();
     }
     QString text = file.readAll();
@@ -303,12 +303,12 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->setRowStretch(row, 0);
             row += 1;
             for (const QStringList &item : map.values(category)) {
-                name = fixNameItem(item[0]);
+                name = fixNameItem(item.at(0));
                 comment = item[1];
                 icon_name = item[2];
-                exec = fixExecItem(item[3]);
-                terminal = item[4];
-                root = item[5];
+                exec = fixExecItem(item.at(3));
+                terminal = item.at(4);
+                root = item.at(5);
 
                 btn = new FlatButton(name);
                 btn->setIconSize(40, 40);
@@ -356,7 +356,7 @@ void MainWindow::processLine(QString line)
         return;
     }
     QStringList line_list = line.split("=");
-    QString key = line_list[0].trimmed();
+    QString key = line_list.at(0).trimmed();
     QString value = line_list.size() > 1 ? line_list[1].remove(QLatin1Char('"')).trimmed() : QString();
     if (key.toLower() == QLatin1String("name")) {
         this->setWindowTitle(value);
@@ -366,7 +366,7 @@ void MainWindow::processLine(QString line)
         categories.append(value);
     } else { // assume it's the name of the app and potentially a "root" flag
         QStringList list = key.split(" ");
-        QString desktop_file = getDesktopFileName(list[0]);
+        QString desktop_file = getDesktopFileName(list.at(0));
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root flag present
@@ -387,11 +387,11 @@ void MainWindow::readFile(QString file_name)
     category_map.clear();
 
     QFile file(file_name);
-    if (file.exists()){
+    if (file.exists()) {
         base_name = QFileInfo(file_name).baseName();
         file_location= QFileInfo(file_name).path();
-        if(!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+        if (!file.open(QFile::ReadOnly | QFile::Text)) {
+            QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
             exit(-1);
         }
         QTextStream in(&file);
@@ -440,10 +440,11 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     // create a new_map with items that match the search argument
     for (const QString &category : categories) {
         for (const QStringList &item : category_map.values(category)) {
-            QString name = item[0];
-            QString comment = item[1];
-            if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
-                    || category.contains(arg1, Qt::CaseInsensitive)) {
+            QString name = item.at(0);
+            QString comment = item.at(1);
+            if (name.contains(arg1, Qt::CaseInsensitive)
+                    or comment.contains(arg1, Qt::CaseInsensitive)
+                    or category.contains(arg1, Qt::CaseInsensitive)) {
                 new_map.insert(category, item);
             }
         }
@@ -459,8 +460,8 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (checked) {
         QFile file(file_name);
-        if(!file.open(QFile::WriteOnly | QFile::Text)) {
-            QMessageBox::critical(nullptr, tr("File Open Error"), tr("Could not write file: ") + file_name);
+        if (!file.open(QFile::WriteOnly | QFile::Text)) {
+            QMessageBox::critical(this, tr("File Open Error"), tr("Could not write file: ") + file_name);
         }
         QTextStream out(&file);
         out << "[Desktop Entry]" << "\n";
