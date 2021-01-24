@@ -488,10 +488,10 @@ void MainWindow::on_buttonEdit_clicked()
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
         QString desktop_file = getDesktopFileName(shell->getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
         QString editor = shell->getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
-        if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) { // need to run these as normal user
-            editor = "runuser -u $(logname) " + editor;
-        } else if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
+        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
+        } else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) { // need to run these as normal user
+            editor = "runuser -u $(logname) " + editor;
         }
         gui_editor = editor;
     }
