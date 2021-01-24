@@ -1,0 +1,50 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sun, 24 Jan 2021 13:33:54 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.21.1
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.1) mx; urgency=medium
+ .
+   * remove disown which is not present in sh
+   * root guard (shouldn't start when somebody logs in a root)
+Checksums-Sha1:
+ dcfc6cdcbaf50b9abb09e45356344ddb345b2f69 1189 custom-toolbox_0.21.1.dsc
+ a1aea1301e05e7b5140449bce151a75d2231c73f 27408 custom-toolbox_0.21.1.tar.xz
+ 90f8a1d96d381822ead947c24ab3eadbb0c70348 9174 custom-toolbox-dbgsym_0.21.1_amd64.deb
+ d4bd334eec34bcff0fff76ef9eec972a255ccd3f 10734 custom-toolbox_0.21.1_amd64.buildinfo
+ d53a26845e5356f9cf8fdb970a96d63e95d42d89 44472 custom-toolbox_0.21.1_amd64.deb
+Checksums-Sha256:
+ c71bc33d61d2d732f996722bb63755e96d89d9a208be75556f46b3474bc88dc0 1189 custom-toolbox_0.21.1.dsc
+ dc615d1be4253919aa6a85376b2fd7d194ed6d45e93f439a211f8351194bcc77 27408 custom-toolbox_0.21.1.tar.xz
+ 8102c7a55bdfcea1b68df598b8ec644357b495f522424989dbc3f5e84df21245 9174 custom-toolbox-dbgsym_0.21.1_amd64.deb
+ 006901a7e6bf71e1151c9196586eaccc2c00d2d6ad5fa3f40dca67d147e8e27d 10734 custom-toolbox_0.21.1_amd64.buildinfo
+ e0d7c5e99170008726b6e5a3dc9e87dcd701ef342938d8a6aade910033e6f6a5 44472 custom-toolbox_0.21.1_amd64.deb
+Files:
+ 512e80248f0b50211f82c4c53672afc5 1189 admin optional custom-toolbox_0.21.1.dsc
+ 4b426106e9120baf73be02562dfa81de 27408 admin optional custom-toolbox_0.21.1.tar.xz
+ 06d0e0a14b674f3dee11ef99f3aef6dd 9174 debug extra custom-toolbox-dbgsym_0.21.1_amd64.deb
+ 73987d905c70e563ddae983b16465ebe 10734 admin optional custom-toolbox_0.21.1_amd64.buildinfo
+ b39b1efcc92fe15a2f8417e6ff0dd2cc 44472 admin optional custom-toolbox_0.21.1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmANw3oTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumEpxCACqnZDT0MkgRBEN8jiKCoHXW3wzjjwI
+658hSYg1PSMIjlgGhxW52K+6VcpA+x8aGNoKpg139FLhxUJaFAeau1PVHVEOhI+u
+UAq+Ekk4ravoYq5/u6rc/0ugMWuMAA6XzAJ/K5JizgFTNDkLjnQ71ErMPzWcl9YU
+ebBh5jmVaE3fZnU5Ro1IGREsUvf/SjtJhHtJR/h4oWY/HdZ6VmQetMENDLi8Z16l
+LoRTyxgUl6GhktvsLQyimdv+skXmdMArylyq+XZmDw1Er7OxYg2tzQd+jhMiSjw7
+fqJRpM7xhNyB50Y3rObY3VNqlSRP+Q0y+MghjNIL0JWZgt1RsOSm0KUs
+=BuOZ
+-----END PGP SIGNATURE-----
