@@ -36,6 +36,7 @@
 #include "unistd.h"
 #include "about.h"
 #include "version.h"
+#include <unistd.h>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -487,7 +488,9 @@ void MainWindow::on_buttonEdit_clicked()
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
         QString desktop_file = getDesktopFileName(shell->getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
         QString editor = shell->getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
-        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
+        if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) { // need to run these as normal user
+            editor = "runuser -u $(logname) " + editor;
+        } else if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         }
         gui_editor = editor;
