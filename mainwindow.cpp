@@ -207,8 +207,9 @@ QString MainWindow::getFileName()
 // find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell->getCmdOut("find /usr/share/applications " + QDir::homePath() + "/.local/share/applications -name " + app_name + ".desktop | tail -1", true);
-    if (name.isEmpty() && system("command -v " + app_name.toUtf8() +">/dev/null") == 0) name = app_name; // if not a desktop file, but the command exits
+    QString name = shell->getCmdOut("find " + QDir::homePath() + "/.local/share/applications /usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
+    if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() +"\">/dev/null") == 0)
+        name = app_name; // if not a desktop file, but the command exits
     return name;
 }
 
@@ -304,8 +305,8 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             row += 1;
             for (const QStringList &item : map.values(category)) {
                 name = fixNameItem(item.at(0));
-                comment = item[1];
-                icon_name = item[2];
+                comment = item.at(1);
+                icon_name = item.at(2);
                 exec = fixExecItem(item.at(3));
                 terminal = item.at(4);
                 root = item.at(5);
@@ -370,7 +371,7 @@ void MainWindow::processLine(QString line)
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root flag present
-               info << ((list[1].toLower() == QLatin1String("root")) ? QLatin1String("true") : QLatin1String("false"));
+               info << ((list.at(1).toLower() == QLatin1String("root")) ? QLatin1String("true") : QLatin1String("false"));
             } else {
                 info << QLatin1String("false");
             }
@@ -483,8 +484,9 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 // edit launcher .list file
 void MainWindow::on_buttonEdit_clicked()
 {
-    if (!QFile(gui_editor).exists()) {  // if specified editor doesn't exist get the default one
-        QString editor = shell->getCmdOut("grep Exec $(locate $(xdg-mime query default text/plain))|cut -d= -f2|cut -d\" \" -f1");
+    if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
+        QString desktop_file = getDesktopFileName(shell->getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
+        QString editor = shell->getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         }
