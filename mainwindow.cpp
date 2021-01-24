@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     shell = new Cmd;
+    local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications") ? "/.local/share/applications " : " ";
     setup();
 
     file_location = "/etc/custom-toolbox";
@@ -208,7 +209,7 @@ QString MainWindow::getFileName()
 // find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell->getCmdOut("find " + QDir::homePath() + "/.local/share/applications /usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
+    QString name = shell->getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
     if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() +"\">/dev/null") == 0)
         name = app_name; // if not a desktop file, but the command exits
     return name;
