@@ -81,9 +81,10 @@ private:
     FlatButton *btn;
     QList<QString> categories;
     QMultiMap<QString, QStringList> category_map;
+    QString base_name;
     QString file_location;
     QString file_name;
-    QString base_name;
+    QString local_dir;
     QString version;
 
     Ui::MainWindow *ui;
