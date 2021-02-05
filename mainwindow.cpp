@@ -71,7 +71,7 @@ MainWindow::~MainWindow()
 QIcon MainWindow::findIcon(QString icon_name)
 {
     // return icon if fully specified
-    if (QFile("/" + icon_name).exists()) { // make sure it looks for icon in root, not in home
+    if (QFileInfo::exists("/" + icon_name)) { // make sure it looks for icon in root, not in home
         return QIcon(icon_name);
     } else {
         icon_name = icon_name.remove(".png");
@@ -81,13 +81,13 @@ QIcon MainWindow::findIcon(QString icon_name)
         if (!QIcon::fromTheme(icon_name).name().isEmpty()) {
             return QIcon::fromTheme(icon_name);
         // return png, svg, xpm icons from /usr/share/pixmaps
-        } else if (QFile("/usr/share/pixmaps/" + icon_name + ".png").exists()) {
+        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".png")) {
             return QIcon("/usr/share/pixmaps/" + icon_name + ".png");
-        } else if (QFile("/usr/share/pixmaps/" + icon_name + ".svg").exists()) {
+        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".svg")) {
             return QIcon("/usr/share/pixmaps/" + icon_name + ".svg");
-        } else if (QFile("/usr/share/pixmaps/" + icon_name + ".xpm").exists()) {
+        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".xpm")) {
             return QIcon("/usr/share/pixmaps/" + icon_name + ".xpm");
-        } else if (QFile("/usr/share/pixmaps/" + icon_name).exists()) {
+        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name)) {
             return QIcon("/usr/share/pixmaps/" + icon_name);
         } else {
             return QIcon::fromTheme("utilities-terminal");
@@ -390,7 +390,7 @@ void MainWindow::readFile(QString file_name)
     category_map.clear();
 
     QFile file(file_name);
-    if (file.exists()) {
+    if (QFileInfo::exists(file_name)) {
         base_name = QFileInfo(file_name).baseName();
         file_location= QFileInfo(file_name).path();
         if (!file.open(QFile::ReadOnly | QFile::Text)) {
