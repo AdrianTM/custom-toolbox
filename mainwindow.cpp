@@ -53,11 +53,10 @@ MainWindow::MainWindow(QWidget *parent) :
     file_location = "/etc/custom-toolbox";
 
     QStringList args = qApp->arguments();
-    if (args.size() > 1) {
+    if (args.size() > 1)
         file_name =  QFile(args.at(1)).exists() ? args.at(1) : getFileName();
-    } else {
+    else
         file_name = getFileName();
-    }
     readFile(file_name);
     setGui();
 }
@@ -78,20 +77,19 @@ QIcon MainWindow::findIcon(QString icon_name)
         icon_name = icon_name.remove(".svg");
         icon_name = icon_name.remove(".xpm");
         // return the icon from the theme if it exists
-        if (!QIcon::fromTheme(icon_name).name().isEmpty()) {
+        if (!QIcon::fromTheme(icon_name).name().isEmpty())
             return QIcon::fromTheme(icon_name);
         // return png, svg, xpm icons from /usr/share/pixmaps
-        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".png")) {
+        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".png"))
             return QIcon("/usr/share/pixmaps/" + icon_name + ".png");
-        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".svg")) {
+        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".svg"))
             return QIcon("/usr/share/pixmaps/" + icon_name + ".svg");
-        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".xpm")) {
+        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".xpm"))
             return QIcon("/usr/share/pixmaps/" + icon_name + ".xpm");
-        } else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name)) {
+        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name))
             return QIcon("/usr/share/pixmaps/" + icon_name);
-        } else {
+        else
             return QIcon::fromTheme("utilities-terminal");
-        }
     }
 }
 
@@ -107,9 +105,8 @@ QString MainWindow::fixExecItem(QString item)
 // fix name of the item
 QString MainWindow::fixNameItem(QString item)
 {
-   if (item == "System Profiler and Benchmark") {
+   if (item == "System Profiler and Benchmark")
        item = "System Information";
-   }
    return item;
 }
 
@@ -160,9 +157,8 @@ void MainWindow::setGui()
 
     // check if .desktop file is in autostart
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
-    if (QFile::exists(file_name)) {
+    if (QFile::exists(file_name))
         ui->checkBoxStartup->setChecked(true);
-    }
     ui->lineSearch->setFocus();
 
     this->show();
@@ -197,11 +193,10 @@ QString MainWindow::getFileName()
    if (file_name.isEmpty()) exit(-1);
    if (!QFile::exists(file_name)) {
        int ans = QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
-       if (ans == QMessageBox::No) {
+       if (ans == QMessageBox::No)
            exit(-1);
-       } else {
+       else
            return getFileName();
-       }
    }
    return file_name;
 }
@@ -238,9 +233,9 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     }
 
     QFile file(file_name);
-    if (!file.open(QFile::Text | QFile::ReadOnly)) {
+    if (!file.open(QFile::Text | QFile::ReadOnly))
        return QStringList();
-    }
+
     QString text = file.readAll();
     file.close();
 
@@ -326,12 +321,10 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     row += 1;
                 }
 
-                if (terminal == "true") {
+                if (terminal == "true")
                     exec = "x-terminal-emulator -e "  + exec;
-                }
-                if (root == "true") {
+                if (root == "true")
                     exec = "su-to-root -X -c '" + exec + "'";
-                }
                 btn->setProperty("cmd", exec);
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
@@ -355,9 +348,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 // process read line
 void MainWindow::processLine(QString line)
 {
-    if (line.startsWith("#") || line.isEmpty()) { // filter out comment and empty lines
+    if (line.startsWith("#") || line.isEmpty()) // filter out comment and empty lines
         return;
-    }
+
     QStringList line_list = line.split("=");
     QString key = line_list.at(0).trimmed();
     QString value = line_list.size() > 1 ? line_list[1].remove(QLatin1Char('"')).trimmed() : QString();
@@ -372,11 +365,10 @@ void MainWindow::processLine(QString line)
         QString desktop_file = getDesktopFileName(list.at(0));
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
-            if (list.size() > 1) { // check if root flag present
+            if (list.size() > 1) // check if root flag present
                info << ((list.at(1).toLower() == QLatin1String("root")) ? QLatin1String("true") : QLatin1String("false"));
-            } else {
+            else
                 info << QLatin1String("false");
-            }
             category_map.insert(categories.last(), info);
         }
     }
@@ -399,9 +391,8 @@ void MainWindow::readFile(QString file_name)
         }
         QTextStream in(&file);
         QString line;
-        while(!in.atEnd()) {
+        while(!in.atEnd())
             processLine(in.readLine());
-        }
         file.close();
     } else {
         exit(-1);
@@ -452,9 +443,8 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
             }
         }
     }
-    if (!new_map.empty()) {
+    if (!new_map.empty())
         arg1.isEmpty() ? addButtons(category_map) : addButtons(new_map);
-    }
 }
 
 // add a .desktop file to the ~/.config/autostart
@@ -463,9 +453,8 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (checked) {
         QFile file(file_name);
-        if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        if (!file.open(QFile::WriteOnly | QFile::Text))
             QMessageBox::critical(this, tr("File Open Error"), tr("Could not write file: ") + file_name);
-        }
         QTextStream out(&file);
         out << "[Desktop Entry]" << "\n";
         out << "Name=" << this->windowTitle() << "\n";
@@ -489,11 +478,10 @@ void MainWindow::on_buttonEdit_clicked()
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
         QString desktop_file = getDesktopFileName(shell->getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
         QString editor = shell->getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
-        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if default one doesn't exit use nano as backup editor
+        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
-        } else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) { // need to run these as normal user
+        else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) // need to run these as normal user
             editor = "runuser -u $(logname) " + editor;
-        }
         gui_editor = editor;
     }
     this->hide();
