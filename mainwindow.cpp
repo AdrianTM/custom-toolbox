@@ -30,13 +30,13 @@
 #include <QSettings>
 #include <QTextEdit>
 
-#include "ui_mainwindow.h"
-#include "mainwindow.h"
-#include "flatbutton.h"
-#include "unistd.h"
-#include "about.h"
-#include "version.h"
 #include <unistd.h>
+
+#include "ui_mainwindow.h"
+#include "about.h"
+#include "flatbutton.h"
+#include "mainwindow.h"
+#include "version.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -192,7 +192,9 @@ QString MainWindow::getFileName()
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
    if (file_name.isEmpty()) exit(-1);
    if (!QFile::exists(file_name)) {
-       int ans = QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file, do you want to try again?"), QMessageBox::Yes, QMessageBox::No);
+       int ans = QMessageBox::critical(this, tr("File Open Error"),
+                                       tr("Could not open file, do you want to try again?"),
+                                       QMessageBox::Yes, QMessageBox::No);
        if (ans == QMessageBox::No)
            exit(-1);
        else
@@ -386,7 +388,8 @@ void MainWindow::readFile(QString file_name)
         base_name = QFileInfo(file_name).baseName();
         file_location= QFileInfo(file_name).path();
         if (!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+            QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" +
+                                  tr("Application will close."));
             exit(-1);
         }
         QTextStream in(&file);
@@ -403,11 +406,12 @@ void MainWindow::readFile(QString file_name)
 void MainWindow::on_buttonAbout_clicked()
 {
     this->hide();
-    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle() +"</h2></b></p><p align=\"center\">" +
+    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle()
+                       + "</h2></b></p><p align=\"center\">" +
                        tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" +
                        tr("Custom Toolbox is a tool used for creating a custom launcher") +
-                       "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
-                       tr("Copyright (c) MX Linux") + "<br /><br /></p>",
+                       "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
+                       "<p align=\"center\">" + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
                        "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), (getuid() == 0));
     this->show();
 }
