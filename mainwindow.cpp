@@ -47,7 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     shell = new Cmd;
-    local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications") ? "/.local/share/applications " : " ";
+    local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
+            ? QDir::homePath() + "/.local/share/applications " : " ";
     setup();
 
     file_location = "/etc/custom-toolbox";
