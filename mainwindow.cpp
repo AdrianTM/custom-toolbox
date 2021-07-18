@@ -1,7 +1,7 @@
  /**********************************************************************
  *  MainWindow.cpp
  **********************************************************************
- * Copyright (C) 2017 MX Authors
+ * Copyright (C) 2017-2021 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -38,7 +38,6 @@
 #include "mainwindow.h"
 #include "version.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
@@ -48,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     shell = new Cmd;
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
-            ? QDir::homePath() + "/.local/share/applications " : " ";
+              ? QDir::homePath() + "/.local/share/applications " : " ";
     setup();
 
     file_location = "/etc/custom-toolbox";
@@ -68,30 +67,43 @@ MainWindow::~MainWindow()
 }
 
 // find icon file by name
-QIcon MainWindow::findIcon(QString icon_name)
+QString MainWindow::findIcon(QString icon_name)
 {
-    // return icon if fully specified
-    if (QFileInfo::exists("/" + icon_name)) { // make sure it looks for icon in root, not in home
-        return QIcon(icon_name);
-    } else {
-        icon_name = icon_name.remove(".png");
-        icon_name = icon_name.remove(".svg");
-        icon_name = icon_name.remove(".xpm");
-        // return the icon from the theme if it exists
-        if (!QIcon::fromTheme(icon_name).name().isEmpty())
-            return QIcon::fromTheme(icon_name);
-        // return png, svg, xpm icons from /usr/share/pixmaps
-        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".png"))
-            return QIcon("/usr/share/pixmaps/" + icon_name + ".png");
-        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".svg"))
-            return QIcon("/usr/share/pixmaps/" + icon_name + ".svg");
-        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name + ".xpm"))
-            return QIcon("/usr/share/pixmaps/" + icon_name + ".xpm");
-        else if (QFileInfo::exists("/usr/share/pixmaps/" + icon_name))
-            return QIcon("/usr/share/pixmaps/" + icon_name);
-        else
-            return QIcon::fromTheme("utilities-terminal");
+    if (icon_name.isEmpty())
+        return QString();
+    if (QFileInfo::exists("/" + icon_name))
+        return icon_name;
+
+    QString search_term = icon_name;
+    if (!icon_name.endsWith(".png") && !icon_name.endsWith(".svg") && !icon_name.endsWith(".xpm"))
+        search_term = icon_name + ".*";
+
+    icon_name.remove(QRegularExpression("\\.png$|\\.svg$|\\.xpm$"));
+
+    // Try to find in most obvious places
+    QStringList search_paths { QDir::homePath() + "/.local/share/icons/",
+                               "/usr/share/icons/" + QIcon::themeName() + "/48x48/apps/",
+                               "/usr/share/icons/" + QIcon::themeName() + "/48x48/",
+                               "/usr/share/icons/" + QIcon::themeName(),
+                               "/usr/share/pixmaps/",
+                               "/usr/share/icons/hicolor/48x48/apps/"};
+    for (const QString &path : search_paths) {
+        if (!QFileInfo::exists(path)) {
+            search_paths.removeOne(path);
+            continue;
+        }
+        for (const QString &ext : {".png", ".svg", ".xpm"} )
+            if (QFileInfo::exists(path + icon_name + ext))
+                return (path + icon_name + ext);
     }
+
+    // Search recursive
+    search_paths.append("/usr/share/icons/hicolor/48x48/");
+    search_paths.append("/usr/share/icons/hicolor/");
+    search_paths.append("/usr/share/icons/");
+    QString out = shell->getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
+                                   + "\" -print -quit 2>/dev/null", true);
+    return (!out.isEmpty()) ? out : QString();
 }
 
 // fix varios exec= items to make sure they run correctly
@@ -315,7 +327,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 btn->setIconSize(40, 40);
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
-                btn->setIcon(findIcon(icon_name));
+                icon_name = findIcon(icon_name);
+                QIcon icon = !icon_name.isEmpty() ? QIcon(icon_name) : QIcon::fromTheme("utilities-terminal");
+                btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
                  ui->gridLayout_btn->setRowStretch(row, 0);
                 col += 1;

@@ -1,7 +1,7 @@
 /**********************************************************************
  *  customtoolbox.h
  **********************************************************************
- * Copyright (C) 2017 MX Authors
+ * Copyright (C) 2017-2021 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -46,7 +46,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QIcon findIcon(QString icon_name);
+    QString findIcon(QString icon_name);
     QString fixExecItem(QString item);
     QString fixNameItem(QString item);
     QString getDesktopFileName(QString app_name);
