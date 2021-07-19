@@ -1,3 +1,9 @@
+custom-toolbox (0.21.7.01) mx; urgency=medium
+
+  * Try to return icon fromTheme first
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 19 Jul 2021 09:27:22 -0400
+
 custom-toolbox (0.21.7) mx; urgency=medium
 
   * Preserve order from list when adding buttons
