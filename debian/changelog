@@ -1,3 +1,13 @@
+custom-toolbox (0.21.7) mx; urgency=medium
+
+  * Preserve order from list when adding buttons
+  * Add "alias" option to change displayed name of program, format: alias 'new name'
+  * Don't ask for root access if .list file is editable by user
+  * Faster icon search
+  * Save config file under ~/.config/MX-Linux
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 19 Jul 2021 02:11:59 -0400
+
 custom-toolbox (0.21.1) mx; urgency=medium
 
   * remove disown which is not present in sh

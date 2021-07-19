@@ -1,0 +1,50 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 19 Jul 2021 02:11:59 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.21.7
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.7) mx; urgency=medium
+ .
+   * Preserve order from list when adding buttons
+   * Add "alias" option to change displayed name of program, format: alias 'new name'
+   * Don't ask for root access if .list file is editable by user
+   * Faster icon search
+   * Save config file under ~/.config/MX-Linux
+Checksums-Sha1:
+ 0ffdbb4925d13af93b313eb411024df2d936fe3e 1190 custom-toolbox_0.21.7.dsc
+ a2b5e958c59e1edf8cc3714659fe81d6c7c3a510 28040 custom-toolbox_0.21.7.tar.xz
+ 87ec31ce60225c607520c82b9c7c6697bd6945dd 10460 custom-toolbox_0.21.7_amd64.buildinfo
+ 57830f768d2e5e7b7dc7dd380d308bdfe62e764e 47084 custom-toolbox_0.21.7_amd64.deb
+Checksums-Sha256:
+ 0601932485e97a2ed2b7f85835f8389f3e0f557295863a08c21161d678e37789 1190 custom-toolbox_0.21.7.dsc
+ 55faef63259aa09fdcfd62ed9a98dc5fb12e3852ca696750a75e39031970b2e8 28040 custom-toolbox_0.21.7.tar.xz
+ 1ee40bfb95682a02cadf91da37c02e00cd20744025abbb95c708fb17fc162376 10460 custom-toolbox_0.21.7_amd64.buildinfo
+ b28bde64cd0b014beabad4f1fa3a0f06f77dcf6893c0fa94e3c0bc8bdd5c267f 47084 custom-toolbox_0.21.7_amd64.deb
+Files:
+ 25de581670f22464fb124cfd7af5a49f 1190 admin optional custom-toolbox_0.21.7.dsc
+ c5367bbd1e8dd7f63d1685792cd1b684 28040 admin optional custom-toolbox_0.21.7.tar.xz
+ 4377107864547b79016795427742d794 10460 admin optional custom-toolbox_0.21.7_amd64.buildinfo
+ 0ae05234eef2d439df63798a464fa0c1 47084 admin optional custom-toolbox_0.21.7_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmD1GWITHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumG70B/4zK/f974mDM+2fcReFtnX6J6jQWW0c
+luebcBAlab/uPQeBPJlCI/+Tz+/jK0/dK2Wl4GrP5gzyVJhbXShr/SgDGhZefiGz
+sm3s8xRCKEKCU1Fs4LBo585y8OgDIlW2fybZNIqhtZ/RO2p32iSPX4phNeh5aU0w
+cSaJxmQOUuBX6Ha6GJaSiLIAp2m9RkWEP2yK8a6GBrXeNIUJdJvGfKT7fPpsmM8o
+hqpq1AajosHzme5yPvUCZSok5G6TcZCWEvl2Mcajby/S7Kd9tfxooPQdLKFG+Pq2
+5xCJzvDqPmhMkjJWG4ESOpM69g9FcVXmkXbzbZ3ldbPoJhl/tyOUiWL6
+=mEkI
+-----END PGP SIGNATURE-----

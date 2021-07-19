@@ -1,0 +1,44 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 19 Jul 2021 02:11:59 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.21.7
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.7) mx; urgency=medium
+ .
+   * Preserve order from list when adding buttons
+   * Add "alias" option to change displayed name of program, format: alias 'new name'
+   * Don't ask for root access if .list file is editable by user
+   * Faster icon search
+   * Save config file under ~/.config/MX-Linux
+Checksums-Sha1:
+ f86fcbe99a6d2a8c7d3e9666bbb9ee81e8993a62 10151 custom-toolbox_0.21.7_i386.buildinfo
+ b90c209fdf4c2bd05eaa989cb36651cae219cb2d 50428 custom-toolbox_0.21.7_i386.deb
+Checksums-Sha256:
+ 9f970e5b7714f3af86bb23f2f8b37a3813a32b116ff6552125d2b1e78898967c 10151 custom-toolbox_0.21.7_i386.buildinfo
+ 0f1f7923760bb4dbcfbc6108a9bdb3266ffbfb6d0c1ad87bd05f38a75cf0d8fd 50428 custom-toolbox_0.21.7_i386.deb
+Files:
+ bf60305aabe07cfeeb66d299b65e40f9 10151 admin optional custom-toolbox_0.21.7_i386.buildinfo
+ d65693cb0ffd7c0ce547b6a45a490a63 50428 admin optional custom-toolbox_0.21.7_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmD1GWMTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumKzlB/917uzE+hKZGn0kiXjAlReKu11LRfC0
+bOX/Yx+JllU+6gMh6rej1q4lKcsC31F8vouCj6xlsImtNM6Fx7gQuwrwuigGBnHO
+Y8RkqlJMOp2zf8dWBLB0XSSG/VcuMSw7VFF3H5QTiZuMHbDv2S89wA+KYrCixz7+
+b0+hJUPDzPua2BRRABMQBBPw9Jp/AtZsG5Jyw2Ebx3aCmwgoqed+3tuW+5Iyv18u
+S80hTbhJFCaUJcU30OsmFJ7mbvrkBO5MeX96Rbmka3kSdZmNiDhTHFhjK1ihOnXw
+dP0MRDOUHs9Yt4tC3sCAS0O9ErUbWxisGJ0gWsD5gvXLwzb5lyUQkJ1g
+=CVKC
+-----END PGP SIGNATURE-----
