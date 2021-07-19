@@ -332,7 +332,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
                 QIcon icon = findIcon(icon_name);
-                if (!icon.name().isEmpty())
+                if (icon.name().isEmpty())
                     icon = QIcon::fromTheme("utilities-terminal");
                 btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
