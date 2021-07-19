@@ -66,7 +66,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// find icon file by name
+// Find icon file by name
 QString MainWindow::findIcon(QString icon_name)
 {
     if (icon_name.isEmpty())
@@ -109,7 +109,7 @@ QString MainWindow::findIcon(QString icon_name)
     return (!out.isEmpty()) ? out : QString();
 }
 
-// fix varios exec= items to make sure they run correctly
+// Fix varios exec= items to make sure they run correctly
 QString MainWindow::fixExecItem(QString item)
 {
     item.remove(QLatin1String(" %f"));  // remove %f if exec expects a file name since it's called without a name
@@ -118,7 +118,7 @@ QString MainWindow::fixExecItem(QString item)
     return item;
 }
 
-// fix name of the item
+// Fix name of the item
 QString MainWindow::fixNameItem(QString item)
 {
    if (item == "System Profiler and Benchmark")
@@ -126,7 +126,7 @@ QString MainWindow::fixNameItem(QString item)
    return item;
 }
 
-// setup versious items and load configurations first time program runs
+// Setup versious items and load configurations first time program runs
 void MainWindow::setup()
 {
     this->setWindowTitle(tr("Custom Toolbox"));
@@ -140,10 +140,10 @@ void MainWindow::setup()
     max_col = settings.value("max_col", 3).toInt();
 }
 
-// add buttons and resize GUI
+// Add buttons and resize GUI
 void MainWindow::setGui()
 {
-    // remove all items from the layout
+    // Remove all items from the layout
     QLayoutItem *child;
     while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
@@ -171,7 +171,7 @@ void MainWindow::setGui()
         this->move(x, y);
     }
 
-    // check if .desktop file is in autostart
+    // Check if .desktop file is in autostart
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (QFile::exists(file_name))
         ui->checkBoxStartup->setChecked(true);
@@ -180,7 +180,7 @@ void MainWindow::setGui()
     this->show();
 }
 
-// execute command when button is clicked
+// Execute command when button is clicked
 void MainWindow::btn_clicked()
 {
     QString cmd = sender()->property("cmd").toString();
@@ -202,7 +202,7 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 
 
-// select .list file to open
+// Select .list file to open
 QString MainWindow::getFileName()
 {
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
@@ -219,7 +219,7 @@ QString MainWindow::getFileName()
    return file_name;
 }
 
-// find the .desktop file for the app name
+// Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
     QString name = shell->getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
@@ -228,7 +228,7 @@ QString MainWindow::getDesktopFileName(QString app_name)
     return name;
 }
 
-// return the app info needed for the button
+// Return the app info needed for the button
 QStringList MainWindow::getDesktopFileInfo(QString file_name)
 {
     QStringList app_info;
@@ -244,7 +244,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     QRegularExpression re;
     re.setPatternOptions(QRegularExpression::MultilineOption);
 
-    // if a command not a .desktop file
+    // If a command not a .desktop file
     if (!file_name.endsWith(".desktop")) {
         app_info << file_name << comment << file_name << file_name << "true";
         return app_info;
@@ -291,7 +291,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     return app_info;
 }
 
-// add the buttoms to the window
+// Add the buttoms to the window
 void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 {
     int col = 0;
@@ -349,7 +349,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
         }
-        // add empty row if it's not the last key
+        // Add empty row if it's not the last key
         if (category != map.lastKey()) {
             col = 0;
             row += 1;
@@ -364,8 +364,6 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 }
 
 
-
-// process read line
 void MainWindow::processLine(QString line)
 {
     if (line.startsWith("#") || line.isEmpty()) // filter out comment and empty lines
@@ -385,46 +383,50 @@ void MainWindow::processLine(QString line)
         QString desktop_file = getDesktopFileName(list.at(0));
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
-            if (list.size() > 1) // check if root flag present
-               info << ((list.at(1).toLower() == QLatin1String("root")) ? QLatin1String("true") : QLatin1String("false"));
-            else
+            if (list.size() > 1) { // check if root or alias flag present
+               info << ((list.contains(QLatin1String("root"))) ? QLatin1String("true") : QLatin1String("false"));
+               if (list.contains(QLatin1String("alias"))) {
+                   QString str;
+                   for (auto it = list.lastIndexOf("alias"); it + 1 < list.size(); ++it)
+                        str.append(list.at(it + 1) + " ");
+                   info[0] = str.trimmed().remove("'").remove("\"");
+               }
+            } else {
                 info << QLatin1String("false");
+            }
+
             category_map.insert(categories.last(), info);
         }
     }
 }
 
-// open the .list file and process it
+// Open the .list file and process it
 void MainWindow::readFile(QString file_name)
 {
-    // reset categories, category_map
+    // Reset categories, category_map
     categories.clear();
     category_map.clear();
 
     QFile file(file_name);
-    if (QFileInfo::exists(file_name)) {
-        base_name = QFileInfo(file_name).baseName();
-        file_location= QFileInfo(file_name).path();
-        if (!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" +
-                                  tr("Application will close."));
-            exit(-1);
-        }
-        QTextStream in(&file);
-        QString line;
-        while(!in.atEnd())
-            processLine(in.readLine());
-        file.close();
-
-        // Reverse map
-        QMultiMap<QString, QStringList> map;
-        for (auto i = category_map.constBegin(); i != category_map.constEnd(); ++i)
-            map.insert(i.key(), i.value());
-        category_map = map;
-
-    } else {
+    if (!QFileInfo::exists(file_name))
+        exit(-1);
+    base_name = QFileInfo(file_name).baseName();
+    file_location = QFileInfo(file_name).path();
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" +
+                              tr("Application will close."));
         exit(-1);
     }
+
+    for (QTextStream in(&file); !in.atEnd(); )
+        processLine(in.readLine());
+    file.close();
+
+    // Reverse map
+    QMultiMap<QString, QStringList> map;
+    for (auto i = category_map.constBegin(); i != category_map.constEnd(); ++i)
+        map.insert(i.key(), i.value());
+    category_map = map;
 }
 
 // About button clicked
@@ -473,7 +475,7 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     addButtons(new_map.empty() ? category_map : new_map);
 }
 
-// add a .desktop file to the ~/.config/autostart
+// Add a .desktop file to the ~/.config/autostart
 void MainWindow::on_checkBoxStartup_clicked(bool checked)
 {
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
@@ -498,7 +500,7 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 }
 
 
-// edit launcher .list file
+// Edit launcher .list file
 void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
@@ -511,7 +513,9 @@ void MainWindow::on_buttonEdit_clicked()
         gui_editor = editor;
     }
     this->hide();
-    QString cmd = "su-to-root -X -c '" + gui_editor + " " + file_name + "'";
+    QString cmd = gui_editor + " " + file_name;
+    if (system("test -w " + file_name.toUtf8()) != 0)
+       cmd = "su-to-root -X -c '" + cmd + "'";
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();

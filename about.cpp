@@ -10,7 +10,7 @@
 #include "version.h"
 
 
-// display doc as nomal user when run as root
+// Display doc as nomal user when run as root
 void displayDoc(QString url, QString title, bool runned_as_root)
 {
     if (system("command -v mx-viewer >/dev/null") == 0) {
