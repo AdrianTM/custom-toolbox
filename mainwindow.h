@@ -79,7 +79,7 @@ private:
 
     Cmd *shell;
     FlatButton *btn;
-    QList<QString> categories;
+    QStringList categories;
     QMultiMap<QString, QStringList> category_map;
     QString base_name;
     QString file_location;

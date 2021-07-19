@@ -415,6 +415,13 @@ void MainWindow::readFile(QString file_name)
         while(!in.atEnd())
             processLine(in.readLine());
         file.close();
+
+        // Reverse map
+        QMultiMap<QString, QStringList> map;
+        for (auto i = category_map.constBegin(); i != category_map.constEnd(); ++i)
+            map.insert(i.key(), i.value());
+        category_map = map;
+
     } else {
         exit(-1);
     }
@@ -451,22 +458,19 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
         delete child;
     }
 
-    QMultiMap<QString, QStringList> new_map;
-
     // create a new_map with items that match the search argument
-    for (const QString &category : categories) {
-        for (const QStringList &item : category_map.values(category)) {
-            QString name = item.at(0);
-            QString comment = item.at(1);
-            if (name.contains(arg1, Qt::CaseInsensitive)
-                    or comment.contains(arg1, Qt::CaseInsensitive)
-                    or category.contains(arg1, Qt::CaseInsensitive)) {
-                new_map.insert(category, item);
-            }
+    QMultiMap<QString, QStringList> new_map;
+    for (auto i = category_map.constEnd() - 1; i != category_map.constBegin() - 1; --i) {
+        QString category = i.key();
+        QString name = i.value().at(0);
+        QString comment = i.value().at(0);
+        if (name.contains(arg1, Qt::CaseInsensitive)
+                or comment.contains(arg1, Qt::CaseInsensitive)
+                or category.contains(arg1, Qt::CaseInsensitive)) {
+            new_map.insert(i.key(), i.value());
         }
     }
-    if (!new_map.empty())
-        arg1.isEmpty() ? addButtons(category_map) : addButtons(new_map);
+    addButtons(new_map.empty() ? category_map : new_map);
 }
 
 // add a .desktop file to the ~/.config/autostart
