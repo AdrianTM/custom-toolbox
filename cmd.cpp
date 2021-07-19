@@ -24,7 +24,7 @@ bool Cmd::run(const QString &cmd, bool quiet)
     return run(cmd, output, quiet);
 }
 
-// util function for getting bash command output
+// Util function for getting bash command output
 QString Cmd::getCmdOut(const QString &cmd, bool quiet)
 {
     QString output;

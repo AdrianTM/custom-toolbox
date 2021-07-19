@@ -58,17 +58,14 @@ public:
     void setGui();
     void setup();
 
-public slots:
-
 private slots:
     void closeEvent(QCloseEvent *);
     void btn_clicked();
     void on_buttonAbout_clicked();
+    void on_buttonEdit_clicked();
     void on_buttonHelp_clicked();
     void on_checkBoxStartup_clicked(bool checked);
     void on_lineSearch_textChanged(const QString &arg1);
-
-    void on_buttonEdit_clicked();
 
 private:
     bool hideGUI;
