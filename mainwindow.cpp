@@ -81,7 +81,7 @@ QIcon MainWindow::findIcon(QString icon_name)
     icon_name.remove(QRegularExpression("\\.png$|\\.svg$|\\.xpm$"));
 
     // return the icon from the theme if it exists
-    if (!QIcon::fromTheme(icon_name).name().isEmpty())
+    if (!QIcon::fromTheme(icon_name).isNull())
         return QIcon::fromTheme(icon_name);
 
     // Try to find in most obvious places
@@ -332,7 +332,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
                 QIcon icon = findIcon(icon_name);
-                if (icon.name().isEmpty())
+                if (icon.isNull())
                     icon = QIcon::fromTheme("utilities-terminal");
                 btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
