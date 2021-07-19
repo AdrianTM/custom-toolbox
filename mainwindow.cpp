@@ -86,15 +86,18 @@ QString MainWindow::findIcon(QString icon_name)
                                "/usr/share/icons/" + QIcon::themeName() + "/48x48/",
                                "/usr/share/icons/" + QIcon::themeName(),
                                "/usr/share/pixmaps/",
+                               "/usr/local/share/icons/",
                                "/usr/share/icons/hicolor/48x48/apps/"};
     for (const QString &path : search_paths) {
         if (!QFileInfo::exists(path)) {
             search_paths.removeOne(path);
             continue;
         }
-        for (const QString &ext : {".png", ".svg", ".xpm"} )
-            if (QFileInfo::exists(path + icon_name + ext))
-                return (path + icon_name + ext);
+        for (const QString &ext : {".png", ".svg", ".xpm"} ) {
+            QString file = path + icon_name + ext;
+            if (QFileInfo::exists(file))
+                return file;
+        }
     }
 
     // Search recursive
@@ -157,7 +160,7 @@ void MainWindow::setGui()
     int width = this->width();
     int height = this->height();
 
-    QSettings settings(qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
+    QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value("geometry").toByteArray());
 
     if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
@@ -193,7 +196,7 @@ void MainWindow::btn_clicked()
 
 void MainWindow::closeEvent(QCloseEvent *)
 {
-    QSettings settings(qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
+    QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     settings.setValue("geometry", saveGeometry());
 }
 
