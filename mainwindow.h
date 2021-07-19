@@ -46,7 +46,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QString findIcon(QString icon_name);
+    QIcon findIcon(QString icon_name);
     QString fixExecItem(QString item);
     QString fixNameItem(QString item);
     QString getDesktopFileName(QString app_name);

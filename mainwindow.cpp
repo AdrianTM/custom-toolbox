@@ -67,12 +67,12 @@ MainWindow::~MainWindow()
 }
 
 // Find icon file by name
-QString MainWindow::findIcon(QString icon_name)
+QIcon MainWindow::findIcon(QString icon_name)
 {
     if (icon_name.isEmpty())
-        return QString();
+        return QIcon();
     if (QFileInfo::exists("/" + icon_name))
-        return icon_name;
+        return QIcon(icon_name);
 
     QString search_term = icon_name;
     if (!icon_name.endsWith(".png") && !icon_name.endsWith(".svg") && !icon_name.endsWith(".xpm"))
@@ -80,14 +80,15 @@ QString MainWindow::findIcon(QString icon_name)
 
     icon_name.remove(QRegularExpression("\\.png$|\\.svg$|\\.xpm$"));
 
+    // return the icon from the theme if it exists
+    if (!QIcon::fromTheme(icon_name).name().isEmpty())
+        return QIcon::fromTheme(icon_name);
+
     // Try to find in most obvious places
     QStringList search_paths { QDir::homePath() + "/.local/share/icons/",
-                               "/usr/share/icons/" + QIcon::themeName() + "/48x48/apps/",
-                               "/usr/share/icons/" + QIcon::themeName() + "/48x48/",
-                               "/usr/share/icons/" + QIcon::themeName(),
                                "/usr/share/pixmaps/",
                                "/usr/local/share/icons/",
-                               "/usr/share/icons/hicolor/48x48/apps/"};
+                               "/usr/share/icons/hicolor/48x48/apps/" };
     for (const QString &path : search_paths) {
         if (!QFileInfo::exists(path)) {
             search_paths.removeOne(path);
@@ -96,7 +97,7 @@ QString MainWindow::findIcon(QString icon_name)
         for (const QString &ext : {".png", ".svg", ".xpm"} ) {
             QString file = path + icon_name + ext;
             if (QFileInfo::exists(file))
-                return file;
+                return QIcon(file);
         }
     }
 
@@ -106,7 +107,7 @@ QString MainWindow::findIcon(QString icon_name)
     search_paths.append("/usr/share/icons/");
     QString out = shell->getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
                                    + "\" -print -quit 2>/dev/null", true);
-    return (!out.isEmpty()) ? out : QString();
+    return (!out.isEmpty()) ? QIcon(out) : QIcon();
 }
 
 // Fix varios exec= items to make sure they run correctly
@@ -330,8 +331,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 btn->setIconSize(40, 40);
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
-                icon_name = findIcon(icon_name);
-                QIcon icon = !icon_name.isEmpty() ? QIcon(icon_name) : QIcon::fromTheme("utilities-terminal");
+                QIcon icon = findIcon(icon_name);
+                if (icon.name().isEmpty())
+                    icon = QIcon::fromTheme("utilities-terminal");
                 btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
                  ui->gridLayout_btn->setRowStretch(row, 0);
