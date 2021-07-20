@@ -80,8 +80,11 @@ QIcon MainWindow::findIcon(QString icon_name)
 
     icon_name.remove(QRegularExpression("\\.png$|\\.svg$|\\.xpm$"));
 
+    if (!icon_theme.isEmpty())
+        QIcon::setThemeName(icon_theme);
+
     // return the icon from the theme if it exists
-    if (!QIcon::fromTheme(icon_name).isNull())
+    if (QIcon::hasThemeIcon(icon_name))
         return QIcon::fromTheme(icon_name);
 
     // Try to find in most obvious places
@@ -380,6 +383,8 @@ void MainWindow::processLine(QString line)
         ui->commentLabel->setText(value);
     } else if (key.toLower() == QLatin1String("category")) {
         categories.append(value);
+    } else if (key.toLower() == QLatin1String("theme")) {
+        icon_theme = value;
     } else { // assume it's the name of the app and potentially a "root" flag
         QStringList list = key.split(" ");
         QString desktop_file = getDesktopFileName(list.at(0));

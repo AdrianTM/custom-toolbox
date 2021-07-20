@@ -81,6 +81,7 @@ private:
     QString base_name;
     QString file_location;
     QString file_name;
+    QString icon_theme;
     QString local_dir;
     QString version;
 
