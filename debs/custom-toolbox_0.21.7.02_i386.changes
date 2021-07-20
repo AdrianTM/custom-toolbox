@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Tue, 20 Jul 2021 00:43:01 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.21.7.02
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.7.02) mx; urgency=medium
+ .
+   * Add Theme= option in .list to load a specific icon theme
+Checksums-Sha1:
+ 0d02303a215b0c49b71008460b40008fe1dd31cc 10166 custom-toolbox_0.21.7.02_i386.buildinfo
+ 222e61090c562b70e0928be4496b4e2d233a42f9 50434 custom-toolbox_0.21.7.02_i386.deb
+Checksums-Sha256:
+ 62f27c520a9f8a60857de6efe7067ee1894b90d49716702f2e2b70e2f4f24838 10166 custom-toolbox_0.21.7.02_i386.buildinfo
+ 4031bbc157bb9c00c5e9dee941168169e7a18861ba757db231f04185f1c16cbe 50434 custom-toolbox_0.21.7.02_i386.deb
+Files:
+ 7c99f8f898d73bff13e4501a19747914 10166 admin optional custom-toolbox_0.21.7.02_i386.buildinfo
+ b697a2ade8e0f0cd64cdf1a968a3b637 50434 admin optional custom-toolbox_0.21.7.02_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmD2VRwTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumKHhCADXjdhj/zyjTAQmG9Ebwi76LB9VjsAr
+SLRfeSdMbXvZJE3CG5MJvud5GkMmGPgSd7pJKVE6ktAC0IKmHFrj7EUIGibW/dX5
+JGfkUw0pOLZi1jEtHhtyMoJOeZb+hA4SyFoz2OCBlwUTy7RG09thBxkaaUPW4mzE
+NQieKHaHC6tItIxjHfwhwjCLPMC5jUlhZEoTSAG6lnd367CiNUMtU4eT486aofff
++k+dP8Js1u0JF5Nqbz20TLzUS8ncplpn5/rE5lpVA4gTwqwgXd7mImZ2mbCUNbxF
+7qVsJS2DQf/gZoTZ6YkwmfR+HrVEWwciMjvXjtMaH7wcbJHjLs0M/q5i
+=HFvy
+-----END PGP SIGNATURE-----
