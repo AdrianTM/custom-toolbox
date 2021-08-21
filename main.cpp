@@ -23,6 +23,7 @@
  **********************************************************************/
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QLocale>
@@ -48,6 +49,13 @@ int main(int argc, char *argv[])
     if (appTran.load(app.applicationName() + "_" + QLocale::system().name(), "/usr/share/" + app.applicationName() + "/locale"))
         app.installTranslator(&appTran);
 
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QObject::tr("This app can be used to create custom launchers: box of buttons/icons"));
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addOption({{"r", "remove-checkbox"}, QObject::tr("Don't show 'show this dialog at startup' checkbox")});
+    parser.process(app);
+
     // Root guard
     if (system("logname |grep -q ^root$") == 0) {
         QMessageBox::critical(nullptr, QObject::tr("Error"),
@@ -55,7 +63,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    MainWindow w;
+    MainWindow w(parser);
     w.show();
     return app.exec();
 

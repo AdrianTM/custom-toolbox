@@ -38,12 +38,15 @@
 #include "mainwindow.h"
 #include "version.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(const QCommandLineParser &parser, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
+    if (parser.isSet("remove-checkbox"))
+        ui->checkBoxStartup->hide();
+
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     shell = new Cmd;
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
@@ -177,8 +180,10 @@ void MainWindow::setGui()
 
     // Check if .desktop file is in autostart
     QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
-    if (QFile::exists(file_name))
+    if (QFile::exists(file_name)) {
+        ui->checkBoxStartup->show();
         ui->checkBoxStartup->setChecked(true);
+    }
     ui->lineSearch->setFocus();
 
     this->show();
