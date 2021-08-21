@@ -173,8 +173,8 @@ void MainWindow::setGui()
     if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
         this->resize(width, height);
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
-        int x = (screenGeometry.width()-this->width()) / 2;
-        int y = (screenGeometry.height()-this->height()) / 2;
+        int x = (screenGeometry.width() - this->width()) / 2;
+        int y = (screenGeometry.height() - this->height()) / 2;
         this->move(x, y);
     }
 
@@ -479,8 +479,8 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
         QString name = i.value().at(0);
         QString comment = i.value().at(0);
         if (name.contains(arg1, Qt::CaseInsensitive)
-                or comment.contains(arg1, Qt::CaseInsensitive)
-                or category.contains(arg1, Qt::CaseInsensitive)) {
+                || comment.contains(arg1, Qt::CaseInsensitive)
+                || category.contains(arg1, Qt::CaseInsensitive)) {
             new_map.insert(i.key(), i.value());
         }
     }
