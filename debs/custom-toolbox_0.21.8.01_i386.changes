@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 23 Aug 2021 17:14:22 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.21.8.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.8.01) mx; urgency=medium
+ .
+   * Make it possible to add options before the .list file name when starting from CLI
+Checksums-Sha1:
+ 4f0596c7bb13ecc3be6248f4f628be694f7d1dc5 10166 custom-toolbox_0.21.8.01_i386.buildinfo
+ ff7edc595f9907bf6e44e58fafdb00aa6646554f 51390 custom-toolbox_0.21.8.01_i386.deb
+Checksums-Sha256:
+ 46b8ae342e9e896c95cce312ba7b62a8f69ea953b9421fc6bad3825343286b1e 10166 custom-toolbox_0.21.8.01_i386.buildinfo
+ 845e30e13cb14423e284ef6ee8c122a62eb8b53b3716ef98ec46ce6c925ca5c0 51390 custom-toolbox_0.21.8.01_i386.deb
+Files:
+ c2bb64fb76d1691738bd7e1767bbf48b 10166 admin optional custom-toolbox_0.21.8.01_i386.buildinfo
+ 1e353da54a8dc7a3d456cfc936e2ab61 51390 admin optional custom-toolbox_0.21.8.01_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmEkEOgTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumOA5B/sFo0SjQjyUwtpv0R8jhEerJ5q7lb/F
+EhNvQz4maAQePad0aU4C2OvG9x6IVIGyPVBvi+h5UGG/B3IhhbNm+24jHsvUKwcI
+XfRElKamcPFdJDKqQ4L7QR7qxmLMJLPzZ8S/2yHFFWTUN1WI71xcJsrCE3uENhJx
+dsQMHBd5icpcIlnmOTXRlX+5gryP6h/uMWiySxxcrTF3fkwft6EVPiJlSvLpOi/X
+mTmqbgs0SzKgyFT5bplMJUKrEcRRrS6DcxFkoWChho03etJV7kHjQFAseevATUJU
+O+ppP8CRsKUo+4pRHNER53qxZvn+/Ad6W5XPH/B6eN0LIpaTqxqxvDoA
+=EzUs
+-----END PGP SIGNATURE-----
