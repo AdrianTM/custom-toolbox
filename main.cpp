@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption({{"r", "remove-checkbox"}, QObject::tr("Don't show 'show this dialog at startup' checkbox")});
+    parser.addPositionalArgument("file", QObject::tr("Full path and name of the .list file you want to load to set up the application"));
     parser.process(app);
 
     // Root guard

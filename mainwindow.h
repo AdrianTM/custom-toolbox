@@ -44,7 +44,7 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(const QCommandLineParser &parser, QWidget *parent = nullptr);
+    explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);

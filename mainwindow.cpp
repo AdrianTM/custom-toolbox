@@ -38,13 +38,13 @@
 #include "mainwindow.h"
 #include "version.h"
 
-MainWindow::MainWindow(const QCommandLineParser &parser, QWidget *parent) :
+MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
-    if (parser.isSet("remove-checkbox"))
+    if (arg_parser.isSet("remove-checkbox"))
         ui->checkBoxStartup->hide();
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
@@ -55,9 +55,9 @@ MainWindow::MainWindow(const QCommandLineParser &parser, QWidget *parent) :
 
     file_location = "/etc/custom-toolbox";
 
-    QStringList args = qApp->arguments();
-    if (args.size() > 1)
-        file_name =  QFile(args.at(1)).exists() ? args.at(1) : getFileName();
+    QStringList arg_list = arg_parser.positionalArguments();
+    if (arg_list.size() > 0)
+        file_name =  QFile(arg_list.at(0)).exists() ? arg_list.at(0) : getFileName();
     else
         file_name = getFileName();
     readFile(file_name);
