@@ -75,7 +75,7 @@ private:
     int max_col;
     QString gui_editor;
 
-    Cmd *shell;
+    Cmd shell;
     FlatButton *btn;
     QStringList categories;
     QMultiMap<QString, QStringList> category_map;

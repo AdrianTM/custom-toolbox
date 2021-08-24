@@ -48,7 +48,6 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
         ui->checkBoxStartup->hide();
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
-    shell = new Cmd;
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
               ? QDir::homePath() + "/.local/share/applications " : " ";
     setup();
@@ -111,7 +110,7 @@ QIcon MainWindow::findIcon(QString icon_name)
     search_paths.append("/usr/share/icons/hicolor/48x48/");
     search_paths.append("/usr/share/icons/hicolor/");
     search_paths.append("/usr/share/icons/");
-    QString out = shell->getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
+    QString out = shell.getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
                                    + "\" -print -quit 2>/dev/null", true);
     return (!out.isEmpty()) ? QIcon(out) : QIcon();
 }
@@ -231,7 +230,7 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell->getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
+    QString name = shell.getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
     if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() +"\">/dev/null") == 0)
         name = app_name; // if not a desktop file, but the command exits
     return name;
@@ -323,10 +322,10 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             label->setFont(font);
             label->setText(category);
             col = 0;
-            row += 1;
+            ++row;
             ui->gridLayout_btn->addWidget(label, row, col);
             ui->gridLayout_btn->setRowStretch(row, 0);
-            row += 1;
+            ++row;
             for (const QStringList &item : map.values(category)) {
                 name = fixNameItem(item.at(0));
                 comment = item.at(1);
@@ -345,10 +344,10 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
                  ui->gridLayout_btn->setRowStretch(row, 0);
-                col += 1;
+                ++col;
                 if (col >= max_col) {
                     col = 0;
-                    row += 1;
+                    ++row;
                 }
 
                 if (terminal == "true")
@@ -362,7 +361,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
         // Add empty row if it's not the last key
         if (category != map.lastKey()) {
             col = 0;
-            row += 1;
+            ++row;
             QFrame *line = new QFrame();
             line->setFrameShape(QFrame::HLine);
             line->setFrameShadow(QFrame::Sunken);
@@ -516,8 +515,8 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
-        QString desktop_file = getDesktopFileName(shell->getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
-        QString editor = shell->getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
+        QString desktop_file = getDesktopFileName(shell.getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
+        QString editor = shell.getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) // need to run these as normal user
