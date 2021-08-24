@@ -23,7 +23,7 @@
  **********************************************************************/
 
 #include <QDebug>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QFileDialog>
 #include <QRegularExpression>
 #include <QScrollBar>
@@ -172,7 +172,7 @@ void MainWindow::setGui()
 
     if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
         this->resize(width, height);
-        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        QRect screenGeometry = qApp->screens().at(0)->geometry();
         int x = (screenGeometry.width() - this->width()) / 2;
         int y = (screenGeometry.height() - this->height()) / 2;
         this->move(x, y);
