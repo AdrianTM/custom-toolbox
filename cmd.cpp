@@ -40,10 +40,10 @@ bool Cmd::run(const QString &cmd, QString &output, bool quiet)
     }
     if (!quiet) qDebug().noquote() << cmd;
     QEventLoop loop;
-    connect(this, QOverload<int>::of(&QProcess::finished), &loop, &QEventLoop::quit);
+    connect(this, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), &loop, &QEventLoop::quit);
     start("/bin/bash", QStringList() << "-c" << cmd);
     loop.exec();
-    disconnect(this, QOverload<int>::of(&QProcess::finished), nullptr, nullptr);
+    disconnect(this, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), nullptr, nullptr);
     output = readAll().trimmed();
     return (exitStatus() == QProcess::NormalExit && exitCode() == 0);
 }
