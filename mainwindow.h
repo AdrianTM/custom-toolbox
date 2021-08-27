@@ -30,7 +30,6 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QMultiMap>
-#include <QProcess>
 
 #include "cmd.h"
 #include "flatbutton.h"

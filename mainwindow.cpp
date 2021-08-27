@@ -111,7 +111,7 @@ QIcon MainWindow::findIcon(QString icon_name)
     search_paths.append("/usr/share/icons/hicolor/");
     search_paths.append("/usr/share/icons/");
     QString out = shell.getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
-                                   + "\" -print -quit 2>/dev/null", true);
+                                   + "\" -print -quit 2>/dev/null");
     return (!out.isEmpty()) ? QIcon(out) : QIcon();
 }
 
@@ -230,7 +230,7 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell.getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1", true);
+    QString name = shell.getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1");
     if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() +"\">/dev/null") == 0)
         name = app_name; // if not a desktop file, but the command exits
     return name;
@@ -516,7 +516,7 @@ void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
         QString desktop_file = getDesktopFileName(shell.getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
-        QString editor = shell.getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1", true);
+        QString editor = shell.getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1");
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) // need to run these as normal user
