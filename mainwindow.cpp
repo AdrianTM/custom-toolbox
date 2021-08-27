@@ -138,12 +138,13 @@ void MainWindow::setup()
     this->setWindowTitle(tr("Custom Toolbox"));
     this->adjustSize();
 
-    QSettings settings("/etc/custom-toolbox/custom-toolbox.conf", QSettings::IniFormat);
+    QSettings settings("/etc/custom-toolbox/custom-toolbox.conf", QSettings::NativeFormat);
     hideGUI = settings.value("hideGUI", "false").toBool();
     min_height = settings.value("min_height").toInt();
     min_width = settings.value("min_width").toInt();
     gui_editor = settings.value("gui_editor").toString();
-    max_col = settings.value("max_col", 3).toInt();
+    int size = settings.value("icon_size", 40).toInt();
+    icon_size = {size, size};
 }
 
 // Add buttons and resize GUI
