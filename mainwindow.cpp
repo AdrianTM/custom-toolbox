@@ -26,20 +26,22 @@
 #include <QScreen>
 #include <QFileDialog>
 #include <QRegularExpression>
+#include <QResizeEvent>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTextEdit>
 
 #include <unistd.h>
 
-#include "ui_mainwindow.h"
 #include "about.h"
+#include "cmd.h"
 #include "flatbutton.h"
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "version.h"
 
 MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent), col_count {0},
     ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
@@ -56,7 +58,7 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
 
     QStringList arg_list = arg_parser.positionalArguments();
     if (arg_list.size() > 0)
-        file_name =  QFile(arg_list.at(0)).exists() ? arg_list.at(0) : getFileName();
+        file_name =  QFile(arg_list.first()).exists() ? arg_list.first() : getFileName();
     else
         file_name = getFileName();
     readFile(file_name);
@@ -160,19 +162,14 @@ void MainWindow::setGui()
     addButtons(category_map);
     this->adjustSize();
     this->setMinimumSize(min_height, min_height);
-    this->resize(ui->gridLayout_btn->sizeHint().width() + 70, this->height());
-    //qDebug() << "width window" << this->width();
-    //qDebug() << "width btn layout area" << ui->gridLayout_btn->sizeHint().width();
-
-    int width = this->width();
-    int height = this->height();
 
     QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value("geometry").toByteArray());
 
+    QSize size = this->size();
     if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
-        this->resize(width, height);
-        QRect screenGeometry = qApp->screens().at(0)->geometry();
+        this->resize(size);
+        QRect screenGeometry = qApp->screens().first()->geometry();
         int x = (screenGeometry.width() - this->width()) / 2;
         int y = (screenGeometry.height() - this->height()) / 2;
         this->move(x, y);
@@ -185,8 +182,6 @@ void MainWindow::setGui()
         ui->checkBoxStartup->setChecked(true);
     }
     ui->lineSearch->setFocus();
-
-    this->show();
 }
 
 // Execute command when button is clicked
@@ -209,13 +204,36 @@ void MainWindow::closeEvent(QCloseEvent *)
     settings.setValue("geometry", saveGeometry());
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    if (event->oldSize().width() == event->size().width())
+        return;
+    int new_count = this->width() / 200;
+    if (new_count != col_count) {
+        if (new_count > max_elements && col_count == max_elements)
+            return;
+        col_count = 0;
+        if (ui->lineSearch->text().isEmpty()) {
+            QLayoutItem *child;
+            while ((child = ui->gridLayout_btn->takeAt(0))) {
+                delete child->widget();
+                delete child;
+            }
+            addButtons(category_map);
+        } else {
+            on_lineSearch_textChanged(ui->lineSearch->text());
+        }
+    }
+}
+
 
 
 // Select .list file to open
 QString MainWindow::getFileName()
 {
    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
-   if (file_name.isEmpty()) exit(-1);
+   if (file_name.isEmpty())
+       exit(-1);
    if (!QFile::exists(file_name)) {
        int ans = QMessageBox::critical(this, tr("File Open Error"),
                                        tr("Could not open file, do you want to try again?"),
@@ -305,6 +323,12 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 {
     int col = 0;
     int row = 0;
+    int max = this->width() / 200;
+
+    max_elements = 0;
+    for (const QString &category : map.uniqueKeys())
+        if (map.count(category) > max_elements)
+            max_elements = map.count(category);
 
     QString name;
     QString comment;
@@ -312,7 +336,6 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString icon_name;
     QString root;
     QString terminal;
-
 
     for (const QString &category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
@@ -328,6 +351,8 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->setRowStretch(row, 0);
             ++row;
             for (const QStringList &item : map.values(category)) {
+                if (col >= col_count)
+                    col_count = col + 1;
                 name = fixNameItem(item.at(0));
                 comment = item.at(1);
                 icon_name = item.at(2);
@@ -336,7 +361,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                 root = item.at(5);
 
                 btn = new FlatButton(name);
-                btn->setIconSize(40, 40);
+                btn->setIconSize(icon_size);
                 btn->setToolTip(comment);
                 btn->setAutoDefault(false);
                 QIcon icon = findIcon(icon_name);
@@ -344,13 +369,12 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     icon = QIcon::fromTheme("utilities-terminal");
                 btn->setIcon(icon);
                 ui->gridLayout_btn->addWidget(btn, row, col);
-                 ui->gridLayout_btn->setRowStretch(row, 0);
+                ui->gridLayout_btn->setRowStretch(row, 0);
                 ++col;
-                if (col >= max_col) {
+                if (col >= max) {
                     col = 0;
                     ++row;
                 }
-
                 if (terminal == "true")
                     exec = "x-terminal-emulator -e "  + exec;
                 if (root == "true")
@@ -373,14 +397,13 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     ui->gridLayout_btn->setRowStretch(row, 1);
 }
 
-
 void MainWindow::processLine(QString line)
 {
     if (line.startsWith("#") || line.isEmpty()) // filter out comment and empty lines
         return;
 
     QStringList line_list = line.split("=");
-    QString key = line_list.at(0).trimmed();
+    QString key = line_list.first().trimmed();
     QString value = line_list.size() > 1 ? line_list[1].remove(QLatin1Char('"')).trimmed() : QString();
     if (key.toLower() == QLatin1String("name")) {
         this->setWindowTitle(value);
@@ -392,7 +415,7 @@ void MainWindow::processLine(QString line)
         icon_theme = value;
     } else { // assume it's the name of the app and potentially a "root" flag
         QStringList list = key.split(" ");
-        QString desktop_file = getDesktopFileName(list.at(0));
+        QString desktop_file = getDesktopFileName(list.first());
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root or alias flag present
@@ -476,8 +499,8 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
     QMultiMap<QString, QStringList> new_map;
     for (auto i = category_map.constEnd() - 1; i != category_map.constBegin() - 1; --i) {
         QString category = i.key();
-        QString name = i.value().at(0);
-        QString comment = i.value().at(0);
+        QString name = i.value().first();
+        QString comment = i.value().first();
         if (name.contains(arg1, Qt::CaseInsensitive)
                 || comment.contains(arg1, Qt::CaseInsensitive)
                 || category.contains(arg1, Qt::CaseInsensitive)) {

@@ -60,6 +60,7 @@ public:
 
 private slots:
     void closeEvent(QCloseEvent *);
+    void resizeEvent(QResizeEvent *event);
     void btn_clicked();
     void on_buttonAbout_clicked();
     void on_buttonEdit_clicked();
@@ -71,16 +72,19 @@ private:
     bool hideGUI;
     int min_height;
     int min_width;
+    int max_elements;
     int max_col;
+    int col_count;
     QString gui_editor;
 
     Cmd shell;
     FlatButton *btn;
-    QStringList categories;
     QMultiMap<QString, QStringList> category_map;
+    QSize icon_size;
     QString base_name;
     QString file_location;
     QString file_name;
+    QStringList categories;
     QString icon_theme;
     QString local_dir;
     QString version;
