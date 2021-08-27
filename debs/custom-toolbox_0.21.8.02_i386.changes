@@ -1,0 +1,42 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 26 Aug 2021 23:07:58 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.21.8.02
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.8.02) mx; urgency=medium
+ .
+   * Update icon layout on window resize
+   * Icon size can be set in /etc/custom-toolbox/custom-toolbox.conf
+   * Use native formate for .conf file
+Checksums-Sha1:
+ 64341d29a59f9ad52a8c2416de3dbc7992ac4420 10166 custom-toolbox_0.21.8.02_i386.buildinfo
+ c7340d49f47414b12e9b6dfaf45c8fc4c49dd02c 50222 custom-toolbox_0.21.8.02_i386.deb
+Checksums-Sha256:
+ 9ce7e2517feb4d5b10904ba3868c2e53925d01ede879b7cf27e6007977676530 10166 custom-toolbox_0.21.8.02_i386.buildinfo
+ 886a6d1ec9ce98819000f77fcaa90f34b088747c5ad2977b6f13340436095da3 50222 custom-toolbox_0.21.8.02_i386.deb
+Files:
+ 40d1d767e88931165d92c1e15e0fdcb0 10166 admin optional custom-toolbox_0.21.8.02_i386.buildinfo
+ 3ab23a17102f82e475210d873f59f478 50222 admin optional custom-toolbox_0.21.8.02_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmEofeATHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumHn6B/wJ5+zLnZuo0EY40zdRplAKVffLrRZx
+7g6W9feltzji6tP4HlZHOs7k1Rs99skm+QBM08dO/GIeyAJsHT0GFmVue7gcVyXQ
+BEAcspNvEydrldXLhDR5N9fB1yt+53JIMOGnSpLh2vP8aVUdJ1otDuvz4u92NEyn
+uTGaFnMuyp1V3YIxG397bYwJUugBvgmFpb+WWbQ7JuuPyFVdvRtyhAi2efm9W7Be
+uY2MFApJtpom0tN0P3IQd4BprOgKK5E/qWC74SYe3sQq3xetrorE9OeFyY0gHMqU
+O7CizVhKYVbx0Y4BNiTrQtCxddWamWeKT1MNLc40F+KfaPYvcKWf808Q
+=psoB
+-----END PGP SIGNATURE-----
