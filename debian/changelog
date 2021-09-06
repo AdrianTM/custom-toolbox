@@ -1,3 +1,9 @@
+custom-toolbox (0.21.9) mx; urgency=medium
+
+  * Fix applying min width specified in .conf file
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 06 Sep 2021 01:50:05 -0400
+
 custom-toolbox (0.21.8.02) mx; urgency=medium
 
   * Update icon layout on window resize
