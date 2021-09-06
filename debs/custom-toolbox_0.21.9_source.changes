@@ -1,0 +1,28 @@
+Format: 1.8
+Date: Mon, 06 Sep 2021 01:50:05 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source
+Version: 0.21.9
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.21.9) mx; urgency=medium
+ .
+   * Fix applying min width specified in .conf file
+Checksums-Sha1:
+ 53dc0882db908a523c6de81951ec37b270853946 628 custom-toolbox_0.21.9.dsc
+ 31628c71db19971f1d9f4592d79f382a02828d1a 28484 custom-toolbox_0.21.9.tar.xz
+ ae1b85d18cc8d130af2298393a3523dab52e4b42 9589 custom-toolbox_0.21.9_i386.buildinfo
+Checksums-Sha256:
+ 1c80856b870138d11671641f868c0ad0a01695b3981c012f5b1a1b48a09559d0 628 custom-toolbox_0.21.9.dsc
+ 9017babaa695508d18e85aa2ce9e3cc08995a0bb5e23394b966ce19d656e529c 28484 custom-toolbox_0.21.9.tar.xz
+ 0b0eaefe07f2141a5a4007b3eccd568792432f58c48afa46d96e1a2d1fab8686 9589 custom-toolbox_0.21.9_i386.buildinfo
+Files:
+ 577afd52c862bd0b59a2b6b98abc1807 628 admin optional custom-toolbox_0.21.9.dsc
+ e7192cbd43f6381057947959d4e6c71b 28484 admin optional custom-toolbox_0.21.9.tar.xz
+ a0666af539188a8281513051b725a46e 9589 admin optional custom-toolbox_0.21.9_i386.buildinfo
