@@ -161,7 +161,7 @@ void MainWindow::setGui()
 
     addButtons(category_map);
     this->adjustSize();
-    this->setMinimumSize(min_height, min_height);
+    this->setMinimumSize(min_width, min_height);
 
     QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value("geometry").toByteArray());
