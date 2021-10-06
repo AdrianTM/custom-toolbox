@@ -1,4 +1,4 @@
- /**********************************************************************
+/**********************************************************************
  *  MainWindow.cpp
  **********************************************************************
  * Copyright (C) 2017-2021 MX Authors
@@ -23,10 +23,10 @@
  **********************************************************************/
 
 #include <QDebug>
-#include <QScreen>
 #include <QFileDialog>
 #include <QRegularExpression>
 #include <QResizeEvent>
+#include <QScreen>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTextEdit>
@@ -40,9 +40,10 @@
 #include "ui_mainwindow.h"
 #include "version.h"
 
-MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
-    QDialog(parent), col_count {0},
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
+    : QDialog(parent)
+    , col_count { 0 }
+    , ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
@@ -51,14 +52,15 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent) :
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
-              ? QDir::homePath() + "/.local/share/applications " : " ";
+        ? QDir::homePath() + "/.local/share/applications "
+        : " ";
     setup();
 
     file_location = "/etc/custom-toolbox";
 
     QStringList arg_list = arg_parser.positionalArguments();
     if (arg_list.size() > 0)
-        file_name =  QFile(arg_list.first()).exists() ? arg_list.first() : getFileName();
+        file_name = QFile(arg_list.first()).exists() ? arg_list.first() : getFileName();
     else
         file_name = getFileName();
     readFile(file_name);
@@ -93,15 +95,15 @@ QIcon MainWindow::findIcon(QString icon_name)
 
     // Try to find in most obvious places
     QStringList search_paths { QDir::homePath() + "/.local/share/icons/",
-                               "/usr/share/pixmaps/",
-                               "/usr/local/share/icons/",
-                               "/usr/share/icons/hicolor/48x48/apps/" };
-    for (const QString &path : search_paths) {
+        "/usr/share/pixmaps/",
+        "/usr/local/share/icons/",
+        "/usr/share/icons/hicolor/48x48/apps/" };
+    for (const QString& path : search_paths) {
         if (!QFileInfo::exists(path)) {
             search_paths.removeOne(path);
             continue;
         }
-        for (const QString &ext : {".png", ".svg", ".xpm"} ) {
+        for (const QString& ext : { ".png", ".svg", ".xpm" }) {
             QString file = path + icon_name + ext;
             if (QFileInfo::exists(file))
                 return QIcon(file);
@@ -113,14 +115,14 @@ QIcon MainWindow::findIcon(QString icon_name)
     search_paths.append("/usr/share/icons/hicolor/");
     search_paths.append("/usr/share/icons/");
     QString out = shell.getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
-                                   + "\" -print -quit 2>/dev/null");
+        + "\" -print -quit 2>/dev/null");
     return (!out.isEmpty()) ? QIcon(out) : QIcon();
 }
 
 // Fix varios exec= items to make sure they run correctly
 QString MainWindow::fixExecItem(QString item)
 {
-    item.remove(QLatin1String(" %f"));  // remove %f if exec expects a file name since it's called without a name
+    item.remove(QLatin1String(" %f")); // remove %f if exec expects a file name since it's called without a name
     item.remove(QLatin1String(" %F"));
     item.remove(QLatin1String(" %U"));
     return item;
@@ -129,9 +131,9 @@ QString MainWindow::fixExecItem(QString item)
 // Fix name of the item
 QString MainWindow::fixNameItem(QString item)
 {
-   if (item == "System Profiler and Benchmark")
-       item = "System Information";
-   return item;
+    if (item == "System Profiler and Benchmark")
+        item = "System Information";
+    return item;
 }
 
 // Setup versious items and load configurations first time program runs
@@ -145,15 +147,16 @@ void MainWindow::setup()
     min_height = settings.value("min_height").toInt();
     min_width = settings.value("min_width").toInt();
     gui_editor = settings.value("gui_editor").toString();
+    fixed_number_col = settings.value("fixed_number_columns", 0).toInt();
     int size = settings.value("icon_size", 40).toInt();
-    icon_size = {size, size};
+    icon_size = { size, size };
 }
 
 // Add buttons and resize GUI
 void MainWindow::setGui()
 {
     // Remove all items from the layout
-    QLayoutItem *child;
+    QLayoutItem* child;
     while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
@@ -167,7 +170,7 @@ void MainWindow::setGui()
     restoreGeometry(settings.value("geometry").toByteArray());
 
     QSize size = this->size();
-    if (this->isMaximized()) {  // if started maximized give option to resize to normal window size
+    if (this->isMaximized()) { // if started maximized give option to resize to normal window size
         this->resize(size);
         QRect screenGeometry = qApp->screens().first()->geometry();
         int x = (screenGeometry.width() - this->width()) / 2;
@@ -198,15 +201,17 @@ void MainWindow::btn_clicked()
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent *)
+void MainWindow::closeEvent(QCloseEvent*)
 {
     QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     settings.setValue("geometry", saveGeometry());
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)
+void MainWindow::resizeEvent(QResizeEvent* event)
 {
     if (event->oldSize().width() == event->size().width())
+        return;
+    if (fixed_number_col != 0) // 0 is default value, if nothing set in .conf file
         return;
     int new_count = this->width() / 200;
     if (new_count != col_count) {
@@ -214,7 +219,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
             return;
         col_count = 0;
         if (ui->lineSearch->text().isEmpty()) {
-            QLayoutItem *child;
+            QLayoutItem* child;
             while ((child = ui->gridLayout_btn->takeAt(0))) {
                 delete child->widget();
                 delete child;
@@ -226,31 +231,29 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     }
 }
 
-
-
 // Select .list file to open
 QString MainWindow::getFileName()
 {
-   QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
-   if (file_name.isEmpty())
-       exit(-1);
-   if (!QFile::exists(file_name)) {
-       int ans = QMessageBox::critical(this, tr("File Open Error"),
-                                       tr("Could not open file, do you want to try again?"),
-                                       QMessageBox::Yes, QMessageBox::No);
-       if (ans == QMessageBox::No)
-           exit(-1);
-       else
-           return getFileName();
-   }
-   return file_name;
+    QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
+    if (file_name.isEmpty())
+        exit(-1);
+    if (!QFile::exists(file_name)) {
+        int ans = QMessageBox::critical(this, tr("File Open Error"),
+            tr("Could not open file, do you want to try again?"),
+            QMessageBox::Yes, QMessageBox::No);
+        if (ans == QMessageBox::No)
+            exit(-1);
+        else
+            return getFileName();
+    }
+    return file_name;
 }
 
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
     QString name = shell.getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1");
-    if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() +"\">/dev/null") == 0)
+    if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() + "\">/dev/null") == 0)
         name = app_name; // if not a desktop file, but the command exits
     return name;
 }
@@ -279,7 +282,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
 
     QFile file(file_name);
     if (!file.open(QFile::Text | QFile::ReadOnly))
-       return QStringList();
+        return QStringList();
 
     QString text = file.readAll();
     file.close();
@@ -325,8 +328,11 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     int row = 0;
     int max = this->width() / 200;
 
+    if (fixed_number_col != 0) // default value is 0
+        max = fixed_number_col;
+
     max_elements = 0;
-    for (const QString &category : map.uniqueKeys())
+    for (const QString& category : map.uniqueKeys())
         if (map.count(category) > max_elements)
             max_elements = map.count(category);
 
@@ -337,9 +343,9 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString root;
     QString terminal;
 
-    for (const QString &category : map.uniqueKeys()) {
+    for (const QString& category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
-            QLabel *label = new QLabel(this);
+            QLabel* label = new QLabel(this);
             QFont font;
             font.setBold(true);
             font.setUnderline(true);
@@ -350,7 +356,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
             ui->gridLayout_btn->addWidget(label, row, col);
             ui->gridLayout_btn->setRowStretch(row, 0);
             ++row;
-            for (const QStringList &item : map.values(category)) {
+            for (const QStringList& item : map.values(category)) {
                 if (col >= col_count)
                     col_count = col + 1;
                 name = fixNameItem(item.at(0));
@@ -376,7 +382,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
                     ++row;
                 }
                 if (terminal == "true")
-                    exec = "x-terminal-emulator -e "  + exec;
+                    exec = "x-terminal-emulator -e " + exec;
                 if (root == "true")
                     exec = "su-to-root -X -c '" + exec + "'";
                 btn->setProperty("cmd", exec);
@@ -387,7 +393,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
         if (category != map.lastKey()) {
             col = 0;
             ++row;
-            QFrame *line = new QFrame();
+            QFrame* line = new QFrame();
             line->setFrameShape(QFrame::HLine);
             line->setFrameShadow(QFrame::Sunken);
             ui->gridLayout_btn->addWidget(line, row, col, 1, -1);
@@ -419,13 +425,13 @@ void MainWindow::processLine(QString line)
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root or alias flag present
-               info << ((list.contains(QLatin1String("root"))) ? QLatin1String("true") : QLatin1String("false"));
-               if (list.contains(QLatin1String("alias"))) {
-                   QString str;
-                   for (auto it = list.lastIndexOf("alias"); it + 1 < list.size(); ++it)
+                info << ((list.contains(QLatin1String("root"))) ? QLatin1String("true") : QLatin1String("false"));
+                if (list.contains(QLatin1String("alias"))) {
+                    QString str;
+                    for (auto it = list.lastIndexOf("alias"); it + 1 < list.size(); ++it)
                         str.append(list.at(it + 1) + " ");
-                   info[0] = str.trimmed().remove("'").remove("\"");
-               }
+                    info[0] = str.trimmed().remove("'").remove("\"");
+                }
             } else {
                 info << QLatin1String("false");
             }
@@ -448,12 +454,11 @@ void MainWindow::readFile(QString file_name)
     base_name = QFileInfo(file_name).baseName();
     file_location = QFileInfo(file_name).path();
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" +
-                              tr("Application will close."));
+        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
         exit(-1);
     }
 
-    for (QTextStream in(&file); !in.atEnd(); )
+    for (QTextStream in(&file); !in.atEnd();)
         processLine(in.readLine());
     file.close();
 
@@ -468,13 +473,10 @@ void MainWindow::readFile(QString file_name)
 void MainWindow::on_buttonAbout_clicked()
 {
     this->hide();
-    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle()
-                       + "</h2></b></p><p align=\"center\">" +
-                       tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" +
-                       tr("Custom Toolbox is a tool used for creating a custom launcher") +
-                       "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
-                       "<p align=\"center\">" + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
-                       "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), (getuid() == 0));
+    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle() + "</h2></b></p><p align=\"center\">" + tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" + tr("Custom Toolbox is a tool used for creating a custom launcher") + "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
+                                                                                                                                                                                                                                                                                              "<p align=\"center\">"
+            + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
+        "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), (getuid() == 0));
     this->show();
 }
 
@@ -486,10 +488,10 @@ void MainWindow::on_buttonHelp_clicked()
 }
 
 // search
-void MainWindow::on_lineSearch_textChanged(const QString &arg1)
+void MainWindow::on_lineSearch_textChanged(const QString& arg1)
 {
     // remove all items from the layout
-    QLayoutItem *child;
+    QLayoutItem* child;
     while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
@@ -502,8 +504,8 @@ void MainWindow::on_lineSearch_textChanged(const QString &arg1)
         QString name = i.value().first();
         QString comment = i.value().first();
         if (name.contains(arg1, Qt::CaseInsensitive)
-                || comment.contains(arg1, Qt::CaseInsensitive)
-                || category.contains(arg1, Qt::CaseInsensitive)) {
+            || comment.contains(arg1, Qt::CaseInsensitive)
+            || category.contains(arg1, Qt::CaseInsensitive)) {
             new_map.insert(i.key(), i.value());
         }
     }
@@ -519,14 +521,21 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
         if (!file.open(QFile::WriteOnly | QFile::Text))
             QMessageBox::critical(this, tr("File Open Error"), tr("Could not write file: ") + file_name);
         QTextStream out(&file);
-        out << "[Desktop Entry]" << "\n";
+        out << "[Desktop Entry]"
+            << "\n";
         out << "Name=" << this->windowTitle() << "\n";
         out << "Comment=" << ui->commentLabel->text() << "\n";
-        out << "Exec=" <<  "custom-toolbox " + file_location + "/" + base_name + ".list" << "\n";
-        out << "Terminal=false" << "\n";
-        out << "Type=Application" << "\n";
-        out << "Icon=custom-toolbox" << "\n";
-        out << "Categories=XFCE;System" << "\n";
+        out << "Exec="
+            << "custom-toolbox " + file_location + "/" + base_name + ".list"
+            << "\n";
+        out << "Terminal=false"
+            << "\n";
+        out << "Type=Application"
+            << "\n";
+        out << "Icon=custom-toolbox"
+            << "\n";
+        out << "Categories=XFCE;System"
+            << "\n";
         out << "StartupNotify=false";
         file.close();
     } else {
@@ -534,11 +543,10 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
     }
 }
 
-
 // Edit launcher .list file
 void MainWindow::on_buttonEdit_clicked()
 {
-    if (!QFile::exists(gui_editor)) {  // if specified editor doesn't exist get the default one
+    if (!QFile::exists(gui_editor)) { // if specified editor doesn't exist get the default one
         QString desktop_file = getDesktopFileName(shell.getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
         QString editor = shell.getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1");
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
@@ -550,7 +558,7 @@ void MainWindow::on_buttonEdit_clicked()
     this->hide();
     QString cmd = gui_editor + " " + file_name;
     if (system("test -w " + file_name.toUtf8()) != 0)
-       cmd = "su-to-root -X -c '" + cmd + "'";
+        cmd = "su-to-root -X -c '" + cmd + "'";
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();

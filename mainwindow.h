@@ -38,12 +38,11 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QDialog
-{
+class MainWindow : public QDialog {
     Q_OBJECT
 
 public:
-    explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
+    explicit MainWindow(const QCommandLineParser& arg_parser, QWidget* parent = nullptr);
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);
@@ -59,26 +58,26 @@ public:
     void setup();
 
 private slots:
-    void closeEvent(QCloseEvent *);
-    void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent*);
+    void resizeEvent(QResizeEvent* event);
     void btn_clicked();
     void on_buttonAbout_clicked();
     void on_buttonEdit_clicked();
     void on_buttonHelp_clicked();
     void on_checkBoxStartup_clicked(bool checked);
-    void on_lineSearch_textChanged(const QString &arg1);
+    void on_lineSearch_textChanged(const QString& arg1);
 
 private:
     bool hideGUI;
+    int col_count;
+    int fixed_number_col;
+    int max_elements;
     int min_height;
     int min_width;
-    int max_elements;
-    int max_col;
-    int col_count;
     QString gui_editor;
 
     Cmd shell;
-    FlatButton *btn;
+    FlatButton* btn;
     QMultiMap<QString, QStringList> category_map;
     QSize icon_size;
     QString base_name;
@@ -89,8 +88,7 @@ private:
     QString local_dir;
     QString version;
 
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
 };
-
 
 #endif // MAINWINDOW_H
