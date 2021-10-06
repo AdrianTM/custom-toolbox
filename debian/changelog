@@ -1,3 +1,12 @@
+custom-toolbox (0.21.10) mx; urgency=medium
+
+  * Added a "fixed_number_columns" property in .conf file
+  * this is used to set a non-resizable window with the buttons
+  * arranged in that specific number of columns
+  * e.g., use "fixed_number_columns=3" to display buttons in 3 columns
+
+ -- Adrian <adrian@mxlinux.org>  Wed, 06 Oct 2021 17:11:58 -0400
+
 custom-toolbox (0.21.9) mx; urgency=medium
 
   * Fix applying min width specified in .conf file
