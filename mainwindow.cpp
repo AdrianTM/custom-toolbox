@@ -236,13 +236,13 @@ QString MainWindow::getFileName()
 {
     QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
     if (file_name.isEmpty())
-        exit(-1);
+        exit(1);
     if (!QFile::exists(file_name)) {
         int ans = QMessageBox::critical(this, tr("File Open Error"),
             tr("Could not open file, do you want to try again?"),
             QMessageBox::Yes, QMessageBox::No);
         if (ans == QMessageBox::No)
-            exit(-1);
+            exit(1);
         else
             return getFileName();
     }
@@ -450,12 +450,12 @@ void MainWindow::readFile(QString file_name)
 
     QFile file(file_name);
     if (!QFileInfo::exists(file_name))
-        exit(-1);
+        exit(1);
     base_name = QFileInfo(file_name).baseName();
     file_location = QFileInfo(file_name).path();
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
         QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
-        exit(-1);
+        exit(1);
     }
 
     for (QTextStream in(&file); !in.atEnd();)
