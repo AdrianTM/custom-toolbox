@@ -30,8 +30,8 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QMultiMap>
+#include <QProcess>
 
-#include "cmd.h"
 #include "flatbutton.h"
 
 namespace Ui {
@@ -68,25 +68,24 @@ private slots:
     void on_lineSearch_textChanged(const QString& arg1);
 
 private:
+    FlatButton* btn;
+    QMultiMap<QString, QStringList> category_map;
+    QProcess proc;
+    QSize icon_size;
+    QString base_name;
+    QString file_location;
+    QString file_name;
+    QString gui_editor;
+    QString icon_theme;
+    QString local_dir;
+    QString version;
+    QStringList categories;
     bool hideGUI;
     int col_count;
     int fixed_number_col;
     int max_elements;
     int min_height;
     int min_width;
-    QString gui_editor;
-
-    Cmd shell;
-    FlatButton* btn;
-    QMultiMap<QString, QStringList> category_map;
-    QSize icon_size;
-    QString base_name;
-    QString file_location;
-    QString file_name;
-    QStringList categories;
-    QString icon_theme;
-    QString local_dir;
-    QString version;
 
     Ui::MainWindow* ui;
 };

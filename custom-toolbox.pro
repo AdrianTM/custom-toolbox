@@ -30,13 +30,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    cmd.cpp \
     mainwindow.cpp \
     flatbutton.cpp \
     about.cpp
 
 HEADERS  += \
-    cmd.h \
     mainwindow.h \
     flatbutton.h \
     about.h

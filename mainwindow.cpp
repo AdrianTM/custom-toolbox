@@ -34,16 +34,15 @@
 #include <unistd.h>
 
 #include "about.h"
-#include "cmd.h"
 #include "flatbutton.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "version.h"
 
 MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
-    : QDialog(parent)
-    , col_count { 0 }
-    , ui(new Ui::MainWindow)
+    : QDialog(parent),
+      col_count { 0 },
+      ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
@@ -52,8 +51,7 @@ MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
-        ? QDir::homePath() + "/.local/share/applications "
-        : " ";
+        ? QDir::homePath() + "/.local/share/applications" : "";
     setup();
 
     file_location = "/etc/custom-toolbox";
@@ -110,22 +108,22 @@ QIcon MainWindow::findIcon(QString icon_name)
         }
     }
 
-    // Search recursive
+    // Search recursively
     search_paths.append("/usr/share/icons/hicolor/48x48/");
     search_paths.append("/usr/share/icons/hicolor/");
     search_paths.append("/usr/share/icons/");
-    QString out = shell.getCmdOut("find " + search_paths.join(" ") + " -iname \"" + search_term
-        + "\" -print -quit 2>/dev/null");
-    return (!out.isEmpty()) ? QIcon(out) : QIcon();
+    proc.start("find", QStringList{search_paths << "-iname" << search_term << "-print" << "-quit"});
+    proc.waitForFinished();
+    QString out = proc.readAllStandardOutput().trimmed();
+    if (out.isEmpty())
+        return QIcon();
+    return QIcon(out);
 }
 
-// Fix varios exec= items to make sure they run correctly
+// Fix varios exec= items to make sure they run correctly; remove %f if exec expects a file name since it's called without a name
 QString MainWindow::fixExecItem(QString item)
 {
-    item.remove(QLatin1String(" %f")); // remove %f if exec expects a file name since it's called without a name
-    item.remove(QLatin1String(" %F"));
-    item.remove(QLatin1String(" %U"));
-    return item;
+    return item.remove(QRegularExpression(QLatin1String(" %f| %F| %U")));
 }
 
 // Fix name of the item
@@ -236,13 +234,13 @@ QString MainWindow::getFileName()
 {
     QString file_name = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
     if (file_name.isEmpty())
-        exit(1);
+        exit(EXIT_FAILURE);
     if (!QFile::exists(file_name)) {
         int ans = QMessageBox::critical(this, tr("File Open Error"),
             tr("Could not open file, do you want to try again?"),
             QMessageBox::Yes, QMessageBox::No);
         if (ans == QMessageBox::No)
-            exit(1);
+            exit(EXIT_FAILURE);
         else
             return getFileName();
     }
@@ -252,7 +250,10 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(QString app_name)
 {
-    QString name = shell.getCmdOut("find " + local_dir + "/usr/share/applications -name " + app_name + ".desktop | grep . -m1");
+    proc.start("find", QStringList{local_dir, "/usr/share/applications", "-name", app_name + ".desktop"});
+    proc.waitForFinished();
+    QString name = proc.readAllStandardOutput();
+    name = name.section("\n", 0, 0); // get first if more items
     if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() + "\">/dev/null") == 0)
         name = app_name; // if not a desktop file, but the command exits
     return name;
@@ -450,12 +451,12 @@ void MainWindow::readFile(QString file_name)
 
     QFile file(file_name);
     if (!QFileInfo::exists(file_name))
-        exit(1);
+        exit(EXIT_FAILURE);
     base_name = QFileInfo(file_name).baseName();
     file_location = QFileInfo(file_name).path();
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
         QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     for (QTextStream in(&file); !in.atEnd();)
@@ -473,10 +474,13 @@ void MainWindow::readFile(QString file_name)
 void MainWindow::on_buttonAbout_clicked()
 {
     this->hide();
-    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle() + "</h2></b></p><p align=\"center\">" + tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" + tr("Custom Toolbox is a tool used for creating a custom launcher") + "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
-                                                                                                                                                                                                                                                                                              "<p align=\"center\">"
-            + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
-        "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()), (getuid() == 0));
+    displayAboutMsgBox(tr("About %1").arg(this->windowTitle()),
+                       "<p align=\"center\"><b><h2>" + this->windowTitle() + "</h2></b></p><p align=\"center\">" +
+                       tr("Version: ") + VERSION + "</p><p align=\"center\"><h3>" +
+                       tr("Custom Toolbox is a tool used for creating a custom launcher") +
+                       "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
+                       "<p align=\"center\">" + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
+                       "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(this->windowTitle()));
     this->show();
 }
 
@@ -484,7 +488,7 @@ void MainWindow::on_buttonAbout_clicked()
 void MainWindow::on_buttonHelp_clicked()
 {
     QString url = "/usr/share/doc/custom-toolbox/help.html";
-    displayDoc(url, tr("%1 Help").arg(this->windowTitle()), (getuid() == 0));
+    displayDoc(url, tr("%1 Help").arg(this->windowTitle()));
 }
 
 // search
@@ -515,7 +519,7 @@ void MainWindow::on_lineSearch_textChanged(const QString& arg1)
 // Add a .desktop file to the ~/.config/autostart
 void MainWindow::on_checkBoxStartup_clicked(bool checked)
 {
-    QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
+    const QString &file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (checked) {
         QFile file(file_name);
         if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -547,8 +551,9 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 void MainWindow::on_buttonEdit_clicked()
 {
     if (!QFile::exists(gui_editor)) { // if specified editor doesn't exist get the default one
-        QString desktop_file = getDesktopFileName(shell.getCmdOut("xdg-mime query default text/plain").remove(".desktop"));
-        QString editor = shell.getCmdOut("grep -m1 ^Exec " + desktop_file + " |cut -d= -f2 |cut -d\" \" -f1");
+        proc.start("xdg-mime", QStringList{"query", "default", "text/plain"}, QIODevice::ReadOnly);
+        proc.waitForFinished();
+        QString editor = QString(proc.readAllStandardOutput().trimmed()).remove(".desktop");
         if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
             editor = "x-terminal-emulator -e nano";
         else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) // need to run these as normal user
@@ -557,7 +562,7 @@ void MainWindow::on_buttonEdit_clicked()
     }
     this->hide();
     QString cmd = gui_editor + " " + file_name;
-    if (system("test -w " + file_name.toUtf8()) != 0)
+    if (!QFileInfo(file_name).isWritable())
         cmd = "su-to-root -X -c '" + cmd + "'";
     system(cmd.toUtf8());
     readFile(file_name);
