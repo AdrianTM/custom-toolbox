@@ -1,3 +1,10 @@
+custom-toolbox (0.22.2) mx; urgency=medium
+
+  * Fix: show app after editing a .list file
+  * Improving editor selection
+
+ -- Adrian <adrian@mxlinux.org>  Wed, 09 Feb 2022 22:25:53 -0500
+
 custom-toolbox (0.21.10) mx; urgency=medium
 
   * Added a "fixed_number_columns" property in .conf file

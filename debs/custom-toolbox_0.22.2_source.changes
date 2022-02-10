@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Wed, 09 Feb 2022 22:25:53 -0500
+Source: custom-toolbox
+Architecture: source
+Version: 0.22.2
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ custom-toolbox (0.22.2) mx; urgency=medium
+ .
+   * Fix: show app after editing a .list file
+   * Improving editor selection
+Checksums-Sha1:
+ 79c14ecc70ace4906ce87731754b36ea4d97ca8d 628 custom-toolbox_0.22.2.dsc
+ e9e17865392b4bf22ccd64a9943b86e61080c4e5 28924 custom-toolbox_0.22.2.tar.xz
+ 57921659e8b2ceca8b14627898c67dea772793c3 10018 custom-toolbox_0.22.2_i386.buildinfo
+Checksums-Sha256:
+ 4837196fb17287862a50941dd92a7604bc17530e5f6741b4993199e36cf59dbd 628 custom-toolbox_0.22.2.dsc
+ 21999cb9b10ff22b09d2da05973c47a832841c79e6923f6eb01ddc151fe64ba7 28924 custom-toolbox_0.22.2.tar.xz
+ bb459fca0330fe4f602471844daf359fdedf8f0bf56a01861e40f00958290134 10018 custom-toolbox_0.22.2_i386.buildinfo
+Files:
+ 84dec7c20d775bb8378e1321b2b3877c 628 admin optional custom-toolbox_0.22.2.dsc
+ 9ca37aa4d0964a5a742737d72e650eb9 28924 admin optional custom-toolbox_0.22.2.tar.xz
+ f1b9c9c2c9b35866329d37defe46996f 10018 admin optional custom-toolbox_0.22.2_i386.buildinfo

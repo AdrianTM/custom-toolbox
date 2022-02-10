@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Wed, 09 Feb 2022 22:25:53 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.22.2
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.22.2) mx; urgency=medium
+ .
+   * Fix: show app after editing a .list file
+   * Improving editor selection
+Checksums-Sha1:
+ ea8b66d11ac74cc10de9eea277fd96b1c5488a11 1190 custom-toolbox_0.22.2.dsc
+ 2c7af191c97170f0ead6bed01de9adbe02847817 28896 custom-toolbox_0.22.2.tar.xz
+ ae96ba6838564a4f10621986254f8d434c3a9681 10771 custom-toolbox_0.22.2_amd64.buildinfo
+ f4c33c55aaccaf0d84f087a0ee59e8b981cda68b 50108 custom-toolbox_0.22.2_amd64.deb
+Checksums-Sha256:
+ dc278515273678635d7194878406795318273c6adeb7f9f2bd49880c1a99c792 1190 custom-toolbox_0.22.2.dsc
+ ae8595b689284ea44a9f9e0b61d3ae8026d3e08f9839f4fbe5eeea5822715934 28896 custom-toolbox_0.22.2.tar.xz
+ b7605c2bd21ffe3751175a23f59b9b50bbabe824d9ab9fbdcccb8fe402b53995 10771 custom-toolbox_0.22.2_amd64.buildinfo
+ cf1d4e7a24c072761b266d87979372fcbc9df0f1eb201d824b78fb64382c6900 50108 custom-toolbox_0.22.2_amd64.deb
+Files:
+ 7e1448e4df1c6a62e0a6dde3b142dda8 1190 admin optional custom-toolbox_0.22.2.dsc
+ 22b2a642a28a97c8aebe2941aa5a11e2 28896 admin optional custom-toolbox_0.22.2.tar.xz
+ 1b3085b8a8a54583e838c6d034d37749 10771 admin optional custom-toolbox_0.22.2_amd64.buildinfo
+ 595f51bce4a1524be6c57e04baace9b8 50108 admin optional custom-toolbox_0.22.2_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmIEhiQTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumIzGB/9Lf0T2LtRGoD49sz0l69of1v/glcQt
+ikxZQd5C4x6qMXGamRWdH8HchKSw/wcnxyCrJKmfG1iYUfGCl+bmmhgTzILSV9Xo
+R8NNUyUw1paOX1ebU1flo6Jw7DiSGq3pDB9P+qCZSUDAGD9k5cruGk6Ed/WfG2Sy
+hTZX6aifn5OwBo1kFgTCgZzn/wLrHkzNra5/ULf+hEZ6NYn2u827pwfvAPzSgQ+0
+ey3F+lzWB9JFz0HnS1xsx8w+dg1W8+yDM0ipEI24z6ddUjCK/5Kq7+MI6/qTua/X
+y4mHzs70xglHjMe20JOEvSvl1R84EAW0/mKbDmyuTqzGLaawYiKn0St4
+=rDKL
+-----END PGP SIGNATURE-----
