@@ -550,21 +550,44 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 // Edit launcher .list file
 void MainWindow::on_buttonEdit_clicked()
 {
-    if (!QFile::exists(gui_editor)) { // if specified editor doesn't exist get the default one
+    QString editor = gui_editor;
+    QString desktop_file;
+    if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if specified editor doesn't exist get the default one
         proc.start("xdg-mime", QStringList{"query", "default", "text/plain"}, QIODevice::ReadOnly);
         proc.waitForFinished();
-        QString editor = QString(proc.readAllStandardOutput().trimmed()).remove(".desktop");
-        if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) // if default one doesn't exit use nano as backup editor
+        QString default_editor = proc.readAllStandardOutput().trimmed();
+
+        // find first app with .desktop name that matches default_editors
+        QString local = QFile::exists(QDir::homePath() + "/.local/share/applications") ? QDir::homePath() + "/.local/share/applications " : "";
+        proc.start("find", QStringList{local, "/usr/share/applications", "-name", default_editor, "-print", "-quit"}, QIODevice::ReadOnly);
+        proc.waitForFinished();
+        desktop_file = proc.readAllStandardOutput().trimmed();
+
+        QFile file(desktop_file);
+        if (file.open(QIODevice::ReadOnly)) {
+            QString line;
+            while (!file.atEnd()) {
+                line = file.readLine();
+                if (line.contains(QRegularExpression("^Exec=")))
+                    break;
+            }
+            file.close();
+            editor = line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C")).trimmed();
+        }
+        if (editor.isEmpty()) // use nano as backup editor
             editor = "x-terminal-emulator -e nano";
-        else if (getuid() == 0 && (editor == "kate" || editor == "kwrite")) // need to run these as normal user
-            editor = "runuser -u $(logname) " + editor;
-        gui_editor = editor;
     }
-    this->hide();
-    QString cmd = gui_editor + " " + file_name;
-    if (!QFileInfo(file_name).isWritable())
+    // Editors that need to run as normal user
+    if (getuid() == 0 && (editor.endsWith("kate") || editor.endsWith("kwrite") || desktop_file.endsWith("atom.desktop")))
+        editor = "runuser -u $(logname) " + editor;
+    QString cmd = editor + " " + file_name;
+    // If we need to run as root (with the exception of the listed editors)
+    if (!QFileInfo(file_name).isWritable() && !editor.endsWith("kate") && !editor.endsWith("kwrite") && !desktop_file.endsWith("atom.desktop"))
         cmd = "su-to-root -X -c '" + cmd + "'";
+
+    this->hide(); // unfortunatelly Atom is non-blocking
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();
+    this->show();
 }
