@@ -37,18 +37,10 @@ void displayDoc(QString url, QString title)
     if (system("command -v mx-viewer >/dev/null") == 0) {
         system("mx-viewer " + url.toUtf8() + " \"" + title.toUtf8() + "\"&");
     } else {
-        if (getuid() != 0) {
+        if (getuid() != 0)
             system("xdg-open " + url.toUtf8());
-        } else {
-            QProcess proc;
-            proc.start("logname", QStringList(), QIODevice::ReadOnly);
-            proc.waitForFinished();
-            if (proc.exitCode() != 0)
-                return;
-            QString user = proc.readAllStandardOutput();
-            system("runuser -l " + user.toUtf8() + " -c \"env XDG_RUNTIME_DIR=/run/user/$(id -u " +
-                   user.toUtf8() + ") xdg-open " + url.toUtf8() + "\"&");
-        }
+        else
+            system("runuser $(logname) -c \"env XDG_RUNTIME_DIR=/run/user/$(id -u $(logname)) xdg-open " + url.toUtf8() + "\"&");
     }
 }
 
