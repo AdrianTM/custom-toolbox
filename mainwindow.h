@@ -27,12 +27,13 @@
 
 #include <QCommandLineParser>
 #include <QDialog>
-#include <QIcon>
 #include <QMessageBox>
 #include <QMultiMap>
 #include <QProcess>
 
 #include "flatbutton.h"
+
+class QIcon;
 
 namespace Ui {
 class MainWindow;
