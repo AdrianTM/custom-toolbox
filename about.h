@@ -1,7 +1,7 @@
 #ifndef ABOUT_H
 #define ABOUT_H
 
-#include <QString>
+class QString;
 
 void displayDoc(QString url, QString title);
 void displayAboutMsgBox(QString title, QString message, QString licence_url, QString license_title);

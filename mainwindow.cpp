@@ -51,7 +51,7 @@ MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     local_dir = QFile::exists(QDir::homePath() + "/.local/share/applications")
-        ? QDir::homePath() + "/.local/share/applications" : "";
+              ? QDir::homePath() + "/.local/share/applications" : "";
     setup();
 
     file_location = "/etc/custom-toolbox";
@@ -93,9 +93,9 @@ QIcon MainWindow::findIcon(QString icon_name)
 
     // Try to find in most obvious places
     QStringList search_paths { QDir::homePath() + "/.local/share/icons/",
-        "/usr/share/pixmaps/",
-        "/usr/local/share/icons/",
-        "/usr/share/icons/hicolor/48x48/apps/" };
+                "/usr/share/pixmaps/",
+                "/usr/local/share/icons/",
+                "/usr/share/icons/hicolor/48x48/apps/" };
     for (const QString& path : search_paths) {
         if (!QFileInfo::exists(path)) {
             search_paths.removeOne(path);
@@ -155,7 +155,7 @@ void MainWindow::setGui()
 {
     // Remove all items from the layout
     QLayoutItem* child;
-    while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
+    while ((child = ui->gridLayout_btn->takeAt(0))) {
         delete child->widget();
         delete child;
     }
@@ -236,10 +236,8 @@ QString MainWindow::getFileName()
     if (file_name.isEmpty())
         exit(EXIT_FAILURE);
     if (!QFile::exists(file_name)) {
-        int ans = QMessageBox::critical(this, tr("File Open Error"),
-            tr("Could not open file, do you want to try again?"),
-            QMessageBox::Yes, QMessageBox::No);
-        if (ans == QMessageBox::No)
+        if (QMessageBox::No == QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file, do you want to try again?"),
+                                                     QMessageBox::Yes, QMessageBox::No))
             exit(EXIT_FAILURE);
         else
             return getFileName();
@@ -496,7 +494,7 @@ void MainWindow::on_lineSearch_textChanged(const QString& arg1)
 {
     // remove all items from the layout
     QLayoutItem* child;
-    while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
+    while ((child = ui->gridLayout_btn->takeAt(0))) {
         delete child->widget();
         delete child;
     }
