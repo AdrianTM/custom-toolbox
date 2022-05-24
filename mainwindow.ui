@@ -52,7 +52,7 @@
       <number>5</number>
      </property>
      <item row="0" column="0">
-      <widget class="QPushButton" name="buttonAbout">
+      <widget class="QPushButton" name="pushAbout">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -126,7 +126,7 @@
       </widget>
      </item>
      <item row="0" column="8">
-      <widget class="QPushButton" name="buttonCancel">
+      <widget class="QPushButton" name="pushCancel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QPushButton" name="buttonHelp">
+      <widget class="QPushButton" name="pushHelp">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -172,7 +172,7 @@
       </widget>
      </item>
      <item row="0" column="7">
-      <widget class="QPushButton" name="buttonEdit">
+      <widget class="QPushButton" name="pushEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -288,6 +288,8 @@
          <font>
           <weight>75</weight>
           <bold>true</bold>
+          <strikeout>false</strikeout>
+          <kerning>true</kerning>
          </font>
         </property>
         <property name="text">
@@ -312,7 +314,7 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="lineSearch">
+       <widget class="QLineEdit" name="textSearch">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -345,18 +347,18 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>checkBoxStartup</tabstop>
-  <tabstop>lineSearch</tabstop>
-  <tabstop>buttonAbout</tabstop>
-  <tabstop>buttonHelp</tabstop>
-  <tabstop>buttonEdit</tabstop>
-  <tabstop>buttonCancel</tabstop>
+  <tabstop>textSearch</tabstop>
+  <tabstop>pushAbout</tabstop>
+  <tabstop>pushHelp</tabstop>
+  <tabstop>pushEdit</tabstop>
+  <tabstop>pushCancel</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>buttonCancel</sender>
+   <sender>pushCancel</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>

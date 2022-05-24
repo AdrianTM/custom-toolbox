@@ -39,13 +39,14 @@
 #include "ui_mainwindow.h"
 #include "version.h"
 
-MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
+MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
     : QDialog(parent),
       col_count { 0 },
       ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
+    setConnections();
     if (arg_parser.isSet("remove-checkbox"))
         ui->checkBoxStartup->hide();
 
@@ -56,7 +57,7 @@ MainWindow::MainWindow(const QCommandLineParser& arg_parser, QWidget* parent)
 
     file_location = "/etc/custom-toolbox";
 
-    QStringList arg_list = arg_parser.positionalArguments();
+    const QStringList arg_list = arg_parser.positionalArguments();
     if (arg_list.size() > 0)
         file_name = QFile(arg_list.first()).exists() ? arg_list.first() : getFileName();
     else
@@ -96,12 +97,12 @@ QIcon MainWindow::findIcon(QString icon_name)
                 "/usr/share/pixmaps/",
                 "/usr/local/share/icons/",
                 "/usr/share/icons/hicolor/48x48/apps/" };
-    for (const QString& path : search_paths) {
+    for (const QString &path : search_paths) {
         if (!QFileInfo::exists(path)) {
             search_paths.removeOne(path);
             continue;
         }
-        for (const QString& ext : { ".png", ".svg", ".xpm" }) {
+        for (const QString &ext : { ".png", ".svg", ".xpm" }) {
             QString file = path + icon_name + ext;
             if (QFileInfo::exists(file))
                 return QIcon(file);
@@ -114,7 +115,7 @@ QIcon MainWindow::findIcon(QString icon_name)
     search_paths.append("/usr/share/icons/");
     proc.start("find", QStringList{search_paths << "-iname" << search_term << "-print" << "-quit"});
     proc.waitForFinished();
-    QString out = proc.readAllStandardOutput().trimmed();
+    const QString out = proc.readAllStandardOutput().trimmed();
     if (out.isEmpty())
         return QIcon();
     return QIcon(out);
@@ -154,7 +155,7 @@ void MainWindow::setup()
 void MainWindow::setGui()
 {
     // Remove all items from the layout
-    QLayoutItem* child;
+    QLayoutItem *child;
     while ((child = ui->gridLayout_btn->takeAt(0))) {
         delete child->widget();
         delete child;
@@ -167,28 +168,28 @@ void MainWindow::setGui()
     QSettings settings(qApp->organizationName(), qApp->applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value("geometry").toByteArray());
 
-    QSize size = this->size();
+    const QSize size = this->size();
     if (this->isMaximized()) { // if started maximized give option to resize to normal window size
         this->resize(size);
-        QRect screenGeometry = qApp->screens().first()->geometry();
-        int x = (screenGeometry.width() - this->width()) / 2;
-        int y = (screenGeometry.height() - this->height()) / 2;
+        const QRect screenGeometry = qApp->screens().first()->geometry();
+        const int x = (screenGeometry.width() - this->width()) / 2;
+        const int y = (screenGeometry.height() - this->height()) / 2;
         this->move(x, y);
     }
 
     // Check if .desktop file is in autostart
-    QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
+    const QString file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (QFile::exists(file_name)) {
         ui->checkBoxStartup->show();
         ui->checkBoxStartup->setChecked(true);
     }
-    ui->lineSearch->setFocus();
+    ui->textSearch->setFocus();
 }
 
 // Execute command when button is clicked
 void MainWindow::btn_clicked()
 {
-    QString cmd = sender()->property("cmd").toString();
+    const QString cmd = sender()->property("cmd").toString();
 
     if (hideGUI) {
         this->hide();
@@ -211,12 +212,11 @@ void MainWindow::resizeEvent(QResizeEvent* event)
         return;
     if (fixed_number_col != 0) // 0 is default value, if nothing set in .conf file
         return;
-    int new_count = this->width() / 200;
-    if (new_count != col_count) {
+    if (int new_count = this->width() / 200; new_count != col_count) {
         if (new_count > max_elements && col_count == max_elements)
             return;
         col_count = 0;
-        if (ui->lineSearch->text().isEmpty()) {
+        if (ui->textSearch->text().isEmpty()) {
             QLayoutItem* child;
             while ((child = ui->gridLayout_btn->takeAt(0))) {
                 delete child->widget();
@@ -224,7 +224,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
             }
             addButtons(category_map);
         } else {
-            on_lineSearch_textChanged(ui->lineSearch->text());
+            textSearch_textChanged(ui->textSearch->text());
         }
     }
 }
@@ -283,7 +283,7 @@ QStringList MainWindow::getDesktopFileInfo(QString file_name)
     if (!file.open(QFile::Text | QFile::ReadOnly))
         return QStringList();
 
-    QString text = file.readAll();
+    const QString text = file.readAll();
     file.close();
 
     if (lang != QLatin1String("en")) {
@@ -331,7 +331,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
         max = fixed_number_col;
 
     max_elements = 0;
-    for (const QString& category : map.uniqueKeys())
+    for (const QString &category : map.uniqueKeys())
         if (map.count(category) > max_elements)
             max_elements = map.count(category);
 
@@ -342,7 +342,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
     QString root;
     QString terminal;
 
-    for (const QString& category : map.uniqueKeys()) {
+    for (const QString &category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
             QLabel* label = new QLabel(this);
             QFont font;
@@ -468,8 +468,17 @@ void MainWindow::readFile(QString file_name)
     category_map = map;
 }
 
+void MainWindow::setConnections()
+{
+    connect(ui->pushAbout, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
+    connect(ui->pushEdit, &QPushButton::clicked, this, &MainWindow::pushEdit_clicked);
+    connect(ui->pushHelp, &QPushButton::clicked, this, &MainWindow::pushHelp_clicked);
+    connect(ui->checkBoxStartup, &QPushButton::clicked, this, &MainWindow::checkBoxStartup_clicked);
+    connect(ui->textSearch, &QLineEdit::textChanged, this, &MainWindow::textSearch_textChanged);
+}
+
 // About button clicked
-void MainWindow::on_buttonAbout_clicked()
+void MainWindow::pushAbout_clicked()
 {
     this->hide();
     displayAboutMsgBox(tr("About %1").arg(this->windowTitle()),
@@ -483,14 +492,14 @@ void MainWindow::on_buttonAbout_clicked()
 }
 
 // Help button clicked
-void MainWindow::on_buttonHelp_clicked()
+void MainWindow::pushHelp_clicked()
 {
-    QString url = "/usr/share/doc/custom-toolbox/help.html";
+    const QString url = "/usr/share/doc/custom-toolbox/help.html";
     displayDoc(url, tr("%1 Help").arg(this->windowTitle()));
 }
 
 // search
-void MainWindow::on_lineSearch_textChanged(const QString& arg1)
+void MainWindow::textSearch_textChanged(const QString& arg1)
 {
     // remove all items from the layout
     QLayoutItem* child;
@@ -515,7 +524,7 @@ void MainWindow::on_lineSearch_textChanged(const QString& arg1)
 }
 
 // Add a .desktop file to the ~/.config/autostart
-void MainWindow::on_checkBoxStartup_clicked(bool checked)
+void MainWindow::checkBoxStartup_clicked(bool checked)
 {
     const QString &file_name = QDir::homePath() + "/.config/autostart/" + base_name + ".desktop"; // same base_name as .list file
     if (checked) {
@@ -546,7 +555,7 @@ void MainWindow::on_checkBoxStartup_clicked(bool checked)
 }
 
 // Edit launcher .list file
-void MainWindow::on_buttonEdit_clicked()
+void MainWindow::pushEdit_clicked()
 {
     QString editor = gui_editor;
     QString desktop_file;

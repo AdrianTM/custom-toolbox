@@ -20,14 +20,11 @@
 # * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
 # **********************************************************************/
 
-QT       += core gui
-CONFIG   += c++11
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets
+CONFIG   += c++17
 
 TARGET = custom-toolbox
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
     mainwindow.cpp \
