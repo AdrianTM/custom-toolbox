@@ -43,7 +43,7 @@ class MainWindow : public QDialog {
     Q_OBJECT
 
 public:
-    explicit MainWindow(const QCommandLineParser& arg_parser, QWidget* parent = nullptr);
+    explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);
@@ -55,6 +55,7 @@ public:
     void addButtons(QMultiMap<QString, QStringList> map);
     void processLine(QString line);
     void readFile(QString file_name);
+    void setConnections();
     void setGui();
     void setup();
 
@@ -62,11 +63,11 @@ private slots:
     void closeEvent(QCloseEvent*);
     void resizeEvent(QResizeEvent* event);
     void btn_clicked();
-    void on_buttonAbout_clicked();
-    void on_buttonEdit_clicked();
-    void on_buttonHelp_clicked();
-    void on_checkBoxStartup_clicked(bool checked);
-    void on_lineSearch_textChanged(const QString& arg1);
+    void pushAbout_clicked();
+    void pushEdit_clicked();
+    void pushHelp_clicked();
+    void checkBoxStartup_clicked(bool checked);
+    void textSearch_textChanged(const QString &arg1);
 
 private:
     FlatButton* btn;
