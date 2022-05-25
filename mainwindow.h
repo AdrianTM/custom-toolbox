@@ -61,7 +61,7 @@ public:
 
 private slots:
     void closeEvent(QCloseEvent*);
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent *event);
     void btn_clicked();
     void pushAbout_clicked();
     void pushEdit_clicked();
@@ -70,7 +70,7 @@ private slots:
     void textSearch_textChanged(const QString &arg1);
 
 private:
-    FlatButton* btn;
+    FlatButton *btn;
     QMultiMap<QString, QStringList> category_map;
     QProcess proc;
     QSize icon_size;

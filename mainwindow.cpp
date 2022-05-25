@@ -206,7 +206,7 @@ void MainWindow::closeEvent(QCloseEvent*)
     settings.setValue("geometry", saveGeometry());
 }
 
-void MainWindow::resizeEvent(QResizeEvent* event)
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
     if (event->oldSize().width() == event->size().width())
         return;
@@ -217,7 +217,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
             return;
         col_count = 0;
         if (ui->textSearch->text().isEmpty()) {
-            QLayoutItem* child;
+            QLayoutItem *child;
             while ((child = ui->gridLayout_btn->takeAt(0))) {
                 delete child->widget();
                 delete child;
@@ -344,7 +344,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
 
     for (const QString &category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
-            QLabel* label = new QLabel(this);
+            auto label = new QLabel(this);
             QFont font;
             font.setBold(true);
             font.setUnderline(true);
@@ -392,7 +392,7 @@ void MainWindow::addButtons(QMultiMap<QString, QStringList> map)
         if (category != map.lastKey()) {
             col = 0;
             ++row;
-            QFrame* line = new QFrame();
+            auto line = new QFrame();
             line->setFrameShape(QFrame::HLine);
             line->setFrameShadow(QFrame::Sunken);
             ui->gridLayout_btn->addWidget(line, row, col, 1, -1);
@@ -502,7 +502,7 @@ void MainWindow::pushHelp_clicked()
 void MainWindow::textSearch_textChanged(const QString& arg1)
 {
     // remove all items from the layout
-    QLayoutItem* child;
+    QLayoutItem *child;
     while ((child = ui->gridLayout_btn->takeAt(0))) {
         delete child->widget();
         delete child;
