@@ -31,6 +31,7 @@
 #include <QTranslator>
 
 #include "mainwindow.h"
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
@@ -64,7 +65,10 @@ int main(int argc, char *argv[])
                               QObject::tr("You seem to be logged in as root, please log out and log in as normal user to use this program."));
         exit(EXIT_FAILURE);
     }
-
+    if (getuid() == 0) {
+        qputenv("XDG_RUNTIME_DIR", "/run/user/0");
+        qputenv("HOME", "/root");
+    }
     MainWindow w(parser);
     w.show();
     return app.exec();
