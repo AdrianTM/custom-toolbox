@@ -26,27 +26,27 @@ FlatButton::FlatButton(QWidget *parent)
     : QPushButton(parent)
 {
     setFlat(true);
-    setStyleSheet("text-align:left; color:black");
+    setStyleSheet(QStringLiteral("text-align:left; color:black"));
 }
 
-FlatButton::FlatButton(QString name, QWidget *parent)
+FlatButton::FlatButton(const QString &name, QWidget *parent)
     : QPushButton(name, parent)
 {
     setFlat(true);
-    setStyleSheet("text-align:left");
+    setStyleSheet(QStringLiteral("text-align:left"));
 }
 
 void FlatButton::leaveEvent(QEvent *e)
 {
     //setFlat(true);
-    setStyleSheet("text-align:left; text-decoration:none");
+    setStyleSheet(QStringLiteral("text-align:left; text-decoration:none"));
     QPushButton::leaveEvent(e);
 }
 
 void FlatButton::enterEvent(QEvent *e)
 {
     //setFlat(false);
-    setStyleSheet("QPushButton { text-align:left; text-decoration:underline}; QToolTip { text-decoration: none; }");
+    setStyleSheet(QStringLiteral("QPushButton { text-align:left; text-decoration:underline}; QToolTip { text-decoration: none; }"));
     QPushButton::enterEvent(e);
 }
 
@@ -55,7 +55,7 @@ void FlatButton::setIconSize(int x, int y)
     QPushButton::setIconSize(QSize(x, y));
 }
 
-void FlatButton::setIconSize(const QSize &size)
+void FlatButton::setIconSize(QSize size)
 {
     QPushButton::setIconSize(size);
 }

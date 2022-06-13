@@ -24,10 +24,11 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QTranslator>
+#include <QIcon>
 #include <QLibraryInfo>
 #include <QLocale>
-#include <QIcon>
+#include <QProcess>
+#include <QTranslator>
 
 #include "mainwindow.h"
 
@@ -35,10 +36,10 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     app.setWindowIcon(QIcon::fromTheme(app.applicationName()));
-    app.setOrganizationName("MX-Linux");
+    app.setOrganizationName(QStringLiteral("MX-Linux"));
 
     QTranslator qtTran;
-    if (qtTran.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         app.installTranslator(&qtTran);
 
     QTranslator qtBaseTran;
@@ -54,11 +55,11 @@ int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption({{"r", "remove-checkbox"}, QObject::tr("Don't show 'show this dialog at startup' checkbox")});
-    parser.addPositionalArgument("file", QObject::tr("Full path and name of the .list file you want to load to set up the application"));
+    parser.addPositionalArgument(QStringLiteral("file"), QObject::tr("Full path and name of the .list file you want to load to set up the application"));
     parser.process(app);
 
     // Root guard
-    if (system("logname |grep -q ^root$") == 0) {
+    if (QProcess::execute(QStringLiteral("/bin/bash"), {"-c", "logname |grep -q ^root$"}) == 0) {
         QMessageBox::critical(nullptr, QObject::tr("Error"),
                               QObject::tr("You seem to be logged in as root, please log out and log in as normal user to use this program."));
         exit(EXIT_FAILURE);
