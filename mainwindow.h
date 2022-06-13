@@ -47,14 +47,14 @@ public:
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);
-    QString fixExecItem(QString item);
-    QString fixNameItem(QString item);
-    QString getDesktopFileName(QString app_name);
+    static QString fixExecItem(QString item);
+    static QString fixNameItem(QString item);
+    QString getDesktopFileName(const QString &app_name);
     QString getFileName();
-    QStringList getDesktopFileInfo(QString file_name);
-    void addButtons(QMultiMap<QString, QStringList> map);
-    void processLine(QString line);
-    void readFile(QString file_name);
+    static QStringList getDesktopFileInfo(const QString &file_name);
+    void addButtons(const QMultiMap<QString, QStringList> &map);
+    void processLine(const QString &line);
+    void readFile(const QString &file_name);
     void setConnections();
     void setGui();
     void setup();
@@ -70,7 +70,7 @@ private slots:
     void textSearch_textChanged(const QString &arg1);
 
 private:
-    FlatButton *btn;
+    FlatButton *btn{};
     QMultiMap<QString, QStringList> category_map;
     QProcess proc;
     QSize icon_size;
@@ -82,12 +82,12 @@ private:
     QString local_dir;
     QString version;
     QStringList categories;
-    bool hideGUI;
+    bool hideGUI{};
     int col_count;
-    int fixed_number_col;
-    int max_elements;
-    int min_height;
-    int min_width;
+    int fixed_number_col{};
+    int max_elements{};
+    int min_height{};
+    int min_width{};
 
     Ui::MainWindow* ui;
 };

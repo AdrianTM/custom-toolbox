@@ -3,7 +3,7 @@
 
 class QString;
 
-void displayDoc(QString url, QString title);
-void displayAboutMsgBox(QString title, QString message, QString licence_url, QString license_title);
+void displayDoc(const QString &url, const QString &title);
+void displayAboutMsgBox(const QString &title, const QString &message, const QString &licence_url, const QString &license_title);
 
 #endif // ABOUT_H
