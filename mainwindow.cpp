@@ -31,17 +31,16 @@
 #include <QSettings>
 #include <QTextEdit>
 
-#include <unistd.h>
-
 #include "about.h"
 #include "flatbutton.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "version.h"
+#include <unistd.h>
 
 MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
     : QDialog(parent),
-      col_count { 0 },
+      col_count{0},
       ui(new Ui::MainWindow)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
@@ -71,7 +70,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// Find icon file by name
 QIcon MainWindow::findIcon(QString icon_name)
 {
     if (icon_name.isEmpty())
@@ -80,10 +78,10 @@ QIcon MainWindow::findIcon(QString icon_name)
         return QIcon(icon_name);
 
     QString search_term = icon_name;
-    if (!icon_name.endsWith(QLatin1String(".png")) && !icon_name.endsWith(QLatin1String(".svg")) && !icon_name.endsWith(QLatin1String(".xpm")))
+    auto re = QRegularExpression(QStringLiteral(R"(\.png$|\.svg$|\.xpm$")"));
+    if (!icon_name.contains(re))
         search_term = icon_name + ".*";
-
-    icon_name.remove(QRegularExpression(QStringLiteral("\\.png$|\\.svg$|\\.xpm$")));
+    icon_name.remove(re);
 
     if (!icon_theme.isEmpty())
         QIcon::setThemeName(icon_theme);
@@ -113,7 +111,8 @@ QIcon MainWindow::findIcon(QString icon_name)
     search_paths.append(QStringLiteral("/usr/share/icons/hicolor/48x48/"));
     search_paths.append(QStringLiteral("/usr/share/icons/hicolor/"));
     search_paths.append(QStringLiteral("/usr/share/icons/"));
-    proc.start(QStringLiteral("find"), QStringList{search_paths << QStringLiteral("-iname") << search_term << QStringLiteral("-print") << QStringLiteral("-quit")});
+    proc.start(QStringLiteral("find"), QStringList{search_paths << QStringLiteral("-iname") << search_term
+                                                   << QStringLiteral("-print") << QStringLiteral("-quit")});
     proc.waitForFinished();
     const QString out = proc.readAllStandardOutput().trimmed();
     if (out.isEmpty())
@@ -127,7 +126,6 @@ QString MainWindow::fixExecItem(QString item)
     return item.remove(QRegularExpression(QStringLiteral(" %f| %F| %U")));
 }
 
-// Fix name of the item
 QString MainWindow::fixNameItem(QString item)
 {
     if (item == QLatin1String("System Profiler and Benchmark"))
@@ -135,7 +133,6 @@ QString MainWindow::fixNameItem(QString item)
     return item;
 }
 
-// Setup versious items and load configurations first time program runs
 void MainWindow::setup()
 {
     this->setWindowTitle(tr("Custom Toolbox"));
@@ -186,7 +183,6 @@ void MainWindow::setGui()
     ui->textSearch->setFocus();
 }
 
-// Execute command when button is clicked
 void MainWindow::btn_clicked()
 {
     const QString cmd = sender()->property("cmd").toString();
@@ -428,7 +424,7 @@ void MainWindow::processLine(const QString &line)
                     QString str;
                     for (auto it = list.lastIndexOf(QStringLiteral("alias")); it + 1 < list.size(); ++it)
                         str.append(list.at(it + 1) + " ");
-                    info[0] = str.trimmed().remove(QStringLiteral("'")).remove(QStringLiteral("\""));
+                    info.first() = str.trimmed().remove(QStringLiteral("'")).remove(QStringLiteral("\""));
                 }
             } else {
                 info << QStringLiteral("false");
@@ -452,7 +448,8 @@ void MainWindow::readFile(const QString &file_name)
     base_name = QFileInfo(file_name).baseName();
     file_location = QFileInfo(file_name).path();
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
+        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name + "\n" +
+                              tr("Application will close."));
         exit(EXIT_FAILURE);
     }
 
@@ -555,13 +552,15 @@ void MainWindow::pushEdit_clicked()
     QString editor = gui_editor;
     QString desktop_file;
     if (editor.isEmpty() || system("command -v " + editor.toUtf8()) != 0) { // if specified editor doesn't exist get the default one
-        proc.start(QStringLiteral("xdg-mime"), QStringList{"query", "default", "text/plain"}, QIODevice::ReadOnly);
+        proc.start(QStringLiteral("xdg-mime"), QStringList{"query", "default", "text/plain"});
         proc.waitForFinished();
         QString default_editor = proc.readAllStandardOutput().trimmed();
 
         // find first app with .desktop name that matches default_editors
-        QString local = QFile::exists(QDir::homePath() + "/.local/share/applications") ? QDir::homePath() + "/.local/share/applications " : QLatin1String("");
-        proc.start(QStringLiteral("find"), QStringList{local, "/usr/share/applications", "-name", default_editor, "-print", "-quit"}, QIODevice::ReadOnly);
+        QString local = QFile::exists(QDir::homePath() + "/.local/share/applications")
+                ? QDir::homePath() + "/.local/share/applications "
+                : QLatin1String("");
+        proc.start(QStringLiteral("find"), QStringList{local, "/usr/share/applications", "-name", default_editor, "-print", "-quit"});
         proc.waitForFinished();
         desktop_file = proc.readAllStandardOutput().trimmed();
 
@@ -580,13 +579,14 @@ void MainWindow::pushEdit_clicked()
             editor = QStringLiteral("x-terminal-emulator -e nano");
     }
     // Editors that need to run as normal user
-    if (getuid() == 0 && (editor.endsWith(QLatin1String("kate")) || editor.endsWith(QLatin1String("kwrite")) || desktop_file.endsWith(QLatin1String("atom.desktop"))))
+    if (getuid() == 0 && (editor.endsWith(QLatin1String("kate")) || editor.endsWith(QLatin1String("kwrite"))
+                          || desktop_file.endsWith(QLatin1String("atom.desktop"))))
         editor = "runuser -u $(logname) " + editor;
     QString cmd = editor + " " + file_name;
     // If we need to run as root (with the exception of the listed editors)
-    if (!QFileInfo(file_name).isWritable() && !editor.endsWith(QLatin1String("kate")) && !editor.endsWith(QLatin1String("kwrite")) && !desktop_file.endsWith(QLatin1String("atom.desktop")))
+    if (!QFileInfo(file_name).isWritable() && !editor.endsWith(QLatin1String("kate")) &&
+            !editor.endsWith(QLatin1String("kwrite")) && !desktop_file.endsWith(QLatin1String("atom.desktop")))
         cmd = "su-to-root -X -c '" + cmd + "'";
-
     this->hide(); // unfortunatelly Atom is non-blocking
     system(cmd.toUtf8());
     readFile(file_name);
