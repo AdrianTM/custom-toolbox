@@ -498,7 +498,7 @@ void MainWindow::pushHelp_clicked()
 void MainWindow::textSearch_textChanged(const QString& arg1)
 {
     // remove all items from the layout
-    QLayoutItem *child;
+    QLayoutItem *child = nullptr;
     while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
@@ -507,7 +507,7 @@ void MainWindow::textSearch_textChanged(const QString& arg1)
     // create a new_map with items that match the search argument
     QMultiMap<QString, QStringList> new_map;
     for (auto i = category_map.constEnd() - 1; i != category_map.constBegin() - 1; --i) {
-        QString category = i.key();
+        const QString &category = i.key();
         QString name = i.value().first();
         QString comment = i.value().first();
         if (name.contains(arg1, Qt::CaseInsensitive)
