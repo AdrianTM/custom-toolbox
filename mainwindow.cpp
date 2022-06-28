@@ -543,7 +543,7 @@ void MainWindow::checkBoxStartup_clicked(bool checked)
         out << "StartupNotify=false";
         file.close();
     } else {
-        QDir().remove(file_name);
+        QFile::remove(file_name);
     }
 }
 
