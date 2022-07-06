@@ -54,7 +54,8 @@ TRANSLATIONS += translations/custom-toolbox_ca.ts \
                 translations/custom-toolbox_ja.ts \
                 translations/custom-toolbox_nl.ts \
                 translations/custom-toolbox_ro.ts \
-                translations/custom-toolbox_sv.ts
+                translations/custom-toolbox_sv.ts \
+                translations/custom-toolbox_en.ts
 
 RESOURCES += \
     images.qrc
