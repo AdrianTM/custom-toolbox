@@ -82,7 +82,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="235"/>
         <location filename="../mainwindow.cpp" line="451"/>
-        <location filename="../mainwindow.cpp" line="526"/>
+        <location filename="../mainwindow.cpp" line="527"/>
         <source>File Open Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,37 +102,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="485"/>
+        <location filename="../mainwindow.cpp" line="486"/>
         <source>%1 License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="492"/>
+        <location filename="../mainwindow.cpp" line="493"/>
         <source>%1 Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="481"/>
+        <location filename="../mainwindow.cpp" line="482"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="482"/>
+        <location filename="../mainwindow.cpp" line="483"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="484"/>
+        <location filename="../mainwindow.cpp" line="485"/>
         <source>Copyright (c) MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="526"/>
+        <location filename="../mainwindow.cpp" line="527"/>
         <source>Could not write file: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -140,48 +140,48 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="59"/>
+        <location filename="../main.cpp" line="63"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="62"/>
+        <location filename="../main.cpp" line="66"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="63"/>
+        <location filename="../main.cpp" line="67"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="68"/>
+        <location filename="../main.cpp" line="72"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="69"/>
+        <location filename="../main.cpp" line="73"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="37"/>
+        <location filename="../about.cpp" line="46"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="38"/>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="47"/>
+        <location filename="../about.cpp" line="57"/>
         <source>Changelog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="39"/>
+        <location filename="../about.cpp" line="48"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="60"/>
+        <location filename="../about.cpp" line="69"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>

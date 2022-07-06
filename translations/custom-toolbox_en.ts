@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="sv_SE">
+<TS version="2.1" language="en_US">
 <context>
     <name>MainWindow</name>
     <message>
@@ -107,16 +107,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="486"/>
-        <source>%1 License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="493"/>
-        <source>%1 Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="482"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
@@ -132,6 +122,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="486"/>
+        <source>%1 License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="493"/>
+        <source>%1 Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="527"/>
         <source>Could not write file: </source>
         <translation type="unfinished"></translation>
@@ -139,6 +139,27 @@
 </context>
 <context>
     <name>QObject</name>
+    <message>
+        <location filename="../about.cpp" line="46"/>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="47"/>
+        <location filename="../about.cpp" line="57"/>
+        <source>Changelog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="48"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="69"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../main.cpp" line="63"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
@@ -162,27 +183,6 @@
     <message>
         <location filename="../main.cpp" line="73"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../about.cpp" line="46"/>
-        <source>License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../about.cpp" line="47"/>
-        <location filename="../about.cpp" line="57"/>
-        <source>Changelog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../about.cpp" line="48"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../about.cpp" line="69"/>
-        <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
