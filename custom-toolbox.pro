@@ -50,6 +50,7 @@ TRANSLATIONS += translations/custom-toolbox_ca.ts \
                 translations/custom-toolbox_el.ts \
                 translations/custom-toolbox_es.ts \
                 translations/custom-toolbox_fr.ts \
+                translations/custom-toolbox_fr_BE.ts \
                 translations/custom-toolbox_it.ts \
                 translations/custom-toolbox_ja.ts \
                 translations/custom-toolbox_nl.ts \
