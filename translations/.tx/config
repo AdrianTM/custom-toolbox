@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[antix-development.custom-toolbox]
+file_filter = ./custom-toolbox_<lang>.ts
+source_file = custom-toolbox_en.ts
+source_lang = en
+type = ts
