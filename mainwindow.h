@@ -35,11 +35,13 @@
 
 class QIcon;
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
-class MainWindow : public QDialog {
+class MainWindow : public QDialog
+{
     Q_OBJECT
 
 public:
@@ -60,7 +62,7 @@ public:
     void setup();
 
 private slots:
-    void closeEvent(QCloseEvent*);
+    void closeEvent(QCloseEvent *);
     void resizeEvent(QResizeEvent *event);
     void btn_clicked();
     void pushAbout_clicked();
@@ -70,7 +72,7 @@ private slots:
     void textSearch_textChanged(const QString &arg1);
 
 private:
-    FlatButton *btn{};
+    FlatButton *btn {};
     QMultiMap<QString, QStringList> category_map;
     QProcess proc;
     QSize icon_size;
@@ -82,14 +84,14 @@ private:
     QString local_dir;
     QString version;
     QStringList categories;
-    bool hideGUI{};
+    bool hideGUI {};
     int col_count;
-    int fixed_number_col{};
-    int max_elements{};
-    int min_height{};
-    int min_width{};
+    int fixed_number_col {};
+    int max_elements {};
+    int min_height {};
+    int min_width {};
 
-    Ui::MainWindow* ui;
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

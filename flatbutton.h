@@ -34,7 +34,8 @@ public:
     FlatButton(QWidget *parent = nullptr);
     FlatButton(const QString &name, QWidget *parent = nullptr);
     void setIconSize(int, int);
-    void setIconSize(QSize );
+    void setIconSize(QSize);
+
 protected:
     void enterEvent(QEvent *e);
     void leaveEvent(QEvent *e);

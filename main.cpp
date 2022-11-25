@@ -42,13 +42,15 @@ int main(int argc, char *argv[])
         qunsetenv("SESSION_MANAGER");
     }
     QApplication app(argc, argv);
-    if (getuid() == 0) qputenv("HOME", "/root");
+    if (getuid() == 0)
+        qputenv("HOME", "/root");
 
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setOrganizationName(QStringLiteral("MX-Linux"));
 
     QTranslator qtTran;
-    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"),
+                    QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         QApplication::installTranslator(&qtTran);
 
     QTranslator qtBaseTran;
@@ -56,25 +58,30 @@ int main(int argc, char *argv[])
         QApplication::installTranslator(&qtBaseTran);
 
     QTranslator appTran;
-    if (appTran.load(QApplication::applicationName() + "_" + QLocale::system().name(), "/usr/share/" + QApplication::applicationName() + "/locale"))
+    if (appTran.load(QApplication::applicationName() + "_" + QLocale::system().name(),
+                     "/usr/share/" + QApplication::applicationName() + "/locale"))
         QApplication::installTranslator(&appTran);
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("This app can be used to create custom launchers: box of buttons/icons"));
+    parser.setApplicationDescription(
+        QObject::tr("This app can be used to create custom launchers: box of buttons/icons"));
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption({{"r", "remove-checkbox"}, QObject::tr("Don't show 'show this dialog at startup' checkbox")});
-    parser.addPositionalArgument(QStringLiteral("file"), QObject::tr("Full path and name of the .list file you want to load to set up the application"));
+    parser.addPositionalArgument(
+        QStringLiteral("file"),
+        QObject::tr("Full path and name of the .list file you want to load to set up the application"));
     parser.process(app);
 
     // Root guard
     if (QProcess::execute(QStringLiteral("/bin/bash"), {"-c", "logname |grep -q ^root$"}) == 0) {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("You seem to be logged in as root, please log out and log in as normal user to use this program."));
+        QMessageBox::critical(
+            nullptr, QObject::tr("Error"),
+            QObject::tr(
+                "You seem to be logged in as root, please log out and log in as normal user to use this program."));
         exit(EXIT_FAILURE);
     }
     MainWindow w(parser);
     w.show();
     return QApplication::exec();
-
 }
