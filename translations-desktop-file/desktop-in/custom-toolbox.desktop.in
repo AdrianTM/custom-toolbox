@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+# The desktop entry name will be displayed within the menu.
+Name=Custom Toolbox
+Exec=custom-toolbox
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/custom-toolbox.svg
+Categories=GNOME;GTK;System;
+NoDisplay=false
