@@ -118,8 +118,8 @@ QIcon MainWindow::findIcon(QString icon_name)
     return QIcon(out);
 }
 
-// Strip %f|%F|%U if exec expects a file name since it's called without an argument from this launcher.
-void MainWindow::fixExecItem(QString &item) { item.remove(QRegularExpression(QStringLiteral(" %f| %F| %U"))); }
+// Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
+void MainWindow::fixExecItem(QString &item) { item.remove(QRegularExpression(QStringLiteral(R"(%[a-zA-Z])"))); }
 
 void MainWindow::fixNameItem(QString &item)
 {
