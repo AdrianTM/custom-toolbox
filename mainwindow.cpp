@@ -53,7 +53,7 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
     setWindowFlags(Qt::Window); // for the close, min and max buttons
     QString local_dir = QDir::homePath() + "/.local/share/applications";
     if (!QFile::exists(local_dir))
-        local_dir = "";
+        local_dir.clear();
     setup();
 
     file_location = QStringLiteral("/etc/custom-toolbox");
@@ -118,15 +118,13 @@ QIcon MainWindow::findIcon(QString icon_name)
     return QIcon(out);
 }
 
-// Fix varios exec= items to make sure they run correctly; remove %f if exec expects a file name since it's called
-// without a name
-QString MainWindow::fixExecItem(QString item) { return item.remove(QRegularExpression(QStringLiteral(" %f| %F| %U"))); }
+// Strip %f|%F|%U if exec expects a file name since it's called without an argument from this launcher.
+void MainWindow::fixExecItem(QString &item) { item.remove(QRegularExpression(QStringLiteral(" %f| %F| %U"))); }
 
-QString MainWindow::fixNameItem(QString item)
+void MainWindow::fixNameItem(QString &item)
 {
     if (item == QLatin1String("System Profiler and Benchmark"))
         item = QStringLiteral("System Information");
-    return item;
 }
 
 void MainWindow::setup()
@@ -356,12 +354,14 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
             for (const QStringList &item : map.values(category)) {
                 if (col >= col_count)
                     col_count = col + 1;
-                name = fixNameItem(item.at(0));
+                name = item.at(0);
                 comment = item.at(1);
                 icon_name = item.at(2);
-                exec = fixExecItem(item.at(3));
+                exec = item.at(3);
                 terminal = item.at(4);
                 root = item.at(5);
+                fixNameItem(name);
+                fixExecItem(exec);
 
                 btn = new FlatButton(name);
                 btn->setIconSize(icon_size);
