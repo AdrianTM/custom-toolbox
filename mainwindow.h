@@ -49,8 +49,8 @@ public:
     ~MainWindow();
 
     QIcon findIcon(QString icon_name);
-    static QString fixExecItem(QString item);
-    static QString fixNameItem(QString item);
+    static void fixExecItem(QString &item);
+    static void fixNameItem(QString &item);
     QString getDesktopFileName(const QString &app_name);
     QString getFileName();
     static QStringList getDesktopFileInfo(const QString &file_name);
