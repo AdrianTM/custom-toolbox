@@ -209,6 +209,10 @@ void MainWindow::closeEvent(QCloseEvent * /*unused*/)
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
+    if (firstRun) {
+        firstRun = false;
+        return;
+    }
     if (event->oldSize().width() == event->size().width())
         return;
     if (fixed_number_col != 0) // 0 is default value, if nothing set in .conf file
@@ -217,7 +221,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     int new_count = this->width() / item_size;
     if (new_count == col_count)
         return;
-    // when reaching the max no need to add/delete, only if making the window smaller new_count < max_elements
+    // when reaching the max no need to readd buttons, only if making the window smaller new_count < max_elements
     if (new_count >= max_elements && col_count == max_elements)
         return;
     col_count = 0;
