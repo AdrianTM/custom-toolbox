@@ -256,17 +256,13 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(const QString &app_name)
 {
-    QString name;
     for (const auto &path : QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)) {
         QDirIterator it(path, QStringList() << app_name + ".desktop", QDir::Files, QDirIterator::Subdirectories);
-        if (it.hasNext()) {
-            name = it.next();
-            break;
-        }
+        if (it.hasNext())
+            return it.next();
     }
-    if (name.isEmpty()) // if desktop file not found, but the command exists
-        name = QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
-    return name;
+    // if desktop file not found, but command exists
+    return QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
 }
 
 // Return the app info needed for the button
@@ -530,9 +526,8 @@ void MainWindow::textSearch_textChanged(const QString &arg1)
         QString name = i.value().first();
         QString comment = i.value().first();
         if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
-            || category.contains(arg1, Qt::CaseInsensitive)) {
+            || category.contains(arg1, Qt::CaseInsensitive))
             new_map.insert(i.key(), i.value());
-        }
     }
     addButtons(new_map.empty() ? category_map : new_map);
 }
