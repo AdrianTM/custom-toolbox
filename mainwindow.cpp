@@ -70,53 +70,51 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
-QIcon MainWindow::findIcon(QString icon_name)
+QIcon MainWindow::findIcon(const QString &icon_name)
 {
     if (icon_name.isEmpty())
         return QIcon();
+    // Use slash to avoid matching file/folder names when is meant to match full path
     if (QFileInfo::exists("/" + icon_name))
         return QIcon(icon_name);
 
-    QString search_term = icon_name;
-    auto re = QRegularExpression(QStringLiteral(R"(\.png$|\.svg$|\.xpm$")"));
-    if (!icon_name.contains(re))
-        search_term = icon_name + ".*";
-    icon_name.remove(re);
+    const QRegularExpression re {R"(\.png$|\.svg$|\.xpm$")"};
+    QString name_noext = icon_name;
+    name_noext.remove(re);
 
     if (!icon_theme.isEmpty())
         QIcon::setThemeName(icon_theme);
 
-    // return the icon from the theme if it exists
-    if (QIcon::hasThemeIcon(icon_name))
-        return QIcon::fromTheme(icon_name);
+    // Return the icon from the theme if it exists
+    if (QIcon::hasThemeIcon(name_noext))
+        return QIcon::fromTheme(name_noext);
 
     // Try to find in most obvious places
     QStringList search_paths {QDir::homePath() + "/.local/share/icons/", "/usr/share/pixmaps/",
-                              "/usr/local/share/icons/", "/usr/share/icons/hicolor/48x48/apps/"};
-    for (const QString &path : search_paths) {
-        if (!QFileInfo::exists(path)) {
-            search_paths.removeOne(path);
-            continue;
-        }
-        for (const QString &ext : {".png", ".svg", ".xpm"}) {
-            QString file = path + icon_name + ext;
-            if (QFileInfo::exists(file))
-                return QIcon(file);
+                              "/usr/local/share/icons/", "/usr/share/icons/", "/usr/share/icons/hicolor/48x48/apps/"};
+
+    for (const QString &path : search_paths) { // search first for the full icon_name with the specified extension
+        if (QFileInfo::exists(path + icon_name))
+            return QIcon(icon_name);
+
+        for (const QString &path : search_paths) {
+            if (!QFileInfo::exists(path)) {
+                search_paths.removeOne(path);
+                continue;
+            }
+            for (const QString &ext : {".png", ".svg", ".xpm"}) {
+                QString file = path + name_noext + ext;
+                if (QFileInfo::exists(file))
+                    return QIcon(file);
+            }
         }
     }
-
-    // Search recursively
-    search_paths.append(QStringLiteral("/usr/share/icons/hicolor/48x48/"));
-    search_paths.append(QStringLiteral("/usr/share/icons/hicolor/"));
-    search_paths.append(QStringLiteral("/usr/share/icons/"));
-    proc.start(QStringLiteral("find"),
-               QStringList {search_paths << QStringLiteral("-iname") << search_term << QStringLiteral("-print")
-                                         << QStringLiteral("-quit")});
-    proc.waitForFinished();
-    const QString out = proc.readAllStandardOutput().trimmed();
-    if (out.isEmpty())
-        return QIcon();
-    return QIcon(out);
+    // Backup search: search all hicolor icons and return the first one found
+    QDirIterator it("/usr/share/icons/hicolor/", QStringList() << name_noext, QDir::Files,
+                    QDirIterator::Subdirectories);
+    if (it.hasNext())
+        return QIcon(it.next());
+    return QIcon();
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
@@ -133,13 +131,15 @@ void MainWindow::setup()
     this->setWindowTitle(tr("Custom Toolbox"));
     this->adjustSize();
 
+    const int default_icon_size = 40;
+
     QSettings settings(QStringLiteral("/etc/custom-toolbox/custom-toolbox.conf"), QSettings::NativeFormat);
     hideGUI = settings.value(QStringLiteral("hideGUI"), "false").toBool();
     min_height = settings.value(QStringLiteral("min_height")).toInt();
     min_width = settings.value(QStringLiteral("min_width")).toInt();
     gui_editor = settings.value(QStringLiteral("gui_editor")).toString();
     fixed_number_col = settings.value(QStringLiteral("fixed_number_columns"), 0).toInt();
-    int size = settings.value(QStringLiteral("icon_size"), 40).toInt();
+    int size = settings.value(QStringLiteral("icon_size"), default_icon_size).toInt();
     icon_size = {size, size};
 }
 
@@ -152,10 +152,9 @@ void MainWindow::setGui()
         delete child->widget();
         delete child;
     }
-
-    addButtons(category_map);
     this->adjustSize();
     this->setMinimumSize(min_width, min_height);
+    addButtons(category_map);
 
     QSettings settings(QApplication::organizationName(),
                        QApplication::applicationName() + "_" + QFileInfo(file_name).baseName());
@@ -183,7 +182,6 @@ void MainWindow::setGui()
 void MainWindow::btn_clicked()
 {
     const QString cmd = sender()->property("cmd").toString();
-
     auto *process = new QProcess(this);
     connect(process, &QProcess::errorOccurred, this, [process](QProcess::ProcessError error) {
         qDebug() << "Error occurred while running process:" << error;
