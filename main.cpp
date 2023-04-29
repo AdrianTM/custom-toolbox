@@ -24,6 +24,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QFile>
 #include <QIcon>
 #include <QLibraryInfo>
 #include <QLocale>
@@ -73,12 +74,17 @@ int main(int argc, char *argv[])
     parser.process(app);
 
     // Root guard
-    if (QProcess::execute(QStringLiteral("/bin/bash"), {"-c", "logname |grep -q ^root$"}) == 0) {
-        QMessageBox::critical(
-            nullptr, QObject::tr("Error"),
-            QObject::tr(
-                "You seem to be logged in as root, please log out and log in as normal user to use this program."));
-        exit(EXIT_FAILURE);
+    QFile loginUidFile {"/proc/self/loginuid"};
+    if (loginUidFile.open(QIODevice::ReadOnly)) {
+        QString loginUid = QString(loginUidFile.readAll()).trimmed();
+        loginUidFile.close();
+        if (loginUid == "0") {
+            QMessageBox::critical(
+                nullptr, QObject::tr("Error"),
+                QObject::tr(
+                    "You seem to be logged in as root, please log out and log in as normal user to use this program."));
+            exit(EXIT_FAILURE);
+        }
     }
     MainWindow w(parser);
     w.show();
