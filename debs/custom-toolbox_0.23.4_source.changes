@@ -1,0 +1,41 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sat, 29 Apr 2023 18:01:10 -0400
+Source: custom-toolbox
+Architecture: source
+Version: 0.23.4
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ custom-toolbox (0.23.4) mx; urgency=medium
+ .
+   * Update translations
+   * Some performance fixes
+Checksums-Sha1:
+ 1cf99151253846f25b7776054919c93a30204cba 1190 custom-toolbox_0.23.4.dsc
+ 08eaf02c62b277e99e2f511363b2fd83b65c2b37 36820 custom-toolbox_0.23.4.tar.xz
+ 9bcd8ca9dd261120bff825ed63e1258706495101 10771 custom-toolbox_0.23.4_amd64.buildinfo
+Checksums-Sha256:
+ 1bd74fcbedd3ad88e190f9472d044ff6006d413c879c76830ac8bee230e4f0dc 1190 custom-toolbox_0.23.4.dsc
+ a685be8554111d61d55c48807e2967bc318ad9e3176393946d5ccc6483b9e436 36820 custom-toolbox_0.23.4.tar.xz
+ 3e000b7a8322b3ee1a5febcb31db390bd7bebedd341b0f87bce4ae79dad2c3ed 10771 custom-toolbox_0.23.4_amd64.buildinfo
+Files:
+ 91fde807bd1a148c26adb84c7bc84d87 1190 admin optional custom-toolbox_0.23.4.dsc
+ c4c955ea010ee36e6312424ba650720c 36820 admin optional custom-toolbox_0.23.4.tar.xz
+ c0be1fb9cb1fbe285273819dea079449 10771 admin optional custom-toolbox_0.23.4_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmRNmt8THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumCNgCAC7F932qq02hMtE/KAY+phn6T5cdgQ9
+/p0/RrRx42eZ4jWPvXJZXzqwIaZ7ZjEKCiGata1rvmTd8Kg38xD1101sz6CLJnIA
+nGPe80fmr1TYxDC2YTtbSAaqA0e4ee4Z9V5+wD9qs6OBcTRJQE7cS4JBQtHPzYsh
+3ye/Ze09Rg0kP/eYlYjjNKSvZxVD8rZfOArp67wGK++sSfF4n+obimsf1y3ylfov
+dmHz/Aa2y39jJM38Lx00zRP2mkUGOPzJYT9YU6ViEbDsT5STUNIHfJTp/K/1JXRY
+C8Kcv5nasTN1ZCptgYFZWIt9C66KydxWZplDjEx00tI73GLavHm88KWe
+=vISd
+-----END PGP SIGNATURE-----
