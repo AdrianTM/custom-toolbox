@@ -14,13 +14,13 @@ Changes:
  custom-toolbox (0.23.4) mx; urgency=medium
  .
    * Update translations
-   * Some performace fixes
+   * Some performance fixes
 Checksums-Sha1:
- a08f283d6c30cfd5147200b2316bc64bfaae13b3 10090 custom-toolbox_0.23.4_i386.buildinfo
- 4b515a547286b124d1992384291a742117f68ba7 53456 custom-toolbox_0.23.4_i386.deb
+ 5489df27899f2615d10f93fc695db8089dd5d31b 10090 custom-toolbox_0.23.4_i386.buildinfo
+ 8ef87b3f1e886f08b3d22ef1fb8b2605126cbd27 53448 custom-toolbox_0.23.4_i386.deb
 Checksums-Sha256:
- 52414097a91ebe7794e84aefa71a506c059a80301a0febd76bd83a843aa9b182 10090 custom-toolbox_0.23.4_i386.buildinfo
- 083b4ab691264c6673be55e377f475ab4453e57cfbd6773141afe512698a7219 53456 custom-toolbox_0.23.4_i386.deb
+ 51f7b8c99624406dfb6852224a9038ef63b8352c657e3b3e34f5a37145f9de7b 10090 custom-toolbox_0.23.4_i386.buildinfo
+ d0fc7605bc3a0c2e2bc573bc9ef6b0e863598986415003ccdb4c28adfc2abf0b 53448 custom-toolbox_0.23.4_i386.deb
 Files:
- 543f113906da87c21f0f1a197524df38 10090 admin optional custom-toolbox_0.23.4_i386.buildinfo
- 7776dcca876bbc0aa177a693e2640381 53456 admin optional custom-toolbox_0.23.4_i386.deb
+ 71c9a10b7a524bbb06822a4e9dd87300 10090 admin optional custom-toolbox_0.23.4_i386.buildinfo
+ f2b48e05d60d5f126f3f433ccbfbbd69 53448 admin optional custom-toolbox_0.23.4_i386.deb

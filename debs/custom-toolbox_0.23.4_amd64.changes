@@ -17,31 +17,31 @@ Changes:
  custom-toolbox (0.23.4) mx; urgency=medium
  .
    * Update translations
-   * Some performace fixes
+   * Some performance fixes
 Checksums-Sha1:
- 09129033644838b0790d2684de2d26c01b573903 1190 custom-toolbox_0.23.4.dsc
- 65608e5eb85869bfd72bfacdfbca5abcc8ad7861 36828 custom-toolbox_0.23.4.tar.xz
- 04a5a71c93b3c057abfead90e0884dd86f8d6862 10771 custom-toolbox_0.23.4_amd64.buildinfo
- a2efcfe677ee70de3d6aecfb8f7e1bf7c4ade997 50640 custom-toolbox_0.23.4_amd64.deb
+ 30f7e66eade57ea73ba8f259ba24d7fd99f162dd 1190 custom-toolbox_0.23.4.dsc
+ ea652862069a970281fa16d884b9b64fcf28de1a 36836 custom-toolbox_0.23.4.tar.xz
+ 2c1d5188a9d9a0c9c5e07bcaeda4a7d44b17599b 10771 custom-toolbox_0.23.4_amd64.buildinfo
+ 378bbe094f950a6c1b7862f199c0a5a36abb02bf 50632 custom-toolbox_0.23.4_amd64.deb
 Checksums-Sha256:
- 32fbc9ce3066b95876bafc5930084f93a2cc3fc7dc41cdc886ffa8800a89320b 1190 custom-toolbox_0.23.4.dsc
- 68dd4b060e18d006b817ccad5aeda1ccc8c64b732d327d01c83361878e82be47 36828 custom-toolbox_0.23.4.tar.xz
- 0af50d58b7984700a5b5f832fcf35a39d8fac27d64e7dbfd3ec59d27aac4a48a 10771 custom-toolbox_0.23.4_amd64.buildinfo
- a669523f3bfce8b3d16c42e1e17db210364712fe80476612e1d0cdb52572060d 50640 custom-toolbox_0.23.4_amd64.deb
+ a1221d9cfba49d5fa58728c4099496f3c4086b6415d61318fca2067d8a4807c2 1190 custom-toolbox_0.23.4.dsc
+ 90e53828b829ca5c4dbf3502a8b92fcb82deb8c5cc730767f483be3947881a3b 36836 custom-toolbox_0.23.4.tar.xz
+ 9dff50bd2373eb1148c65d50fce795ef5416cc1df3d37b41226e64dcb5801efa 10771 custom-toolbox_0.23.4_amd64.buildinfo
+ e011faeeb36e4709b300ade4b42a82e8a2f7f5f5b0d3019032e1b651f0cb26b9 50632 custom-toolbox_0.23.4_amd64.deb
 Files:
- 8931f4d2319176cfcc83ef22b17c1476 1190 admin optional custom-toolbox_0.23.4.dsc
- 83c9efbee79c51310658721a8ff4e89e 36828 admin optional custom-toolbox_0.23.4.tar.xz
- f6da10491402046a88635590095a0fbf 10771 admin optional custom-toolbox_0.23.4_amd64.buildinfo
- 376a4baead4a009b10534d59fb3407d8 50640 admin optional custom-toolbox_0.23.4_amd64.deb
+ 374b20079d37c2d293839553a36ee393 1190 admin optional custom-toolbox_0.23.4.dsc
+ 92f4cbaeef0297c3a472650914e61d98 36836 admin optional custom-toolbox_0.23.4.tar.xz
+ 3259b16e67ed55869604f2767ddbd7dd 10771 admin optional custom-toolbox_0.23.4_amd64.buildinfo
+ 1ece11f08c38624505f97bba3f5a9d6e 50632 admin optional custom-toolbox_0.23.4_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmRNlh4THGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumH/+CACFtODFQJuTRnR0FxCcREKLhc/ecTvF
-E8UA7Mk5ygmeMymaXo6DZzLW3NWxedy+9Y0pULLI3c6zQMJU3rvlYMuHav1HfHYp
-/XJI9ZDByf7pNQ7u5/lcGXJUXkHOitW7tw0TmXV3YcB1QXmZt4y2Qtm/CrfCUNfU
-WA0e5RXevIjaEPGA6W18f0rlDnhhKZEoidAcOyYLfyKVLdRVIWKL9dtfNIHN1ZJA
-k3xKLAFe7br2vFjytj6vRbAARf4JKJKj3XNtkqnwzoIQ9xC7ZgdhkcX4ISSK+T+l
-deBXClgxy3A9xCVZp0AgaJfodG8tlJxb0o33ooGrmBGWzuF5DE+D1zRW
-=pCTJ
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmRNl3YTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumF/cB/9ED1zaKLdJBsj4myUhBJmrX/H/wutU
+h2j4/dGl4aQfLeUlNmghktAMACZtGeF/pjbKKXMsPw8cEmaFUBVRYbs59HkZJ5PE
+rHpk5RtaSjETGSzZs3EuRanMhXc0goKIEL6XBxJUaMfbwCBIO3KmPwaHhHNOWeWI
+r3ld81pSM9ntJQa0vAv8VEzgXzQNu7OnE+Vbv2e3gK2mvyPUWn6mMOW1nBJgnyk/
+tsNPnHRrbY/2WubHa57x+NrhNy4RdmBfOQTlyibhyD2GQOAR8YmNxKgI5+Js8Yxb
+uGiAp8tkgZ8JePWNKKg8g9JKB0QRrtBq/87i8chlK31uyztWP5Vuf7z8
+=7kCM
 -----END PGP SIGNATURE-----
