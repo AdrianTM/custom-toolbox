@@ -1,3 +1,10 @@
+custom-toolbox (0.23.4) mx; urgency=medium
+
+  * Update translations
+  * Some performace fixes
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 29 Apr 2023 18:01:10 -0400
+
 custom-toolbox (0.22.2) mx; urgency=medium
 
   * Fix: show app after editing a .list file

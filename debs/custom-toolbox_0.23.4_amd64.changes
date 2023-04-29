@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sat, 29 Apr 2023 18:01:10 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.23.4
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.4) mx; urgency=medium
+ .
+   * Update translations
+   * Some performace fixes
+Checksums-Sha1:
+ 41a3d1dea27e13f02cdd2f84a5d0b94cab2bed15 1190 custom-toolbox_0.23.4.dsc
+ c167f3d079704af15dce5b310b98c55af7294019 36824 custom-toolbox_0.23.4.tar.xz
+ ae40e0ce3d8bc4feb554ea7bcae160cd34c6ac47 10771 custom-toolbox_0.23.4_amd64.buildinfo
+ 2cfa1bdd7705e140b7ec2b3d6c8606d6b1bcdf57 50772 custom-toolbox_0.23.4_amd64.deb
+Checksums-Sha256:
+ 5c1f06ffa1a7a4e45c9a02e63950cc232533726bb47f9fd3e5465ec5e0aaeb22 1190 custom-toolbox_0.23.4.dsc
+ 9de581e14e862fe90466d506bb60922c11955e3eae93d5affff11d66904272f7 36824 custom-toolbox_0.23.4.tar.xz
+ 3b799735a4c9f65a56a53b7ad9089d4e86d7a0858a1a2a9d8609c5ead91cbe02 10771 custom-toolbox_0.23.4_amd64.buildinfo
+ 5c574df7f29174fb402c4718496513e8a16f01520afa41299b14517086aa6606 50772 custom-toolbox_0.23.4_amd64.deb
+Files:
+ 0e200765fd6a477a880e59e2ac159610 1190 admin optional custom-toolbox_0.23.4.dsc
+ 53fe5fc5f21eaa5dc73e443c8212bef3 36824 admin optional custom-toolbox_0.23.4.tar.xz
+ 93fa1ea86682403bd35eca67a458634f 10771 admin optional custom-toolbox_0.23.4_amd64.buildinfo
+ 0fe730f0f3950fb821b1779cab31929b 50772 admin optional custom-toolbox_0.23.4_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmRNlHATHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumO1RCADUL9yihxUd/lgnAcZ7yZLXnWjpGIIc
+UlG7t3qk5ufglFf7jWZ1pHJH5Mool3oiyTvjtgNkILlJeN88n1IGS5DO0eldaqBs
+Yt8buRvhbdYQZcpnjnK2CzDwR6fv0N0/o3R906Z/kwZaAeLqWoTUYUxMm8Bv6VAC
+SKb0uKMxyay8EDmjS+MlGweRBt4dK2z/kYdu5M2k0SBDebJd6VvAi2rvnbkz92oa
+vz2YQ7HQwBP1aFNEY3Hwv/GyPNj7PTVrPkTKo2HpvzjR0ioMW9nH7oCk6CIOGeEn
+FL8KdiTYmT0Dma52bleZEjwxhkx8iNTJKaeaCfrChYADgrDcYtjGCaTK
+=CT6j
+-----END PGP SIGNATURE-----
