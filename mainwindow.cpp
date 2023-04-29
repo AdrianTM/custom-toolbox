@@ -213,20 +213,23 @@ void MainWindow::resizeEvent(QResizeEvent *event)
         return;
     if (fixed_number_col != 0) // 0 is default value, if nothing set in .conf file
         return;
-    if (int new_count = this->width() / 200; new_count != col_count) {
-        if (new_count > max_elements && col_count == max_elements)
-            return;
-        col_count = 0;
-        if (ui->textSearch->text().isEmpty()) {
-            QLayoutItem *child {nullptr};
-            while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
-                delete child->widget();
-                delete child;
-            }
-            addButtons(category_map);
-        } else {
-            textSearch_textChanged(ui->textSearch->text());
+    const auto item_size = 200; // this is a trial and error average value
+    int new_count = this->width() / item_size;
+    if (new_count == col_count)
+        return;
+    // when reaching the max no need to add/delete, only if making the window smaller new_count < max_elements
+    if (new_count >= max_elements && col_count == max_elements)
+        return;
+    col_count = 0;
+    if (ui->textSearch->text().isEmpty()) {
+        QLayoutItem *child {nullptr};
+        while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
+            delete child->widget();
+            delete child;
         }
+        addButtons(category_map);
+    } else {
+        textSearch_textChanged(ui->textSearch->text());
     }
 }
 
