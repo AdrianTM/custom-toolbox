@@ -85,6 +85,7 @@ private:
     QString version;
     QStringList categories;
     bool hideGUI {};
+    const QStringList path {qEnvironmentVariable("PATH").split(":") << "/usr/sbin"};
     int col_count;
     int fixed_number_col {};
     int max_elements {};
