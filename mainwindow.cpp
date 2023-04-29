@@ -151,7 +151,6 @@ void MainWindow::setGui()
     }
     this->adjustSize();
     this->setMinimumSize(min_width, min_height);
-    addButtons(category_map);
 
     QSettings settings(QApplication::organizationName(),
                        QApplication::applicationName() + "_" + QFileInfo(file_name).baseName());
@@ -165,6 +164,8 @@ void MainWindow::setGui()
         const int y = (screenGeometry.height() - this->height()) / 2;
         this->move(x, y);
     }
+
+    addButtons(category_map);
 
     // Check if .desktop file is in autostart
     const QString file_name
