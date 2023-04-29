@@ -107,11 +107,14 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         }
     }
     // Backup search: search all hicolor icons and return the first one found
-    QDirIterator it("/usr/share/icons/hicolor/", QStringList() << name_noext, QDir::Files,
-                    QDirIterator::Subdirectories);
-    if (it.hasNext())
-        return QIcon(it.next());
-    return QIcon();
+    proc.start(QStringLiteral("find"),
+               QStringList {search_paths << QStringLiteral("-iname") << name_noext + ".*" << QStringLiteral("-print")
+                                         << QStringLiteral("-quit")});
+    proc.waitForFinished();
+    const QString out = proc.readAllStandardOutput().trimmed();
+    if (out.isEmpty())
+        return QIcon();
+    return QIcon(out);
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
