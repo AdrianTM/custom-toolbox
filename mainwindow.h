@@ -45,10 +45,10 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
+    MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
     ~MainWindow();
 
-    QIcon findIcon(QString icon_name);
+    QIcon findIcon(const QString &icon_name);
     static void fixExecItem(QString &item);
     static void fixNameItem(QString &item);
     QString getDesktopFileName(const QString &app_name);
