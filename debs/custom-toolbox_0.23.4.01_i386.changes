@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Sat, 29 Apr 2023 18:24:19 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.23.4.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.4.01) mx; urgency=medium
+ .
+   * Fix: add buttons after setting window size
+Checksums-Sha1:
+ 49f0baecc39d8b9a3dcc2cc1d699d1c8d56250e9 10105 custom-toolbox_0.23.4.01_i386.buildinfo
+ 248a861ae4d4f9eda205054f066970e6946c45b1 53440 custom-toolbox_0.23.4.01_i386.deb
+Checksums-Sha256:
+ 1faf2aa67e3302df1a3da3b77aec552735f3a71d7e95ef65aaad43860340ba08 10105 custom-toolbox_0.23.4.01_i386.buildinfo
+ 39ab64866fab529632da7de2ee75c1e1c7371f3e59c0ed9d7305a5f1ab7820e1 53440 custom-toolbox_0.23.4.01_i386.deb
+Files:
+ daccd6e639e4e635536e9155a962dafb 10105 admin optional custom-toolbox_0.23.4.01_i386.buildinfo
+ 273a54f2f238171b8a51fb62db62a3e0 53440 admin optional custom-toolbox_0.23.4.01_i386.deb
