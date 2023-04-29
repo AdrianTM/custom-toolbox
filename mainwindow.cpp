@@ -26,12 +26,14 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QDirIterator>
 #include <QFileDialog>
 #include <QRegularExpression>
 #include <QResizeEvent>
 #include <QScreen>
 #include <QScrollBar>
 #include <QSettings>
+#include <QStandardPaths>
 #include <QTextEdit>
 
 #include "about.h"
@@ -44,7 +46,6 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
     , col_count {0}
     , ui(new Ui::MainWindow)
 {
-    qDebug().noquote() << QCoreApplication::applicationName() << "version:" << VERSION;
     ui->setupUi(this);
     setConnections();
     if (arg_parser.isSet(QStringLiteral("remove-checkbox")))
@@ -243,13 +244,16 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(const QString &app_name)
 {
-    proc.start(QStringLiteral("find"),
-               QStringList {local_dir, "/usr/share/applications", "-name", app_name + ".desktop"});
-    proc.waitForFinished();
-    QString name = proc.readAllStandardOutput();
-    name = name.section(QStringLiteral("\n"), 0, 0); // get first if more items
-    if (name.isEmpty() && system("command -v \"" + app_name.toUtf8() + "\">/dev/null") == 0)
-        name = app_name; // if not a desktop file, but the command exits
+    QString name;
+    for (const auto &path : QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)) {
+        QDirIterator it(path, QStringList() << app_name + ".desktop", QDir::Files, QDirIterator::Subdirectories);
+        if (it.hasNext()) {
+            name = it.next();
+            break;
+        }
+    }
+    if (name.isEmpty()) // if desktop file not found, but the command exists
+        name = QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
     return name;
 }
 
@@ -557,21 +561,15 @@ void MainWindow::pushEdit_clicked()
 {
     QString editor = gui_editor;
     QString desktop_file;
-    if (editor.isEmpty()
-        || system("command -v " + editor.toUtf8()) != 0) { // if specified editor doesn't exist get the default one
-        proc.start(QStringLiteral("xdg-mime"), QStringList {"query", "default", "text/plain"});
+    // if specified editor doesn't exist get the default one
+    if (editor.isEmpty() || QStandardPaths::findExecutable(editor, {path}).isEmpty()) {
+        proc.start("xdg-mime", {"query", "default", "text/plain"});
         proc.waitForFinished();
         QString default_editor = proc.readAllStandardOutput().trimmed();
 
         // find first app with .desktop name that matches default_editors
-        QString local = QFile::exists(QDir::homePath() + "/.local/share/applications")
-                            ? QDir::homePath() + "/.local/share/applications "
-                            : QLatin1String("");
-        proc.start(QStringLiteral("find"),
-                   QStringList {local, "/usr/share/applications", "-name", default_editor, "-print", "-quit"});
-        proc.waitForFinished();
-        desktop_file = proc.readAllStandardOutput().trimmed();
-
+        QString desktop_file
+            = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
         QFile file(desktop_file);
         if (file.open(QIODevice::ReadOnly)) {
             QString line;
@@ -596,7 +594,7 @@ void MainWindow::pushEdit_clicked()
     if (!QFileInfo(file_name).isWritable() && !editor.endsWith(QLatin1String("kate"))
         && !editor.endsWith(QLatin1String("kwrite")) && !desktop_file.endsWith(QLatin1String("atom.desktop")))
         cmd = "su-to-root -X -c '" + cmd + "'";
-    this->hide(); // unfortunatelly Atom is non-blocking
+    this->hide(); // starting Atom is non-blocking
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();
