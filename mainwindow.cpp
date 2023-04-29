@@ -52,9 +52,6 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
         ui->checkBoxStartup->hide();
 
     setWindowFlags(Qt::Window); // for the close, min and max buttons
-    QString local_dir = QDir::homePath() + "/.local/share/applications";
-    if (!QFile::exists(local_dir))
-        local_dir.clear();
     setup();
 
     file_location = QStringLiteral("/etc/custom-toolbox");
