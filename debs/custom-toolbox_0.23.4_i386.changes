@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Sat, 29 Apr 2023 18:01:10 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.23.4
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.4) mx; urgency=medium
+ .
+   * Update translations
+   * Some performance fixes
+Checksums-Sha1:
+ d1cf1030c6d8525e416e076ad65f6262cefc97c7 10090 custom-toolbox_0.23.4_i386.buildinfo
+ 7a3ce873ccb0dfa963128fc4f436a61a0f046574 53516 custom-toolbox_0.23.4_i386.deb
+Checksums-Sha256:
+ 675dbadbad80bfe4b8486a980c9bc619e5830f0ac5a0652eec1168473e786391 10090 custom-toolbox_0.23.4_i386.buildinfo
+ 55ab6895939e027233f4ab724366a3a0bd5ec829651e7be93feecdfd2189866e 53516 custom-toolbox_0.23.4_i386.deb
+Files:
+ b2f9c008340cc7d4995051f3b8bfc155 10090 admin optional custom-toolbox_0.23.4_i386.buildinfo
+ 108f61660e99ba125243c31dd58b9574 53516 admin optional custom-toolbox_0.23.4_i386.deb
