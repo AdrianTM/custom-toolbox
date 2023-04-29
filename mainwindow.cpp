@@ -393,7 +393,7 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
                 if (terminal == QLatin1String("true"))
                     exec = "x-terminal-emulator -e " + exec;
                 if (root == QLatin1String("true"))
-                    exec = "su-to-root -X -c '" + exec + "'";
+                    exec = "su-to-root -X -c \"" + exec + "\"";
                 btn->setProperty("cmd", exec);
                 QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
