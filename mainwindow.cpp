@@ -418,9 +418,14 @@ void MainWindow::processLine(const QString &line)
     if (line.startsWith(QLatin1String("#")) || line.isEmpty()) // filter out comment and empty lines
         return;
 
-    QStringList line_list = line.split(QStringLiteral("="));
-    QString key = line_list.first().trimmed();
-    QString value = line_list.size() > 1 ? line_list[1].remove(QLatin1Char('"')).trimmed() : QString();
+    const QStringList line_list = line.split(QStringLiteral("="));
+    const QString key = line_list.first().trimmed();
+    QString value;
+    if (line_list.size() > 1) {
+        value = line_list.at(1).trimmed();
+        value.remove(QLatin1Char('"'));
+    }
+
     if (key.toLower() == QLatin1String("name")) {
         this->setWindowTitle(value);
     } else if (key.toLower() == QLatin1String("comment")) {
@@ -430,8 +435,8 @@ void MainWindow::processLine(const QString &line)
     } else if (key.toLower() == QLatin1String("theme")) {
         icon_theme = value;
     } else { // assume it's the name of the app and potentially a "root" flag
-        QStringList list = key.split(QStringLiteral(" "));
-        QString desktop_file = getDesktopFileName(list.first());
+        const QStringList list = key.split(QStringLiteral(" "));
+        const QString desktop_file = getDesktopFileName(list.first());
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root or alias flag present
