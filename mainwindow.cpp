@@ -183,19 +183,17 @@ void MainWindow::setGui()
 void MainWindow::btn_clicked()
 {
     const QString cmd = sender()->property("cmd").toString();
-    auto *process = new QProcess(this);
-    connect(process, &QProcess::errorOccurred, this, [process](QProcess::ProcessError error) {
-        qDebug() << "Error occurred while running process:" << error;
-        process->deleteLater();
-    });
     if (hideGUI) {
         this->hide();
+        auto *process = new QProcess(this);
+        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [this] { this->show(); });
+        connect(process, &QProcess::errorOccurred, this, [process](QProcess::ProcessError error) {
+            qDebug() << "Error occurred while running process:" << error;
+            process->deleteLater();
+        });
         process->start(cmd);
-        process->waitForFinished();
-        this->show();
     } else {
-        process->startDetached(cmd);
-        process->deleteLater();
+        QProcess::startDetached(cmd);
     }
 }
 
