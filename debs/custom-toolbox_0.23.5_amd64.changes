@@ -1,0 +1,46 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Tue, 16 May 2023 21:21:57 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.23.5
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.5) mx; urgency=medium
+ .
+   * New logo
+Checksums-Sha1:
+ d8097770cfdc975e628e94cfb855a50de821931b 1190 custom-toolbox_0.23.5.dsc
+ ca3abff72530750840f936018c432ff86cec7c0f 37472 custom-toolbox_0.23.5.tar.xz
+ 471dc1e191ebe2d71c49ef38cf3e867122cf5a74 10771 custom-toolbox_0.23.5_amd64.buildinfo
+ 750f1ada815162a774aaf1f46ff034ada4256ebe 51400 custom-toolbox_0.23.5_amd64.deb
+Checksums-Sha256:
+ f08699883566bfc4dbf0324bb7aadbe5684a4c344a8e2acc63ad801229d54057 1190 custom-toolbox_0.23.5.dsc
+ 4f8520ffbee322774d6a6936be99984d91af4cf239b27dd986807fbd7f9c5e4a 37472 custom-toolbox_0.23.5.tar.xz
+ 6eb06684735050d7ad53c8e0c2bd811c425ca18f3c369f877e88a724571e00cd 10771 custom-toolbox_0.23.5_amd64.buildinfo
+ dfbbe1155bf427df7086e2fa577fcc8dca21c004c87e74e73ea1b028759de27c 51400 custom-toolbox_0.23.5_amd64.deb
+Files:
+ aabb9612f16264da702313b164d1fda8 1190 admin optional custom-toolbox_0.23.5.dsc
+ 7ca9ed96810c9222af47fec1a1c43b4f 37472 admin optional custom-toolbox_0.23.5.tar.xz
+ ebfe9c804d29ef3d78e114f1af710509 10771 admin optional custom-toolbox_0.23.5_amd64.buildinfo
+ e0495d8a8f668623b5598311dabed695 51400 admin optional custom-toolbox_0.23.5_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmRkUYcTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumPLSB/wIstPeJftYHU3UCN3GvK1yg2Sjekl9
+a6mWpZWx1PddAeYcCRroDIQo5sK6EAsNPQjWJMXBZd7Cd1M0eRTCt0whecR1EkvL
+k4e4BW9xJ4dV0fo5N0RIJ+iMwQchQkZuzvo/Jnjvcw+3sPN9HPIu6tYU3MqThhKL
+32gshQyhQzEVJweaXVHcqLHPCFG+dhNe3IWXRzH3rdilFJ8T3KEEj0YT2cSKnxh4
+TEEolB9n0v6ZNY3c5i64oTtaUrL1BsEC/s1SkGEPigkeIWErVejGyaN3vxAnYu1r
+zxalUOeo3XBSuvtsWpubyb51VDJOHrg5z8CU87R8vdadZ4ucjDkTYIAE
+=pEMq
+-----END PGP SIGNATURE-----
