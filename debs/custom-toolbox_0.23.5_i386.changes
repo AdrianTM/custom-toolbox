@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Tue, 16 May 2023 21:21:57 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 0.23.5
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.5) mx; urgency=medium
+ .
+   * New logo
+Checksums-Sha1:
+ 07ac2fe886ff3af145f28000e7aa5f2f6b8a8c34 10090 custom-toolbox_0.23.5_i386.buildinfo
+ 5d32830f932b1d1233846b3f07b265b3a621e876 54312 custom-toolbox_0.23.5_i386.deb
+Checksums-Sha256:
+ 432ede045c5d94018c5dc99efb35936874e16aa3c07aad7b2e2328c6b63943a7 10090 custom-toolbox_0.23.5_i386.buildinfo
+ 5ad6e0e5a9bfb9bc0c70e6281d0bc87c27173ddb61ab05fc296b507a0def088b 54312 custom-toolbox_0.23.5_i386.deb
+Files:
+ 5de7a33728148313b1f16d1ae9943006 10090 admin optional custom-toolbox_0.23.5_i386.buildinfo
+ 8c6dae0e8734231d046c0fe3b47420a4 54312 admin optional custom-toolbox_0.23.5_i386.deb
