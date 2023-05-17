@@ -118,7 +118,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="images.qrc">:/icons/logo.png</pixmap>
+        <pixmap>/usr/local/share/icons/mxfcelogo-rounded.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
