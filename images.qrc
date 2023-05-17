@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>icons/logo.png</file>
         <file>icons/custom-toolbox.svg</file>
     </qresource>
 </RCC>
