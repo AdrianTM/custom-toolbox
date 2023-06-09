@@ -90,22 +90,28 @@ QIcon MainWindow::findIcon(const QString &icon_name)
     QStringList search_paths {QDir::homePath() + "/.local/share/icons/", "/usr/share/pixmaps/",
                               "/usr/local/share/icons/", "/usr/share/icons/", "/usr/share/icons/hicolor/48x48/apps/"};
 
-    for (const QString &path : search_paths) { // search first for the full icon_name with the specified extension
-        if (QFileInfo::exists(path + icon_name))
-            return QIcon(icon_name);
+    // Optimization: search first for the full icon_name with the specified extension
+    auto it = std::find_if(search_paths.begin(), search_paths.end(),
+                           [&](const QString &path) { return QFileInfo::exists(path + icon_name); });
 
-        for (const QString &path : search_paths) {
-            if (!QFileInfo::exists(path)) {
-                search_paths.removeOne(path);
-                continue;
-            }
-            for (const QString &ext : {".png", ".svg", ".xpm"}) {
-                QString file = path + name_noext + ext;
-                if (QFileInfo::exists(file))
-                    return QIcon(file);
-            }
+    if (it != search_paths.end()) {
+        QString foundPath = *it;
+        return QIcon(foundPath + icon_name);
+    }
+
+    // run loop again if icon not found
+    for (const QString &path : search_paths) {
+        if (!QFileInfo::exists(path)) {
+            search_paths.removeOne(path);
+            continue;
+        }
+        for (const QString &ext : {".png", ".svg", ".xpm"}) {
+            QString file = path + name_noext + ext;
+            if (QFileInfo::exists(file))
+                return QIcon(file);
         }
     }
+
     // Backup search: search all hicolor icons and return the first one found
     proc.start(QStringLiteral("find"),
                QStringList {search_paths << QStringLiteral("-iname") << name_noext + ".*" << QStringLiteral("-print")
@@ -579,7 +585,7 @@ void MainWindow::pushEdit_clicked()
         QString default_editor = proc.readAllStandardOutput().trimmed();
 
         // find first app with .desktop name that matches default_editors
-        QString desktop_file
+        desktop_file
             = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
         QFile file(desktop_file);
         if (file.open(QIODevice::ReadOnly)) {
