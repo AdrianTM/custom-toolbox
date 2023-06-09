@@ -1,3 +1,10 @@
+custom-toolbox (0.23.6) mx; urgency=medium
+
+  * Minor optimization
+  * Refresh translations
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 08 Jun 2023 23:27:35 -0400
+
 custom-toolbox (0.23.5) mx; urgency=medium
 
   * New logo
