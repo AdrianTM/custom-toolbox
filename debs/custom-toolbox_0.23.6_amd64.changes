@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 08 Jun 2023 23:27:35 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 0.23.6
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (0.23.6) mx; urgency=medium
+ .
+   * Minor optimization
+   * Refresh translations
+Checksums-Sha1:
+ c7ae1ab06ca48208698f60f6de4845bf0dc4e46a 1190 custom-toolbox_0.23.6.dsc
+ dd20a65f95ce9a4e2b3d09fafb534b8499341e36 37652 custom-toolbox_0.23.6.tar.xz
+ a3d3bc902634fcf6ad8b69e6acc80b7afbb72738 10771 custom-toolbox_0.23.6_amd64.buildinfo
+ 4a02021479f281e6e2542916bbab9c861d9edf59 51708 custom-toolbox_0.23.6_amd64.deb
+Checksums-Sha256:
+ b85874ba0b2bf2c17adf3bed0103549801b385153320d80c4afca52cf79dfe9c 1190 custom-toolbox_0.23.6.dsc
+ c3e5270db6bb66cc13fcaae5cc3240f1f92604ee2c57474803fc801b9f5df9c7 37652 custom-toolbox_0.23.6.tar.xz
+ 4ba3df75c82f8c1348459de71d1e59d91191bd6966dd693dfe67230e44056ddc 10771 custom-toolbox_0.23.6_amd64.buildinfo
+ 3babf2b4c50f9b8caad65a0c2a19c8bc70f2ad453c0f4c75f8c2d190378e1866 51708 custom-toolbox_0.23.6_amd64.deb
+Files:
+ 647f808b4e4a4ddeee13c6631d04f621 1190 admin optional custom-toolbox_0.23.6.dsc
+ 4ce6c256185d1d223794b71550534fff 37652 admin optional custom-toolbox_0.23.6.tar.xz
+ ccfdf807235ca0c5fe82f002e011ba6f 10771 admin optional custom-toolbox_0.23.6_amd64.buildinfo
+ 26d9a4e178987103c2a137fde592da9a 51708 admin optional custom-toolbox_0.23.6_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmSCnNETHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumDdVB/9j91RoC6CRPourW4n6LOBQQR7KdD9m
+r7DcWIO+dCSqujRKy5BzBqhOf0nOv6a5uEprr8tmKwxrP8LZjqiiMReBaecDuXkA
+JLTUMELEk3DP8sbSu2h4ZeB2Yxt5IrZOd1lABM822zU49HKXn63w36psFyZNlLTy
+5My7RinwFc6WHBqSuDpVHNQ+EQkU3/MIaMxUJUq/e10jnbhcYY2eSYdPoWKx4OlV
+lFWC4emReE3ncnQh6vWbi692LpmztGiZOu+a2KiijR0EKCScA0ic3IEXlOnM471e
+Amg8A+vQoYD4PREIoBIQmyc2kivAbshFZjWalxr5F+sjt3f5ezlCuEhq
+=tt6D
+-----END PGP SIGNATURE-----
