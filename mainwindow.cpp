@@ -124,12 +124,12 @@ QIcon MainWindow::findIcon(const QString &icon_name)
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
-void MainWindow::fixExecItem(QString &item) { item.remove(QRegularExpression(QStringLiteral(R"( %[a-zA-Z])"))); }
+void MainWindow::fixExecItem(QString *item) { item->remove(QRegularExpression(QStringLiteral(R"( %[a-zA-Z])"))); }
 
-void MainWindow::fixNameItem(QString &item)
+void MainWindow::fixNameItem(QString *item)
 {
-    if (item == QLatin1String("System Profiler and Benchmark"))
-        item = QStringLiteral("System Information");
+    if (*item == QLatin1String("System Profiler and Benchmark"))
+        *item = QStringLiteral("System Information");
 }
 
 void MainWindow::setup()
@@ -377,8 +377,8 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
                 exec = item.at(3);
                 terminal = item.at(4);
                 root = item.at(5);
-                fixNameItem(name);
-                fixExecItem(exec);
+                fixNameItem(&name);
+                fixExecItem(&exec);
 
                 btn = new FlatButton(name);
                 btn->setIconSize(icon_size);
