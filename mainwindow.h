@@ -45,12 +45,12 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
+    ~MainWindow() override;
 
     QIcon findIcon(const QString &icon_name);
-    static void fixExecItem(QString &item);
-    static void fixNameItem(QString &item);
+    static void fixExecItem(QString *item);
+    static void fixNameItem(QString *item);
     QString getDesktopFileName(const QString &app_name);
     QString getFileName();
     static QStringList getDesktopFileInfo(const QString &file_name);
@@ -62,8 +62,8 @@ public:
     void setup();
 
 private slots:
-    void closeEvent(QCloseEvent *);
-    void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent * /*unused*/) override;
+    void resizeEvent(QResizeEvent *event) override;
     void btn_clicked();
     void pushAbout_clicked();
     void pushEdit_clicked();
