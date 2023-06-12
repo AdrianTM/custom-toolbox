@@ -105,7 +105,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
             search_paths.removeOne(path);
             continue;
         }
-        for (const QString &ext : {".png", ".svg", ".xpm"}) {
+        for (QString ext : {".png", ".svg", ".xpm"}) {
             QString file = path + name_noext + ext;
             if (QFileInfo::exists(file))
                 return QIcon(file);
