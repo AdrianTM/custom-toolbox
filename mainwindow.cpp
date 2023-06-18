@@ -348,7 +348,8 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
         max = fixed_number_col;
 
     max_elements = 0;
-    for (const QString &category : map.uniqueKeys())
+    auto categories = map.uniqueKeys();
+    for (const QString &category : qAsConst(categories))
         if (map.count(category) > max_elements)
             max_elements = map.count(category);
 
@@ -359,7 +360,7 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
     QString root;
     QString terminal;
 
-    for (const QString &category : map.uniqueKeys()) {
+    for (const QString &category : qAsConst(categories)) {
         if (!category_map.values(category).isEmpty()) {
             auto *label = new QLabel(this);
             QFont font;
@@ -535,13 +536,15 @@ void MainWindow::textSearch_textChanged(const QString &arg1)
 
     // create a new_map with items that match the search argument
     QMultiMap<QString, QStringList> new_map;
-    for (auto i = category_map.constEnd() - 1; i != category_map.constBegin() - 1; --i) {
+    for (auto i = category_map.cbegin(); i != category_map.cend(); ++i) {
         const QString &category = i.key();
-        QString name = i.value().first();
-        QString comment = i.value().first();
+        const QStringList &values = i.value();
+        const QString &name = values.first();
+        const QString &comment = values.last();
         if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
-            || category.contains(arg1, Qt::CaseInsensitive))
-            new_map.insert(i.key(), i.value());
+            || category.contains(arg1, Qt::CaseInsensitive)) {
+            new_map.insert(category, values);
+        }
     }
     addButtons(new_map.empty() ? category_map : new_map);
 }
