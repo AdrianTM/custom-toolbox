@@ -1,0 +1,41 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sun, 18 Jun 2023 11:01:24 -0400
+Source: custom-toolbox
+Architecture: source
+Version: 23.6
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ custom-toolbox (23.6) mx; urgency=medium
+ .
+   * Run featherpad as normal user (featherpad will elevate itself)
+   * Use pkexec instead of su-to-root
+Checksums-Sha1:
+ ed887a5b3ca37b4bb97fffdc7583ec90d6e4ea07 1182 custom-toolbox_23.6.dsc
+ 3fe9080af7b4c9c41839a19ecd92654004d45d67 37708 custom-toolbox_23.6.tar.xz
+ 6c0add4d12aa9753ffc06a4e7be155a7b2a41517 10755 custom-toolbox_23.6_amd64.buildinfo
+Checksums-Sha256:
+ 56aa86ef965cdfb76f8feb530140082c12d3ab932de069f1fd614f6dc7eda64d 1182 custom-toolbox_23.6.dsc
+ c53d9fd6eb6ed024a9cbdae80827b422fda74a9bb48ebcbe2078e2ab056e03d2 37708 custom-toolbox_23.6.tar.xz
+ 66b65ab51dae4eb2384c073699744f6906aa4e1b07793bae6614015d951ff725 10755 custom-toolbox_23.6_amd64.buildinfo
+Files:
+ d35a2b05be99e5b39b073010b59b7c09 1182 admin optional custom-toolbox_23.6.dsc
+ 015aa8092193efd2d95a9c6ff999387d 37708 admin optional custom-toolbox_23.6.tar.xz
+ 47cceb45e454391f4d8d4827d8dccb77 10755 admin optional custom-toolbox_23.6_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmSPh28THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumEXGB/9RYRJm3+9h/9fDaNEAPyhiD7wcSSMR
+/BacYyVWsS2dKQ290b+dMwg+03r1tWlhvC78bHYrDeEUMj2ABwQkTBeiNwxb8/zq
+El/iXbqVpNIrX1LfA/7QcnYir6YWO8KLuXpryBDh5gisZWA6UpXCkpDhtGhd28L8
+de/qUvmssSoQYfeno8O/ZiCBEbOXE0t4Cp6cUdz8+WETaqT1CGryiAfsyy0E3F2b
+JSJgEpOjiLbD3PXgBQf2eoDRbXrsIO8WTWewKeJV2z1gBWnOfc+/YEs98LcP4+Ez
+LKE9XStwfi9g0P3CmLmNlgrjuAs4k1axhLQBJQ2HwjVORwP5VrQy43uF
+=POgs
+-----END PGP SIGNATURE-----

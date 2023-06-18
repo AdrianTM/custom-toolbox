@@ -1,3 +1,10 @@
+custom-toolbox (23.6) mx; urgency=medium
+
+  * Run featherpad as normal user (featherpad will elevate itself)
+  * Use pkexec instead of su-to-root
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 18 Jun 2023 11:01:24 -0400
+
 custom-toolbox (0.23.6) mx; urgency=medium
 
   * Minor optimization
