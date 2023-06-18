@@ -191,15 +191,10 @@ void MainWindow::btn_clicked()
     const QString cmd = sender()->property("cmd").toString();
     if (hideGUI) {
         this->hide();
-        auto *process = new QProcess(this);
-        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [this] { this->show(); });
-        connect(process, &QProcess::errorOccurred, this, [process](QProcess::ProcessError error) {
-            qDebug() << "Error occurred while running process:" << error;
-            process->deleteLater();
-        });
-        process->start(cmd);
+        system(cmd.toUtf8());
+        this->show();
     } else {
-        QProcess::startDetached(cmd);
+        system(cmd.toUtf8());
     }
 }
 
@@ -401,11 +396,11 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
                     ++row;
                 }
                 if (terminal == QLatin1String("true"))
-                    exec = "x-terminal-emulator -e " + exec;
-                if (root == QLatin1String("true"))
-                    exec = "su-to-root -X -c \"" + exec + "\"";
+                    exec.push_front("env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY x-terminal-emulator -e ");
+                if (root == QLatin1String("true") && getuid() != 0)
+                    exec.push_front("pkexec ");
                 btn->setProperty("cmd", exec);
-                QObject::connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
+                connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
         }
         // Add empty row if it's not the last key
@@ -603,26 +598,30 @@ void MainWindow::pushEdit_clicked()
                     break;
             }
             file.close();
-            editor = line.remove(QRegularExpression(QStringLiteral("^Exec=|%u|%U|%f|%F|%c|%C"))).trimmed();
+            editor = line.remove(QRegularExpression(QStringLiteral("^Exec=|%u|%U|%f|%F|%c|%C|-b"))).trimmed();
         }
         if (editor.isEmpty()) // use nano as backup editor
-            editor = QStringLiteral("x-terminal-emulator -e nano");
+            editor = "nano";
     }
     // Editors that need to run as normal user
     if (getuid() == 0
-        && (editor.endsWith(QLatin1String("kate")) || editor.endsWith(QLatin1String("kwrite"))
-            || desktop_file.endsWith(QLatin1String("atom.desktop"))))
-        editor = "runuser -u $(logname) " + editor;
+        && (QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch()
+            || QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch()))
+        editor.push_front("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
+
     QString cmd = editor + " " + file_name;
+
+    // Handle CLI editors
+    if (QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch()) {
+        QString term_env = "env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY x-terminal-emulator -e ";
+        cmd.push_front(term_env);
+    }
+
     // If we need to run as root (with the exception of the listed editors)
-    if (!QFileInfo(file_name).isWritable() && !editor.endsWith(QLatin1String("kate"))
-        && !editor.endsWith(QLatin1String("kwrite")) && !desktop_file.endsWith(QLatin1String("atom.desktop")))
-        cmd = "su-to-root -X -c \"" + cmd + "\"";
-    this->hide(); // starting Atom is non-blocking
-    QProcess process;
-    process.start(cmd);
-    process.waitForFinished();
+    if (!QFileInfo(file_name).isWritable() && !QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch()
+        && !QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch())
+        cmd.push_front("pkexec ");
+    system(cmd.toUtf8());
     readFile(file_name);
     setGui();
-    this->show();
 }
