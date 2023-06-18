@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sun, 18 Jun 2023 11:01:24 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: source amd64
+Version: 23.6
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.6) mx; urgency=medium
+ .
+   * Run featherpad as normal user (featherpad will elevate itself)
+   * Use pkexec instead of su-to-root
+Checksums-Sha1:
+ ed887a5b3ca37b4bb97fffdc7583ec90d6e4ea07 1182 custom-toolbox_23.6.dsc
+ 3fe9080af7b4c9c41839a19ecd92654004d45d67 37708 custom-toolbox_23.6.tar.xz
+ 6c0add4d12aa9753ffc06a4e7be155a7b2a41517 10755 custom-toolbox_23.6_amd64.buildinfo
+ ca870bb198a56f2535bc8099d8f011ed29ef24ac 51312 custom-toolbox_23.6_amd64.deb
+Checksums-Sha256:
+ 56aa86ef965cdfb76f8feb530140082c12d3ab932de069f1fd614f6dc7eda64d 1182 custom-toolbox_23.6.dsc
+ c53d9fd6eb6ed024a9cbdae80827b422fda74a9bb48ebcbe2078e2ab056e03d2 37708 custom-toolbox_23.6.tar.xz
+ 66b65ab51dae4eb2384c073699744f6906aa4e1b07793bae6614015d951ff725 10755 custom-toolbox_23.6_amd64.buildinfo
+ 5997dfa3c89beb411b41eff97dd8b49d5e15dafd7eeddc5e65405a681d4be5f3 51312 custom-toolbox_23.6_amd64.deb
+Files:
+ d35a2b05be99e5b39b073010b59b7c09 1182 admin optional custom-toolbox_23.6.dsc
+ 015aa8092193efd2d95a9c6ff999387d 37708 admin optional custom-toolbox_23.6.tar.xz
+ 47cceb45e454391f4d8d4827d8dccb77 10755 admin optional custom-toolbox_23.6_amd64.buildinfo
+ 461089c1a5e54a911040ffefbea5421e 51312 admin optional custom-toolbox_23.6_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmSPh28THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumG8UCADO7QErS5Vg7Z+sdP1rDLPxiQdyefrZ
+CJNIF4hY6ekc6hxzWepZfkgDjDsRBOfvRfCxtp5bCS6O3s71sd//VsGQiZrKZgEI
+WPVbJ1H1W5F0Mmor4GPBL70Eg5ZXOD/GJ5JpaGzRxj1fjuoLwifXnjablCTCBEV7
+//NN/tb4gVKKP1pcAxrOvr9Lb5RtJSuJJm3f2k9caxYQyiFhatgXtYVC+6FLgD/v
+Qgj/OXouYtRK4mkyNruPRT6TnwxYLi32ulD8lcGzRuFV7rjDyQRqS91BZ7KbZhkv
+4V7djOjWK97HjfOH949ZpxzvRkabPj5W31q2QVW7Rrx7BI61NqSxZpZg
+=a+ui
+-----END PGP SIGNATURE-----

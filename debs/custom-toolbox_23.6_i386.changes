@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Sun, 18 Jun 2023 11:01:24 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 23.6
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.6) mx; urgency=medium
+ .
+   * Run featherpad as normal user (featherpad will elevate itself)
+   * Use pkexec instead of su-to-root
+Checksums-Sha1:
+ 337fcbbcc7eb31d53e72189310d1f3f0491393fe 10080 custom-toolbox_23.6_i386.buildinfo
+ 0f7d0f363001fba0805f1adf3af96300da82c5dd 54640 custom-toolbox_23.6_i386.deb
+Checksums-Sha256:
+ e0e03bc3463b8b0289bb813df8ec30cc0ec09991747e5d5c93bb5dce0aad7ab1 10080 custom-toolbox_23.6_i386.buildinfo
+ 81ff8032c131093aa80f122e6c14dac62f0b8dad384a22f1dc87b4df767ae642 54640 custom-toolbox_23.6_i386.deb
+Files:
+ b31c4f8b257a78177a70f785e8a8f4eb 10080 admin optional custom-toolbox_23.6_i386.buildinfo
+ 43435482bc9317178c877778c23a2181 54640 admin optional custom-toolbox_23.6_i386.deb
