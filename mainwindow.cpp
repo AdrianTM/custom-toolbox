@@ -91,10 +91,10 @@ QIcon MainWindow::findIcon(const QString &icon_name)
                               "/usr/local/share/icons/", "/usr/share/icons/", "/usr/share/icons/hicolor/48x48/apps/"};
 
     // Optimization: search first for the full icon_name with the specified extension
-    auto it = std::find_if(search_paths.begin(), search_paths.end(),
+    auto it = std::find_if(search_paths.cbegin(), search_paths.cend(),
                            [&](const QString &path) { return QFileInfo::exists(path + icon_name); });
 
-    if (it != search_paths.end()) {
+    if (it != search_paths.cend()) {
         QString foundPath = *it;
         return QIcon(foundPath + icon_name);
     }
@@ -261,11 +261,15 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(const QString &app_name)
 {
-    for (const auto &path : QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)) {
-        QDirIterator it(path, QStringList() << app_name + ".desktop", QDir::Files, QDirIterator::Subdirectories);
-        if (it.hasNext())
-            return it.next();
-    }
+    auto list = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    auto it = std::find_if(list.cbegin(), list.cend(), [&](const QString &path) {
+        QDirIterator it(path, {app_name + ".desktop"}, QDir::Files, QDirIterator::Subdirectories);
+        return it.hasNext();
+    });
+
+    if (it != list.cend())
+        return *it + "/" + app_name + ".desktop";
+
     // if desktop file not found, but command exists
     return QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
 }
