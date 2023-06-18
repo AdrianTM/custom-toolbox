@@ -617,9 +617,11 @@ void MainWindow::pushEdit_clicked()
     // If we need to run as root (with the exception of the listed editors)
     if (!QFileInfo(file_name).isWritable() && !editor.endsWith(QLatin1String("kate"))
         && !editor.endsWith(QLatin1String("kwrite")) && !desktop_file.endsWith(QLatin1String("atom.desktop")))
-        cmd = "su-to-root -X -c '" + cmd + "'";
+        cmd = "su-to-root -X -c \"" + cmd + "\"";
     this->hide(); // starting Atom is non-blocking
-    system(cmd.toUtf8());
+    QProcess process;
+    process.start(cmd);
+    process.waitForFinished();
     readFile(file_name);
     setGui();
     this->show();
