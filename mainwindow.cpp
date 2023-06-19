@@ -601,24 +601,25 @@ void MainWindow::pushEdit_clicked()
         if (editor.isEmpty()) // use nano as backup editor
             editor = "nano";
     }
-    // Editors that need to run as normal user
-    if (getuid() == 0
-        && (QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch()
-            || QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch()))
-        editor.push_front("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
 
-    QString cmd = editor + " " + file_name;
+    bool isRoot = (getuid() == 0);
+    bool isEditorThatElevates = QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch();
+    bool isAtom = QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch();
+    bool isCliEditor = QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch();
 
-    // Handle CLI editors
-    if (QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch()) {
-        QString term_env = "env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY x-terminal-emulator -e ";
-        cmd.push_front(term_env);
-    }
+    QStringList editorCommands;
+    if (!QFileInfo(file_name).isWritable() && !isEditorThatElevates && !isAtom)
+        editorCommands << "pkexec";
 
-    // If we need to run as root (with the exception of the listed editors)
-    if (!QFileInfo(file_name).isWritable() && !QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch()
-        && !QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch())
-        cmd.push_front("pkexec ");
+    if (isRoot && (isEditorThatElevates || isAtom))
+        editorCommands << "pkexec --user $(logname)";
+
+    editorCommands << "env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY";
+
+    if (isCliEditor)
+        editorCommands << "x-terminal-emulator -e";
+
+    QString cmd = editorCommands.join(" ") + " " + editor.toUtf8() + " " + file_name;
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();
