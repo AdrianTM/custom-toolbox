@@ -256,14 +256,12 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the app name
 QString MainWindow::getDesktopFileName(const QString &app_name)
 {
-    auto list = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-    auto it = std::find_if(list.cbegin(), list.cend(), [&](const QString &path) {
+    auto paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    for (const auto &path : paths) {
         QDirIterator it(path, {app_name + ".desktop"}, QDir::Files, QDirIterator::Subdirectories);
-        return it.hasNext();
-    });
-
-    if (it != list.cend())
-        return *it + "/" + app_name + ".desktop";
+        if (it.hasNext())
+            return it.next();
+    }
 
     // if desktop file not found, but command exists
     return QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
