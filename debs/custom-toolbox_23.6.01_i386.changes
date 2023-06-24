@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Sat, 24 Jun 2023 09:32:24 -0400
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 23.6.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.6.01) mx; urgency=medium
+ .
+   * Make sure no button is autoselected
+Checksums-Sha1:
+ a585224e69ede9e6b5412811c77c55a449844270 10095 custom-toolbox_23.6.01_i386.buildinfo
+ f30472c6337dfaf145abafc2acc4ece80ace8803 54416 custom-toolbox_23.6.01_i386.deb
+Checksums-Sha256:
+ 85b37965b99cd63840e03675da3b723ecd6f8ad0775b71b54061c20acab5a11c 10095 custom-toolbox_23.6.01_i386.buildinfo
+ 34cd9dda7f68038e33f68e08544d06da9d7820be6994c167b2d5afd9a759bd8f 54416 custom-toolbox_23.6.01_i386.deb
+Files:
+ 847975bb96f88a39bff04269b5da55d3 10095 admin optional custom-toolbox_23.6.01_i386.buildinfo
+ 7b46afd40964a0fb5a90ec70a1b29b60 54416 admin optional custom-toolbox_23.6.01_i386.deb
