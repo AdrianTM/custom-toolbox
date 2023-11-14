@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 13 Nov 2023 19:36:57 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: arm64
+Version: 23.11
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.11) mx; urgency=medium
+ .
+   * update rules file
+   * update translations
+   * add arm64 build
+Checksums-Sha1:
+ fdb05010aff8857457bfb5d0810e4b15004294ce 10457 custom-toolbox_23.11_arm64.buildinfo
+ f55ced05a136b62a7f8af8e63a4c651af9234cee 65764 custom-toolbox_23.11_arm64.deb
+Checksums-Sha256:
+ c297a3563d71ee73265de9b0c9ae00ae07d7810b04788336a0b99679351898cd 10457 custom-toolbox_23.11_arm64.buildinfo
+ 440cb8d213d4b58287c9d58854159889fb235fa4575835b76620e805e2f981f3 65764 custom-toolbox_23.11_arm64.deb
+Files:
+ def14c8f200768b60dc22d5f4c84bb44 10457 admin optional custom-toolbox_23.11_arm64.buildinfo
+ b2401ba87328fd2470b7a52d2ee74ba0 65764 admin optional custom-toolbox_23.11_arm64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE9i7eqjrnCpyZ2sQYm2ih6Lm2N1wFAmVSw+MACgkQm2ih6Lm2
+N1xicw/+NVGf89EkCRbHXL7Pls0Pw1KTpeLOg5Cx5aVWvzfwQV1ewf4vNzcJXaQg
+5hd1hlOjYB4Amsi6bFn7NBzmX23TiG2f+85eaJ+Fj7TQXukUhsv2dAnjhIXOt4ZM
+KwoCG49cIt6l6M6Qgpa26IkxNo3vSAcn5IQ+h3euDipUaubLil40xTyJlFdwScps
+5yIK7c7FDaXHE8FU1FxddKjCkRQjyaWfWmT2xHb8DL7hZH7R23kMmQyUc4uUfIfF
+VOMTUeKXLR69f2RY3j93fTg+wPrel6hDlrvrHbg6/Y+ZAffjTHdM6ZrdNQAIZTb1
+Y4mP21B7nfqY0baOIjfmfMG5B5F+tXR5EEmf6aqFJuqNODYkXNWUPq4UKbiivBGf
+gjZUPvoaHFcbB585175vouWmDSVejF/6pVxxMp1oQcswoOyqt99rVlDbV49c2Yz7
++FXNi+1GIAdytd9Huih7XzmSe26fA4egAsh04AefI0lTriZ75SmKDQzaDNfewtPe
+BtG5ZEfeJ6D+BuqsZYwjq6mvtx0JhXWLdn0wqdMhCuM/6ljPHjRwCcInPkDJuHzC
+QKQFS/XD46YZIvQjQiP3OTDupK/JyRE42YIwgvpl8gVqscc+eH/Ra7AUfTcu3aqi
+2u8c8Etr3l7x2Qj50Hj4P6x7gg//ahqtNrA3d2KTLntg2YPpj3o=
+=ardC
+-----END PGP SIGNATURE-----
