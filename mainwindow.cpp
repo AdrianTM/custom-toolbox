@@ -704,11 +704,11 @@ void MainWindow::pushEdit_clicked()
 
     bool isRoot = (getuid() == 0);
     bool isEditorThatElevates = QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch();
-    bool isAtom = QRegularExpression("atom\\.desktop$").match(desktop_file).hasMatch();
+    bool isElectronBased = QRegularExpression("(atom\\.desktop|code\\.desktop)$").match(editor).hasMatch();
     bool isCliEditor = QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch();
 
     QStringList editorCommands;
-    if (!QFileInfo(file_name).isWritable() && !isEditorThatElevates && !isAtom) {
+    if (!QFileInfo(file_name).isWritable() && !isEditorThatElevates && !isElectronBased) {
         editorCommands << "pkexec";
     }
 
