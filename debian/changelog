@@ -1,3 +1,11 @@
+custom-toolbox (23.11) mx; urgency=medium
+
+  * update rules file
+  * update translations
+  * add arm64 build
+
+ -- Dolphin Oracle <dolphinoracle@gmail.com>  Mon, 13 Nov 2023 19:36:57 -0500
+
 custom-toolbox (23.6.01) mx; urgency=medium
 
   * Make sure no button is autoselected
