@@ -27,6 +27,7 @@
 
 #include <QCommandLineParser>
 #include <QDialog>
+#include <QLocale>
 #include <QMessageBox>
 #include <QMultiMap>
 #include <QProcess>
@@ -53,7 +54,7 @@ public:
     static void fixNameItem(QString *item);
     QString getDesktopFileName(const QString &app_name);
     QString getFileName();
-    static QStringList getDesktopFileInfo(const QString &file_name);
+    QStringList getDesktopFileInfo(const QString &file_name);
     void addButtons(const QMultiMap<QString, QStringList> &map);
     void processLine(const QString &line);
     void readFile(const QString &file_name);
@@ -81,11 +82,13 @@ private:
     QString file_name;
     QString gui_editor;
     QString icon_theme;
+    QLocale locale;
+    QString lang = locale.name();
     QString local_dir;
     QString version;
     QStringList categories;
-    bool hideGUI {};
     bool firstRun {true};
+    bool hideGUI {};
     const QStringList path {qEnvironmentVariable("PATH").split(":") << "/usr/sbin"};
     int col_count;
     int fixed_number_col {};

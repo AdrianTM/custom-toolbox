@@ -295,15 +295,11 @@ QString MainWindow::getDesktopFileName(const QString &app_name)
 QStringList MainWindow::getDesktopFileInfo(const QString &file_name)
 {
     QStringList app_info;
-
     QString name;
     QString comment;
     QString exec;
     QString icon_name;
     QString terminal;
-    QLocale locale;
-    QString lang = locale.bcp47Name();
-
     QRegularExpression re;
     re.setPatternOptions(QRegularExpression::MultilineOption);
 
@@ -314,35 +310,51 @@ QStringList MainWindow::getDesktopFileInfo(const QString &file_name)
     }
 
     QFile file(file_name);
-    if (!file.open(QFile::Text | QFile::ReadOnly))
-        return QStringList();
+    if (!file.open(QFile::Text | QFile::ReadOnly)) {
+        return {};
+    }
 
     const QString text = file.readAll();
     file.close();
-
-    if (lang != QLatin1String("en")) {
+    if (lang.section("_", 0, 0) != QLatin1String("en")) {
         re.setPattern(QStringLiteral("^Name\\[") + lang + QStringLiteral("\\]=(.*)$"));
-        name = re.match(text).captured(1);
+        QRegularExpressionMatch nameMatch = re.match(text);
+        if (nameMatch.hasMatch()) {
+            name = nameMatch.captured(1);
+        } else {
+            re.setPattern(QStringLiteral("^Name\\[") + lang.section("_", 0, 0) + QStringLiteral("\\]=(.*)$"));
+            nameMatch = re.match(text);
+            if (nameMatch.hasMatch()) {
+                name = nameMatch.captured(1);
+            }
+        }
         re.setPattern(QStringLiteral("^Comment\\[") + lang + QStringLiteral("\\]=(.*)$"));
-        comment = re.match(text).captured(1);
+        QRegularExpressionMatch commentMatch = re.match(text);
+        if (commentMatch.hasMatch()) {
+            comment = commentMatch.captured(1);
+        } else {
+            re.setPattern(QStringLiteral("^Comment\\[") + lang.section("_", 0, 0) + QStringLiteral("\\]=(.*)$"));
+            commentMatch = re.match(text);
+            if (commentMatch.hasMatch()) {
+                comment = commentMatch.captured(1);
+            }
+        }
     }
-    if (lang == QLatin1String("pt") && name.isEmpty()) { // Brazilian if Portuguese and name empty
-        re.setPattern(QStringLiteral("^Name\\[pt_BR\\]=(.*)$"));
-        name = re.match(text).captured(1);
-    }
-    if (lang == QLatin1String("pt") && comment.isEmpty()) { // Brazilian if Portuguese and comment empty
-        re.setPattern(QStringLiteral("^Comment\\[pt_BR\\]=(.*)$"));
-        comment = re.match(text).captured(1);
-    }
-    if (name.isEmpty()) { // backup if Name is not translated
+    if (name.isEmpty()) { // Fallback if Name is not translated
         re.setPattern(QStringLiteral("^Name=(.*)$"));
-        name = re.match(text).captured(1);
-        name = name.remove(QRegularExpression(
-            QStringLiteral("^MX "))); // remove MX from begining of the program name (most of the MX Linux apps)
+        QRegularExpressionMatch nameFallbackMatch = re.match(text);
+        if (nameFallbackMatch.hasMatch()) {
+            name = nameFallbackMatch.captured(1);
+            name = name.remove(QRegularExpression(
+                QStringLiteral("^MX "))); // remove MX from begining of the program name (most of the MX Linux apps)
+        }
     }
-    if (comment.isEmpty()) { // backup if Comment is not translated
+    if (comment.isEmpty()) { // Fallback if Comment is not translated
         re.setPattern(QStringLiteral("^Comment=(.*)$"));
-        comment = re.match(text).captured(1);
+        QRegularExpressionMatch commentFallbackMatch = re.match(text);
+        if (commentFallbackMatch.hasMatch()) {
+            comment = commentFallbackMatch.captured(1);
+        }
     }
     re.setPattern(QStringLiteral("^Exec=(.*)$"));
     exec = re.match(text).captured(1);
@@ -422,10 +434,15 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
                     col = 0;
                     ++row;
                 }
-                if (terminal == QLatin1String("true"))
-                    exec.push_front("env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY x-terminal-emulator -e ");
-                if (root == QLatin1String("true") && getuid() != 0)
-                    exec.push_front("pkexec ");
+                if (terminal == QLatin1String("true")) {
+                    exec.push_front("x-terminal-emulator -e ");
+                }
+                if (root == QLatin1String("true") && getuid() != 0) {
+                    exec.push_front("pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
+                }
+                if (root == QLatin1String("user") && getuid() == 0) {
+                    exec.push_front("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
+                }
                 btn->setProperty("cmd", exec);
                 connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
             }
@@ -446,22 +463,14 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
 
 void MainWindow::processLine(const QString &line)
 {
-    if (line.startsWith(QLatin1String("#")) || line.isEmpty()) // filter out comment and empty lines
-        return;
-
-    const QStringList line_list = line.split(QStringLiteral("="));
-    const QString key = line_list.first().trimmed();
+    const QStringList tokens = line.split(QStringLiteral("="));
+    const QString key = tokens.first().trimmed();
     QString value;
-    if (line_list.size() > 1) {
-        value = line_list.at(1).trimmed();
+    if (tokens.size() > 1) {
+        value = tokens.at(1).trimmed();
         value.remove(QLatin1Char('"'));
     }
-
-    if (key.toLower() == QLatin1String("name")) {
-        this->setWindowTitle(value);
-    } else if (key.toLower() == QLatin1String("comment")) {
-        ui->commentLabel->setText(value);
-    } else if (key.toLower() == QLatin1String("category")) {
+    if (key.toLower() == QLatin1String("category")) {
         categories.append(value);
     } else if (key.toLower() == QLatin1String("theme")) {
         icon_theme = value;
@@ -471,17 +480,22 @@ void MainWindow::processLine(const QString &line)
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
             if (list.size() > 1) { // check if root or alias flag present
-                info << ((list.contains(QLatin1String("root"))) ? QStringLiteral("true") : QStringLiteral("false"));
+                QString flag
+                    = (list.contains(QLatin1String("root")) ? QStringLiteral("true") : QStringLiteral("false"));
+                if (list.contains(QLatin1String("user"))) {
+                    flag = "user";
+                }
+                info << flag;
                 if (list.contains(QLatin1String("alias"))) {
                     QString str;
-                    for (auto it = list.lastIndexOf(QStringLiteral("alias")); it + 1 < list.size(); ++it)
+                    for (auto it = list.lastIndexOf(QStringLiteral("alias")); it + 1 < list.size(); ++it) {
                         str.append(list.at(it + 1) + " ");
+                    }
                     info.first() = str.trimmed().remove(QStringLiteral("'")).remove(QStringLiteral("\""));
                 }
             } else {
                 info << QStringLiteral("false");
             }
-
             category_map.insert(categories.constLast(), info);
         }
     }
@@ -505,10 +519,62 @@ void MainWindow::readFile(const QString &file_name)
                               tr("Could not open file: ") + file_name + "\n" + tr("Application will close."));
         exit(EXIT_FAILURE);
     }
-
-    for (QTextStream in(&file); !in.atEnd();)
-        processLine(in.readLine());
+    const QString text = file.readAll();
     file.close();
+
+    QString name;
+    QString comment;
+    QRegularExpression re;
+    re.setPatternOptions(QRegularExpression::MultilineOption);
+    if (lang.section("_", 0, 0) != QLatin1String("en")) {
+        re.setPattern(QStringLiteral("^Name\\[") + lang + QStringLiteral("\\]=(.*)$"));
+        QRegularExpressionMatch nameMatch = re.match(text);
+        if (nameMatch.hasMatch()) {
+            name = nameMatch.captured(1);
+        } else {
+            re.setPattern(QStringLiteral("^Name\\[") + lang.section("_", 0, 0) + QStringLiteral("\\]=(.*)$"));
+            nameMatch = re.match(text);
+            if (nameMatch.hasMatch()) {
+                name = nameMatch.captured(1);
+            }
+        }
+        re.setPattern(QStringLiteral("^Comment\\[") + lang + QStringLiteral("\\]=(.*)$"));
+        QRegularExpressionMatch commentMatch = re.match(text);
+        if (commentMatch.hasMatch()) {
+            comment = commentMatch.captured(1);
+        } else {
+            re.setPattern(QStringLiteral("^Comment\\[") + lang.section("_", 0, 0) + QStringLiteral("\\]=(.*)$"));
+            commentMatch = re.match(text);
+            if (commentMatch.hasMatch()) {
+                comment = commentMatch.captured(1);
+            }
+        }
+    }
+    if (name.isEmpty()) { // Fallback if Name is not translated
+        re.setPattern(QStringLiteral("^Name=(.*)$"));
+        QRegularExpressionMatch nameFallbackMatch = re.match(text);
+        if (nameFallbackMatch.hasMatch()) {
+            name = nameFallbackMatch.captured(1);
+        }
+    }
+    if (comment.isEmpty()) { // Fallback if Comment is not translated
+        re.setPattern(QStringLiteral("^Comment=(.*)$"));
+        QRegularExpressionMatch commentFallbackMatch = re.match(text);
+        if (commentFallbackMatch.hasMatch()) {
+            comment = commentFallbackMatch.captured(1);
+        }
+    }
+    this->setWindowTitle(name);
+    ui->commentLabel->setText(comment);
+
+    auto lines = text.split("\n");
+    for (const QString &line : lines) {
+        if (line.startsWith(QLatin1String("Name")) || line.startsWith(QLatin1String("Comment")) || line.isEmpty()
+            || line.startsWith(QLatin1String("#"))) {
+            continue;
+        }
+        processLine(line);
+    }
 
     // Reverse map
     QMultiMap<QString, QStringList> map;
