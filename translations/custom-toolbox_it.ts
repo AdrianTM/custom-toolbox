@@ -1,150 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT">
+<TS version="2.1" language="it">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
         <location filename="../mainwindow.cpp" line="137"/>
         <source>Custom Toolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Cassetto degli strumenti personalizzato</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="63"/>
         <source>About this application</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni su questa applicazione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="66"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>Info...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="73"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="89"/>
         <source>Customize launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalizza lanciatore</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="92"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Edita</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="99"/>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="163"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Aiuto</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Alt+H</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="183"/>
         <source>Close application</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiudi l&apos;applicazione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="186"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="193"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="308"/>
         <source>This is a custom launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo è un lanciatore personalizzato</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="324"/>
         <source>Show this dialog at start up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra questa finestra all&apos;avvio</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>search</source>
-        <translation type="unfinished"></translation>
+        <translation>cerca</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="244"/>
         <source>Open List File</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri file elenco</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="244"/>
         <source>List Files (*.list)</source>
-        <translation type="unfinished"></translation>
+        <translation>File elenco (*.list)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="249"/>
         <location filename="../mainwindow.cpp" line="476"/>
         <location filename="../mainwindow.cpp" line="555"/>
         <source>File Open Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore apertura file</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="249"/>
         <source>Could not open file, do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire il file, vuoi riprovare?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="477"/>
         <source>Could not open file: </source>
-        <translation type="unfinished"></translation>
+        <translation>Non è stato possibile aprire il file:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="477"/>
         <source>Application will close.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;applicazione verrà chiusa.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="506"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Circa %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="507"/>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Versione: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="509"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom Toolbox è uno strumento utilizzato per creare un lanciatore personalizzato</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="512"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="513"/>
         <source>%1 License</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Licenza</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="520"/>
         <source>%1 Help</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Aiuto</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="555"/>
         <source>Could not write file: </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile scrivere il file:</translation>
     </message>
 </context>
 <context>
@@ -152,48 +152,48 @@
     <message>
         <location filename="../about.cpp" line="48"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licenza</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="49"/>
         <location filename="../about.cpp" line="59"/>
         <source>Changelog</source>
-        <translation type="unfinished"></translation>
+        <translation>Registro delle modifiche</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="50"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="72"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Chiudi</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="67"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa app può essere utilizzata per creare lanciatori personalizzati: casella di pulsanti/icone</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="70"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Non mostrare la casella di controllo &apos;mostra questa finestra di dialogo all&apos;avvio&apos;</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="73"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Percorso completo e nome del file .list che desideri caricare per configurare l&apos;applicazione</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="83"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="84"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembra che tu sia loggato come root, fai il log out e poi il log in come utente normale per usare questo programma.</translation>
     </message>
 </context>
 </TS>
