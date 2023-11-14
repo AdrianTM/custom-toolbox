@@ -712,7 +712,7 @@ void MainWindow::pushEdit_clicked()
         editorCommands << "pkexec";
     }
 
-    if (isRoot && (isEditorThatElevates || isAtom)) {
+    if (isRoot && (isEditorThatElevates || isElectronBased)) {
         editorCommands << "pkexec --user $(logname)";
     }
 
