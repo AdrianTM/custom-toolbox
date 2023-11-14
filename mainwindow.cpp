@@ -205,12 +205,13 @@ void MainWindow::setGui()
 void MainWindow::btn_clicked()
 {
     const QString cmd = sender()->property("cmd").toString();
-    if (hideGUI) {
+    // pkexec cannot take &, it would block the GUI that's why we need to hide it
+    if (hideGUI || cmd.startsWith("pkexec")) {
         this->hide();
         system(cmd.toUtf8());
         this->show();
     } else {
-        system(cmd.toUtf8());
+        system(cmd.toUtf8() + "&");
     }
 }
 
