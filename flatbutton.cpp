@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (C) 2014 MX Authors
+ * Copyright (C) 2014-2023 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -51,6 +51,12 @@ void FlatButton::enterEvent(QEvent *e)
     QPushButton::enterEvent(e);
 }
 
-void FlatButton::setIconSize(int x, int y) { QPushButton::setIconSize(QSize(x, y)); }
+void FlatButton::setIconSize(int x, int y)
+{
+    QPushButton::setIconSize(QSize(x, y));
+}
 
-void FlatButton::setIconSize(QSize size) { QPushButton::setIconSize(size); }
+void FlatButton::setIconSize(QSize size)
+{
+    QPushButton::setIconSize(size);
+}
