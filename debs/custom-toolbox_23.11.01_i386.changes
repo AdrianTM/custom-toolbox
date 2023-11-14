@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Mon, 13 Nov 2023 23:03:43 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: i386
+Version: 23.11.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.11.01) mx; urgency=medium
+ .
+   * Run commands in background and leave the UI active
+   * More translations
+Checksums-Sha1:
+ 6367816de5f3c5a126f09d31be7b117acff3a508 10100 custom-toolbox_23.11.01_i386.buildinfo
+ 8be091b6e83df1ffe7baf84679af70b978689472 76184 custom-toolbox_23.11.01_i386.deb
+Checksums-Sha256:
+ a46175f901589e54c17143f20c8cc94377f5f216d3508723f0d22daed59885c0 10100 custom-toolbox_23.11.01_i386.buildinfo
+ 097c13a31e04ab0288d10d63375ae08f16b44215595d8fec7858ff4b5cb7c750 76184 custom-toolbox_23.11.01_i386.deb
+Files:
+ 21823598bdf03cbd2058379c12e804d4 10100 admin optional custom-toolbox_23.11.01_i386.buildinfo
+ 73c6d1100f662e42c6c8a9eb09dffbd3 76184 admin optional custom-toolbox_23.11.01_i386.deb

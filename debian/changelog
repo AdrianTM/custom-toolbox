@@ -1,3 +1,10 @@
+custom-toolbox (23.11.01) mx; urgency=medium
+
+  * Run commands in background and leave the UI active
+  * More translations
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 13 Nov 2023 23:03:43 -0500
+
 custom-toolbox (23.11) mx; urgency=medium
 
   * update rules file

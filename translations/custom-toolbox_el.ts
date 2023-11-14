@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Custom Toolbox</source>
         <translation>Προσαρμοσμένη Εργαλειοθήκη</translation>
     </message>
@@ -80,69 +80,69 @@
         <translation>αναζήτηση</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>Open List File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>List Files (*.list)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
-        <location filename="../mainwindow.cpp" line="476"/>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="518"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>File Open Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Could not open file, do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Could not open file: </source>
         <translation>Δεν ήταν δυνατό το άνοιγμα του αρχείου:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Application will close.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>About %1</source>
         <translation>Περί του %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="507"/>
+        <location filename="../mainwindow.cpp" line="602"/>
         <source>Version: </source>
         <translation>Έκδοση: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="509"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="512"/>
+        <location filename="../mainwindow.cpp" line="607"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Πνευματικά δικαιώματα (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="513"/>
+        <location filename="../mainwindow.cpp" line="608"/>
         <source>%1 License</source>
         <translation>Άδεια %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="520"/>
+        <location filename="../mainwindow.cpp" line="615"/>
         <source>%1 Help</source>
         <translation>Βοήθεια %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>Could not write file: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -150,48 +150,48 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="51"/>
         <source>License</source>
         <translation>Άδεια</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="49"/>
-        <location filename="../about.cpp" line="59"/>
+        <location filename="../about.cpp" line="52"/>
+        <location filename="../about.cpp" line="62"/>
         <source>Changelog</source>
         <translation>Αρχείο αλλαγών</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="50"/>
+        <location filename="../about.cpp" line="53"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="72"/>
+        <location filename="../about.cpp" line="75"/>
         <source>&amp;Close</source>
         <translation>&amp;Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="67"/>
+        <location filename="../main.cpp" line="71"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="74"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="73"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="83"/>
+        <location filename="../main.cpp" line="87"/>
         <source>Error</source>
         <translation>Σφάλμα</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="84"/>
+        <location filename="../main.cpp" line="88"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
         <translation>Φαίνεται ότι έχετε συνδεθεί ως διαχειριστής, αποσυνδεθείτε και συνδεθείτε ως απλός χρήστης για να χρησιμοποιήσετε αυτό το πρόγραμμα.</translation>
     </message>

@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es_ES">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="es_ES">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Custom Toolbox</source>
         <translation>Herramientas personalizadas</translation>
     </message>
@@ -78,69 +80,69 @@
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>Open List File</source>
         <translation>Abrir archivo de lista</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>List Files (*.list)</source>
         <translation>Archivos de lista (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
-        <location filename="../mainwindow.cpp" line="476"/>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="518"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>File Open Error</source>
         <translation>Error al abrir el archivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Could not open file, do you want to try again?</source>
         <translation>No se pudo abrir el archivo, ¿quiere intentarlo de nuevo?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Could not open file: </source>
         <translation>No se pudo abrir el archivo:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Application will close.</source>
         <translation>La aplicación se cerrará.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>About %1</source>
         <translation>Acerca de %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="507"/>
+        <location filename="../mainwindow.cpp" line="602"/>
         <source>Version: </source>
         <translation>Versión: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="509"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Personalizar lanzadores es una herramienta utilizada para crear un lanzador personalizado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="512"/>
+        <location filename="../mainwindow.cpp" line="607"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Derechos de Autor (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="513"/>
+        <location filename="../mainwindow.cpp" line="608"/>
         <source>%1 License</source>
         <translation>%1 Licencia</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="520"/>
+        <location filename="../mainwindow.cpp" line="615"/>
         <source>%1 Help</source>
         <translation>%1 Ayuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>Could not write file: </source>
         <translation>No se pudo escribir el archivo:</translation>
     </message>
@@ -148,48 +150,48 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="51"/>
         <source>License</source>
         <translation>Licencia</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="49"/>
-        <location filename="../about.cpp" line="59"/>
+        <location filename="../about.cpp" line="52"/>
+        <location filename="../about.cpp" line="62"/>
         <source>Changelog</source>
         <translation>Registro de cambios</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="50"/>
+        <location filename="../about.cpp" line="53"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="72"/>
+        <location filename="../about.cpp" line="75"/>
         <source>&amp;Close</source>
         <translation>&amp;Cerrar</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="67"/>
+        <location filename="../main.cpp" line="71"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
         <translation>Esta aplicación se puede utilizar para crear lanzadores personalizados: caja de botones/iconos</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="74"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
         <translation>No mostrar la casilla &apos;Mostrar este cuadro de diálogo al inicio&apos;</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="73"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
         <translation>Ruta completa y nombre del archivo .list que desea cargar para configurar la aplicación</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="83"/>
+        <location filename="../main.cpp" line="87"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="84"/>
+        <location filename="../main.cpp" line="88"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
         <translation>Parece que ha iniciado sesión como root, cierre la sesión e inicie sesión como usuario normal para usar este programa.</translation>
     </message>
