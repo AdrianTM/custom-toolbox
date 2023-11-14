@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QTextEdit>
 #include <QVBoxLayout>
 
@@ -21,11 +22,12 @@ void displayDoc(const QString &url, const QString &title)
         qputenv("HOME", starting_home.toUtf8()); // use original home for theming purposes
     }
     // prefer mx-viewer otherwise use xdg-open (use runuser to run that as logname user)
-    if (QFile::exists(QStringLiteral("/usr/bin/mx-viewer"))) {
-        QProcess::execute(QStringLiteral("mx-viewer"), {url, title});
+    QString executablePath = QStandardPaths::findExecutable("mx-viewer");
+    if (!executablePath.isEmpty()) {
+        QProcess::startDetached(QStringLiteral("mx-viewer"), {url, title});
     } else {
         if (getuid() != 0) {
-            QProcess::execute(QStringLiteral("xdg-open"), {url});
+            QProcess::startDetached(QStringLiteral("xdg-open"), {url});
         } else {
             QProcess proc;
             proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
@@ -35,8 +37,9 @@ void displayDoc(const QString &url, const QString &title)
                                                                 QStringLiteral("xdg-open"), url});
         }
     }
-    if (started_as_root)
+    if (started_as_root) {
         qputenv("HOME", "/root");
+    }
 }
 
 void displayAboutMsgBox(const QString &title, const QString &message, const QString &licence_url,
