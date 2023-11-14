@@ -1,150 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ja_JP">
+<TS version="2.1" language="ja">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
         <location filename="../mainwindow.cpp" line="137"/>
         <source>Custom Toolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>カスタムツールボックス</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="63"/>
         <source>About this application</source>
-        <translation type="unfinished"></translation>
+        <translation>このアプリケーションについて</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="66"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>情報...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="73"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="89"/>
         <source>Customize launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>ランチャのカスタマイズ</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="92"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>編集</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="99"/>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="163"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Alt+H</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="183"/>
         <source>Close application</source>
-        <translation type="unfinished"></translation>
+        <translation>アプリの終了</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="186"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="193"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="308"/>
         <source>This is a custom launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>これはカスタムランチャです</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="324"/>
         <source>Show this dialog at start up</source>
-        <translation type="unfinished"></translation>
+        <translation>起動時にこのダイヤログを表示する</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>search</source>
-        <translation type="unfinished"></translation>
+        <translation>検索</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="244"/>
         <source>Open List File</source>
-        <translation type="unfinished"></translation>
+        <translation>リストファイルを開く</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="244"/>
         <source>List Files (*.list)</source>
-        <translation type="unfinished"></translation>
+        <translation>リストファイル (*.list)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="249"/>
         <location filename="../mainwindow.cpp" line="476"/>
         <location filename="../mainwindow.cpp" line="555"/>
         <source>File Open Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを開く際のエラー</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="249"/>
         <source>Could not open file, do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを開けません。もう一度試しますか？</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="477"/>
         <source>Could not open file: </source>
-        <translation type="unfinished"></translation>
+        <translation>次のファイルを開けません: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="477"/>
         <source>Application will close.</source>
-        <translation type="unfinished"></translation>
+        <translation>アプリケーションを終了します。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="506"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation> %1 について</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="507"/>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>バージョン：</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="509"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>カスタムツールボックスは、カスタムランチャの作成ツールです。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="512"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="513"/>
         <source>%1 License</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ライセンス</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="520"/>
         <source>%1 Help</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ヘルプ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="555"/>
         <source>Could not write file: </source>
-        <translation type="unfinished"></translation>
+        <translation>次のファイルへ書き込めません: </translation>
     </message>
 </context>
 <context>
@@ -152,48 +152,48 @@
     <message>
         <location filename="../about.cpp" line="48"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>ライセンス</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="49"/>
         <location filename="../about.cpp" line="59"/>
         <source>Changelog</source>
-        <translation type="unfinished"></translation>
+        <translation>更新履歴</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="50"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="72"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる(&amp;C)</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="67"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
-        <translation type="unfinished"></translation>
+        <translation>このアプリでカスタムランチャ（ボタン/アイコンのボックス）を作成できます。</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="70"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>「起動時にこのダイアログを表示する」チェックボックスを表示しない</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="73"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
-        <translation type="unfinished"></translation>
+        <translation>アプリケーションのセットアップで読み込む .list ファイルのフルパスとファイル名</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="83"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>エラー</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="84"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
-        <translation type="unfinished"></translation>
+        <translation>root としてログインしているようです。このプログラムを使用するには、一度ログアウトして通常のユーザーとしてログインしてください。</translation>
     </message>
 </context>
 </TS>

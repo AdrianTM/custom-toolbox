@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ro_RO">
+<TS version="2.1" language="ro">
 <context>
     <name>MainWindow</name>
     <message>
@@ -12,17 +12,17 @@
     <message>
         <location filename="../mainwindow.ui" line="63"/>
         <source>About this application</source>
-        <translation type="unfinished"></translation>
+        <translation>Informații despre program</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="66"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>Despre...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="73"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="89"/>
@@ -42,27 +42,27 @@
     <message>
         <location filename="../mainwindow.ui" line="163"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajutor</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Alt+H</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="183"/>
         <source>Close application</source>
-        <translation type="unfinished"></translation>
+        <translation>Închide programul </translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="186"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Închide</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="193"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="308"/>
@@ -77,7 +77,7 @@
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>search</source>
-        <translation type="unfinished"></translation>
+        <translation>căutare</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="244"/>
@@ -119,7 +119,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="507"/>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Versiune:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="509"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="512"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="513"/>
@@ -152,23 +152,23 @@
     <message>
         <location filename="../about.cpp" line="48"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licență</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="49"/>
         <location filename="../about.cpp" line="59"/>
         <source>Changelog</source>
-        <translation type="unfinished"></translation>
+        <translation>Changelog</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="50"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anulează</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="72"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Închide</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="67"/>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../main.cpp" line="83"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Eroare</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="84"/>
