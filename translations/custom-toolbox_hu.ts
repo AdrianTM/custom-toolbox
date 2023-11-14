@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="hu">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="hu">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Custom Toolbox</source>
         <translation>Saját eszköztár</translation>
     </message>
@@ -78,69 +80,69 @@
         <translation>keresés</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>Open List File</source>
         <translation>Listafájl megnyitása</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>List Files (*.list)</source>
         <translation>Lista fájlok (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
-        <location filename="../mainwindow.cpp" line="476"/>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="518"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>File Open Error</source>
         <translation>Hiba a fájl megnyitásakor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Could not open file, do you want to try again?</source>
         <translation>A fájl megnyitása nem sikerült, megpróbálja ismét?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Could not open file: </source>
         <translation>Fájl megnyitása nem sikerült:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Application will close.</source>
         <translation>Az alkalmazás kilép.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>About %1</source>
         <translation>%1 névjegye</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="507"/>
+        <location filename="../mainwindow.cpp" line="602"/>
         <source>Version: </source>
         <translation>Verzió:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="509"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Az Saját eszköztár egy segédeszköz saját indító létrehozására</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="512"/>
+        <location filename="../mainwindow.cpp" line="607"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="513"/>
+        <location filename="../mainwindow.cpp" line="608"/>
         <source>%1 License</source>
         <translation>%1 licenc</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="520"/>
+        <location filename="../mainwindow.cpp" line="615"/>
         <source>%1 Help</source>
         <translation>%1 súgó</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>Could not write file: </source>
         <translation>A fájl írása nem sikerült:</translation>
     </message>
@@ -148,48 +150,48 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="51"/>
         <source>License</source>
         <translation>Licenc</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="49"/>
-        <location filename="../about.cpp" line="59"/>
+        <location filename="../about.cpp" line="52"/>
+        <location filename="../about.cpp" line="62"/>
         <source>Changelog</source>
         <translation>Változások listája</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="50"/>
+        <location filename="../about.cpp" line="53"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="72"/>
+        <location filename="../about.cpp" line="75"/>
         <source>&amp;Close</source>
         <translation>&amp;Bezárás</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="67"/>
+        <location filename="../main.cpp" line="71"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
         <translation>Ez az alkalmazás saját indítók létrehozására használható: gombok/ikonok egy dobozban</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="74"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
         <translation>Ne jelenjen meg a &apos;Jelenjen meg ez az ablak indításkor&apos; opció</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="73"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
         <translation>Az alkalmazás beállításához betölteni kívánt .list fájl teljes útvonala és neve</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="83"/>
+        <location filename="../main.cpp" line="87"/>
         <source>Error</source>
         <translation>Hiba</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="84"/>
+        <location filename="../main.cpp" line="88"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
         <translation>Úgy tűnik, hogy root felhasználóként van bejelentkezve. Jelentkezzen ki és jelentkezzen be egyszerű felhasználóként a program használatához.</translation>
     </message>

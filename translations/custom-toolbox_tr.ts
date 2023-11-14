@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="tr">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Custom Toolbox</source>
         <translation>Özel Araç Kutusu</translation>
     </message>
@@ -78,69 +80,69 @@
         <translation>Ara</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>Open List File</source>
         <translation>Liste Dosyasını Aç</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>List Files (*.list)</source>
         <translation>Liste Dosyaları (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
-        <location filename="../mainwindow.cpp" line="476"/>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="518"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>File Open Error</source>
         <translation>Dosya Açılırken Hata</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Could not open file, do you want to try again?</source>
         <translation>Dosya açılamadı, tekrar denemek ister misiniz?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Could not open file: </source>
         <translation>Dosya açılamadı:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="519"/>
         <source>Application will close.</source>
         <translation>Uygulama kapanacak.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>About %1</source>
         <translation>%1 Hakkında </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="507"/>
+        <location filename="../mainwindow.cpp" line="602"/>
         <source>Version: </source>
         <translation>Sürüm:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="509"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Custom Toolbox, özel bir başlatıcı oluşturmak için kullanılan bir araçtır</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="512"/>
+        <location filename="../mainwindow.cpp" line="607"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Telif Hakkı (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="513"/>
+        <location filename="../mainwindow.cpp" line="608"/>
         <source>%1 License</source>
         <translation>%1 Lisans</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="520"/>
+        <location filename="../mainwindow.cpp" line="615"/>
         <source>%1 Help</source>
         <translation>%1 Yardım</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="650"/>
         <source>Could not write file: </source>
         <translation>Dosya yazılamadı:</translation>
     </message>
@@ -148,48 +150,48 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="51"/>
         <source>License</source>
         <translation>Lisans</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="49"/>
-        <location filename="../about.cpp" line="59"/>
+        <location filename="../about.cpp" line="52"/>
+        <location filename="../about.cpp" line="62"/>
         <source>Changelog</source>
         <translation>Değişim günlüğü</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="50"/>
+        <location filename="../about.cpp" line="53"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="72"/>
+        <location filename="../about.cpp" line="75"/>
         <source>&amp;Close</source>
         <translation>&amp;Kapat</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="67"/>
+        <location filename="../main.cpp" line="71"/>
         <source>This app can be used to create custom launchers: box of buttons/icons</source>
         <translation>Bu uygulama, özel başlatıcı oluşturmak için kullanılabilir: düğme/simge kutusu</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="74"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
         <translation>&quot;Bu iletişim kutusunu başlangıçta göster&quot; onay kutusunu gösterme</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="73"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Full path and name of the .list file you want to load to set up the application</source>
         <translation>Uygulamayı kurmak için yüklemek istediğiniz .list dosyasının tam yolu ve adı</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="83"/>
+        <location filename="../main.cpp" line="87"/>
         <source>Error</source>
         <translation>Hata</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="84"/>
+        <location filename="../main.cpp" line="88"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
         <translation>Görünüşe göre root olarak girmişsiniz, lütfen çıkın ve bu programı kullanmak için normal kullanıcı olarak girin. </translation>
     </message>

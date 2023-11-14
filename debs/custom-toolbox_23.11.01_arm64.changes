@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Mon, 13 Nov 2023 23:03:43 -0500
+Source: custom-toolbox
+Binary: custom-toolbox
+Architecture: arm64
+Version: 23.11.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ custom-toolbox - Custom Toolbox
+Changes:
+ custom-toolbox (23.11.01) mx; urgency=medium
+ .
+   * Run commands in background and leave the UI active
+   * More translations
+Checksums-Sha1:
+ 93339d97c12a1a6a09bbf37ac282b90cc5635f64 10142 custom-toolbox_23.11.01_arm64.buildinfo
+ 9d16bea04a22c12b76e30a2ed2a9453dcf938d78 68772 custom-toolbox_23.11.01_arm64.deb
+Checksums-Sha256:
+ 3dd13963773f8408e6b0c9664e5b7fddf66e0b16d061e2d2cbd9c71cd33c82c7 10142 custom-toolbox_23.11.01_arm64.buildinfo
+ e1210d25d0d5a8aa5cd6675ce9638d4e337195ce478e5b66a0d409103daca5a9 68772 custom-toolbox_23.11.01_arm64.deb
+Files:
+ ecdc28603ab52cd94cd789e052199206 10142 admin optional custom-toolbox_23.11.01_arm64.buildinfo
+ 5e16a6bfd62936acf5cfff4b28d6c189 68772 admin optional custom-toolbox_23.11.01_arm64.deb
