@@ -150,8 +150,8 @@ void MainWindow::fixNameItem(QString *item)
 
 void MainWindow::setup()
 {
-    this->setWindowTitle(tr("Custom Toolbox"));
-    this->adjustSize();
+    setWindowTitle(tr("Custom Toolbox"));
+    adjustSize();
 
     const int default_icon_size = 40;
 
@@ -174,20 +174,20 @@ void MainWindow::setGui()
         delete child->widget();
         delete child;
     }
-    this->adjustSize();
-    this->setMinimumSize(min_width, min_height);
+    adjustSize();
+    setMinimumSize(min_width, min_height);
 
     QSettings settings(QApplication::organizationName(),
                        QApplication::applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value(QStringLiteral("geometry")).toByteArray());
 
     const QSize size = this->size();
-    if (this->isMaximized()) { // if started maximized give option to resize to normal window size
-        this->resize(size);
+    if (isMaximized()) { // if started maximized give option to resize to normal window size
+        resize(size);
         const QRect screenGeometry = QApplication::primaryScreen()->geometry();
-        const int x = (screenGeometry.width() - this->width()) / 2;
-        const int y = (screenGeometry.height() - this->height()) / 2;
-        this->move(x, y);
+        const int x = (screenGeometry.width() - width()) / 2;
+        const int y = (screenGeometry.height() - height()) / 2;
+        move(x, y);
     }
 
     addButtons(category_map);
@@ -207,9 +207,9 @@ void MainWindow::btn_clicked()
     const QString cmd = sender()->property("cmd").toString();
     // pkexec cannot take &, it would block the GUI that's why we need to hide it
     if (hideGUI || cmd.startsWith("pkexec")) {
-        this->hide();
+        hide();
         system(cmd.toUtf8());
-        this->show();
+        show();
     } else {
         system(cmd.toUtf8() + "&");
     }
@@ -235,7 +235,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
         return;
     }
     const auto item_size = 200; // this is a trial and error average value
-    int new_count = this->width() / item_size;
+    int new_count = width() / item_size;
     if (new_count == col_count) {
         return;
     }
@@ -371,7 +371,7 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
 {
     int col = 0;
     int row = 0;
-    int max = this->width() / 200;
+    int max = width() / 200;
 
     if (fixed_number_col != 0) { // default value is 0
         max = fixed_number_col;
@@ -564,7 +564,7 @@ void MainWindow::readFile(const QString &file_name)
             comment = commentFallbackMatch.captured(1);
         }
     }
-    this->setWindowTitle(name);
+    setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
     auto lines = text.split("\n");
@@ -596,23 +596,22 @@ void MainWindow::setConnections()
 
 void MainWindow::pushAbout_clicked()
 {
-    this->hide();
+    hide();
     displayAboutMsgBox(
-        tr("About %1").arg(this->windowTitle()),
-        "<p align=\"center\"><b><h2>" + this->windowTitle() + "</h2></b></p><p align=\"center\">" + tr("Version: ")
-            + VERSION + "</p><p align=\"center\"><h3>"
-            + tr("Custom Toolbox is a tool used for creating a custom launcher")
+        tr("About %1").arg(windowTitle()),
+        "<p align=\"center\"><b><h2>" + windowTitle() + "</h2></b></p><p align=\"center\">" + tr("Version: ") + VERSION
+            + "</p><p align=\"center\"><h3>" + tr("Custom Toolbox is a tool used for creating a custom launcher")
             + "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
               "<p align=\"center\">"
             + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
-        QStringLiteral("/usr/share/doc/custom-toolbox/license.html"), tr("%1 License").arg(this->windowTitle()));
-    this->show();
+        QStringLiteral("/usr/share/doc/custom-toolbox/license.html"), tr("%1 License").arg(windowTitle()));
+    show();
 }
 
 void MainWindow::pushHelp_clicked()
 {
     const QString url = QStringLiteral("/usr/share/doc/custom-toolbox/help.html");
-    displayDoc(url, tr("%1 Help").arg(this->windowTitle()));
+    displayDoc(url, tr("%1 Help").arg(windowTitle()));
 }
 
 void MainWindow::textSearch_textChanged(const QString &arg1)
@@ -652,7 +651,7 @@ void MainWindow::checkBoxStartup_clicked(bool checked)
         QTextStream out(&file);
         out << "[Desktop Entry]"
             << "\n";
-        out << "Name=" << this->windowTitle() << "\n";
+        out << "Name=" << windowTitle() << "\n";
         out << "Comment=" << ui->commentLabel->text() << "\n";
         out << "Exec="
             << "custom-toolbox " + file_location + "/" + base_name + ".list"
