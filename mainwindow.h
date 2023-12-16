@@ -1,7 +1,7 @@
 /**********************************************************************
  *  customtoolbox.h
  **********************************************************************
- * Copyright (C) 2017-2021 MX Authors
+ * Copyright (C) 2017-2023 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
