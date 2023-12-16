@@ -1,5 +1,5 @@
 # **********************************************************************
-# * Copyright (C) 2017 MX Authors
+# * Copyright (C) 2017-2023 MX Authors
 # *
 # * Authors: Adrian
 # *          MX Linux <http://mxlinux.org>
@@ -41,7 +41,8 @@ SOURCES += \
 HEADERS  += \
     mainwindow.h \
     flatbutton.h \
-    about.h
+    about.h \
+    common.h
 
 FORMS    += \
     mainwindow.ui
