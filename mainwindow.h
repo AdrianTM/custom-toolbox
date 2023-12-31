@@ -52,7 +52,7 @@ public:
     QIcon findIcon(const QString &icon_name);
     static void fixExecItem(QString *item);
     static void fixNameItem(QString *item);
-    QString getDesktopFileName(const QString &app_name);
+    QString getDesktopFileName(const QString &app_name) const;
     QString getFileName();
     QStringList getDesktopFileInfo(const QString &file_name);
     void addButtons(const QMultiMap<QString, QStringList> &map);
@@ -89,7 +89,7 @@ private:
     QStringList categories;
     bool firstRun {true};
     bool hideGUI {};
-    const QStringList path {qEnvironmentVariable("PATH").split(":") << "/usr/sbin"};
+    const QStringList defaultPath {qEnvironmentVariable("PATH").split(":") << "/usr/sbin"};
     int col_count;
     int fixed_number_col {};
     int max_elements {};
