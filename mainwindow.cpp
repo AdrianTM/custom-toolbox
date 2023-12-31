@@ -53,7 +53,7 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
         ui->checkBoxStartup->hide();
     }
 
-    setWindowFlags(Qt::Window); // for the close, min and max buttons
+    setWindowFlags(Qt::Window); // For the close, min and max buttons
     setup();
 
     file_location = QStringLiteral("/etc/custom-toolbox");
@@ -109,7 +109,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         return QIcon(foundPath + icon_name);
     }
 
-    // run loop again if icon not found
+    // Run loop again if icon not found
     for (const QString &path : search_paths) {
         if (!QFile::exists(path)) {
             search_paths.removeOne(path);
@@ -124,9 +124,8 @@ QIcon MainWindow::findIcon(const QString &icon_name)
     }
 
     // Backup search: search all hicolor icons and return the first one found
-    proc.start(QStringLiteral("find"),
-               QStringList {search_paths << QStringLiteral("-iname") << name_noext + ".*" << QStringLiteral("-print")
-                                         << QStringLiteral("-quit")});
+    proc.start(QStringLiteral("find"), {search_paths << QStringLiteral("-iname") << name_noext + ".*"
+                                                     << QStringLiteral("-print") << QStringLiteral("-quit")});
     proc.waitForFinished();
     const QString out = proc.readAllStandardOutput().trimmed();
     if (out.isEmpty()) {
@@ -181,8 +180,8 @@ void MainWindow::setGui()
                        QApplication::applicationName() + "_" + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value(QStringLiteral("geometry")).toByteArray());
 
-    const QSize size = this->size();
-    if (isMaximized()) { // if started maximized give option to resize to normal window size
+    const auto size = this->size();
+    if (isMaximized()) { // If started maximized give option to resize to normal window size
         resize(size);
         const QRect screenGeometry = QApplication::primaryScreen()->geometry();
         const int x = (screenGeometry.width() - width()) / 2;
@@ -234,12 +233,12 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     if (fixed_number_col != 0) { // 0 is default value, if nothing set in .conf file
         return;
     }
-    const auto item_size = 200; // this is a trial and error average value
+    const auto item_size = 200; // Trial and error average value
     int new_count = width() / item_size;
     if (new_count == col_count) {
         return;
     }
-    // when reaching the max no need to readd buttons, only if making the window smaller new_count < max_elements
+    // When reaching the max no need to re-add buttons, only if making the window smaller new_count < max_elements
     if (new_count >= max_elements && col_count == max_elements) {
         return;
     }
@@ -259,12 +258,12 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 // Select .list file to open
 QString MainWindow::getFileName()
 {
-    QString file_name
+    QString fileName
         = QFileDialog::getOpenFileName(this, tr("Open List File"), file_location, tr("List Files (*.list)"));
-    if (file_name.isEmpty()) {
+    if (fileName.isEmpty()) {
         exit(EXIT_FAILURE);
     }
-    if (!QFile::exists(file_name)) {
+    if (!QFile::exists(fileName)) {
         if (QMessageBox::No
             == QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file, do you want to try again?"),
                                      QMessageBox::Yes, QMessageBox::No)) {
@@ -273,11 +272,11 @@ QString MainWindow::getFileName()
             return getFileName();
         }
     }
-    return file_name;
+    return fileName;
 }
 
 // Find the .desktop file for the app name
-QString MainWindow::getDesktopFileName(const QString &app_name)
+QString MainWindow::getDesktopFileName(const QString &app_name) const
 {
     auto paths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
     for (const auto &path : paths) {
@@ -287,8 +286,8 @@ QString MainWindow::getDesktopFileName(const QString &app_name)
         }
     }
 
-    // if desktop file not found, but command exists
-    return QStandardPaths::findExecutable(app_name, {path}).section("/", -1);
+    // If desktop file not found, but command exists
+    return QStandardPaths::findExecutable(app_name, {defaultPath}).section("/", -1);
 }
 
 // Return the app info needed for the button
@@ -346,7 +345,7 @@ QStringList MainWindow::getDesktopFileInfo(const QString &file_name)
         if (nameFallbackMatch.hasMatch()) {
             name = nameFallbackMatch.captured(1);
             name = name.remove(QRegularExpression(
-                QStringLiteral("^MX "))); // remove MX from begining of the program name (most of the MX Linux apps)
+                QStringLiteral("^MX "))); // Remove MX from begining of the program name (most of the MX Linux apps)
         }
     }
     if (comment.isEmpty()) { // Fallback if Comment is not translated
@@ -373,7 +372,7 @@ void MainWindow::addButtons(const QMultiMap<QString, QStringList> &map)
     int row = 0;
     int max = width() / 200;
 
-    if (fixed_number_col != 0) { // default value is 0
+    if (fixed_number_col != 0) { // Default value is 0
         max = fixed_number_col;
     }
 
@@ -474,12 +473,12 @@ void MainWindow::processLine(const QString &line)
         categories.append(value);
     } else if (key.toLower() == QLatin1String("theme")) {
         icon_theme = value;
-    } else { // assume it's the name of the app and potentially a "root" flag
+    } else { // Assume it's the name of the app and potentially a "root" flag
         const QStringList list = key.split(QStringLiteral(" "));
         const QString desktop_file = getDesktopFileName(list.first());
         if (!desktop_file.isEmpty()) {
             QStringList info = getDesktopFileInfo(desktop_file);
-            if (list.size() > 1) { // check if root or alias flag present
+            if (list.size() > 1) { // Check if root or alias flag present
                 QString flag
                     = (list.contains(QLatin1String("root")) ? QStringLiteral("true") : QStringLiteral("false"));
                 if (list.contains(QLatin1String("user"))) {
@@ -616,14 +615,14 @@ void MainWindow::pushHelp_clicked()
 
 void MainWindow::textSearch_textChanged(const QString &arg1)
 {
-    // remove all items from the layout
+    // Remove all items from the layout
     QLayoutItem *child = nullptr;
     while ((child = ui->gridLayout_btn->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
     }
 
-    // create a new_map with items that match the search argument
+    // Create a new_map with items that match the search argument
     QMultiMap<QString, QStringList> new_map;
     for (auto i = category_map.cbegin(); i != category_map.cend(); ++i) {
         const QString &category = i.key();
@@ -674,15 +673,14 @@ void MainWindow::checkBoxStartup_clicked(bool checked)
 void MainWindow::pushEdit_clicked()
 {
     QString editor = gui_editor;
-    QString desktop_file;
-    // if specified editor doesn't exist get the default one
-    if (editor.isEmpty() || QStandardPaths::findExecutable(editor, {path}).isEmpty()) {
+    // If specified editor doesn't exist get the default one
+    if (editor.isEmpty() || QStandardPaths::findExecutable(editor, {defaultPath}).isEmpty()) {
         proc.start("xdg-mime", {"query", "default", "text/plain"});
         proc.waitForFinished();
         QString default_editor = proc.readAllStandardOutput().trimmed();
 
-        // find first app with .desktop name that matches default_editors
-        desktop_file
+        // Find first app with .desktop name that matches default_editors
+        QString desktop_file
             = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
         QFile file(desktop_file);
         if (file.open(QIODevice::ReadOnly)) {
@@ -696,12 +694,12 @@ void MainWindow::pushEdit_clicked()
             file.close();
             editor = line.remove(QRegularExpression(QStringLiteral("^Exec=|%u|%U|%f|%F|%c|%C|-b"))).trimmed();
         }
-        if (editor.isEmpty()) { // use nano as backup editor
+        if (editor.isEmpty()) { // Use nano as backup editor
             editor = "nano";
         }
     }
 
-    bool isRoot = (getuid() == 0);
+    bool isRoot {getuid() == 0};
     bool isEditorThatElevates = QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch();
     bool isElectronBased = QRegularExpression("(atom\\.desktop|code\\.desktop)$").match(editor).hasMatch();
     bool isCliEditor = QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch();
