@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     }
 
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
-    QApplication::setOrganizationName(QStringLiteral("MX-Linux"));
+    QApplication::setOrganizationName("MX-Linux");
 
     QTranslator qtTran;
     if (qtTran.load("qt_", QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
@@ -72,8 +72,7 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
     parser.addOption({{"r", "remove-checkbox"}, QObject::tr("Don't show 'show this dialog at startup' checkbox")});
     parser.addPositionalArgument(
-        QStringLiteral("file"),
-        QObject::tr("Full path and name of the .list file you want to load to set up the application"));
+        "file", QObject::tr("Full path and name of the .list file you want to load to set up the application"));
     parser.process(app);
 
     // Root guard

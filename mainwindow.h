@@ -21,9 +21,7 @@
  * You should have received a copy of the GNU General Public License
  * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
-
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QCommandLineParser>
 #include <QDialog>
@@ -49,19 +47,6 @@ public:
     explicit MainWindow(const QCommandLineParser &arg_parser, QWidget *parent = nullptr);
     ~MainWindow() override;
 
-    QIcon findIcon(const QString &icon_name);
-    static void fixExecItem(QString *item);
-    static void fixNameItem(QString *item);
-    QString getDesktopFileName(const QString &app_name) const;
-    QString getFileName();
-    QStringList getDesktopFileInfo(const QString &file_name);
-    void addButtons(const QMultiMap<QString, QStringList> &map);
-    void processLine(const QString &line);
-    void readFile(const QString &file_name);
-    void setConnections();
-    void setGui();
-    void setup();
-
 private slots:
     void closeEvent(QCloseEvent * /*unused*/) override;
     void resizeEvent(QResizeEvent *event) override;
@@ -73,19 +58,28 @@ private slots:
     void textSearch_textChanged(const QString &arg1);
 
 private:
+    struct ItemInfo {
+        QString category;
+        QString name;
+        QString comment;
+        QString icon_name;
+        QString exec;
+        QString terminal;
+        QString root;
+    };
+
+    Ui::MainWindow *ui;
     FlatButton *btn {};
-    QMultiMap<QString, QStringList> category_map;
+    QMultiMap<QString, ItemInfo> category_map;
     QProcess proc;
     QSize icon_size;
-    QString base_name;
+    QString custom_name;
     QString file_location;
     QString file_name;
     QString gui_editor;
     QString icon_theme;
     QLocale locale;
     QString lang = locale.name();
-    QString local_dir;
-    QString version;
     QStringList categories;
     bool firstRun {true};
     bool hideGUI {};
@@ -96,7 +90,16 @@ private:
     int min_height {};
     int min_width {};
 
-    Ui::MainWindow *ui;
+    ItemInfo getDesktopFileInfo(const QString &fileName);
+    QIcon findIcon(const QString &icon_name);
+    QString getDesktopFileName(const QString &app_name) const;
+    QString getFileName();
+    static void fixExecItem(QString *item);
+    static void fixNameItem(QString *item);
+    void addButtons(const QMultiMap<QString, ItemInfo> &map);
+    void processLine(const QString &line);
+    void readFile(const QString &file_name);
+    void setConnections();
+    void setGui();
+    void setup();
 };
-
-#endif // MAINWINDOW_H
