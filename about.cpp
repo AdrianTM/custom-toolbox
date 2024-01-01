@@ -37,24 +37,23 @@
 void displayDoc(const QString &url, const QString &title)
 {
     bool started_as_root = false;
-    if (qEnvironmentVariable("HOME") == QLatin1String("root")) {
+    if (qEnvironmentVariable("HOME") == "root") {
         started_as_root = true;
         qputenv("HOME", starting_home.toUtf8()); // Use original home for theming purposes
     }
     // Prefer mx-viewer otherwise use xdg-open (use runuser to run that as logname user)
     QString executablePath = QStandardPaths::findExecutable("mx-viewer");
     if (!executablePath.isEmpty()) {
-        QProcess::startDetached(QStringLiteral("mx-viewer"), {url, title});
+        QProcess::startDetached("mx-viewer", {url, title});
     } else {
         if (getuid() != 0) {
-            QProcess::startDetached(QStringLiteral("xdg-open"), {url});
+            QProcess::startDetached("xdg-open", {url});
         } else {
             QProcess proc;
-            proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
+            proc.start("logname", {}, QIODevice::ReadOnly);
             proc.waitForFinished();
             QString user = QString::fromUtf8(proc.readAllStandardOutput()).trimmed();
-            QProcess::startDetached(QStringLiteral("runuser"), {QStringLiteral("-u"), user, QStringLiteral("--"),
-                                                                QStringLiteral("xdg-open"), url});
+            QProcess::startDetached("runuser", {"-u", user, "--", "xdg-open", url});
         }
     }
     if (started_as_root) {
@@ -71,7 +70,7 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
     auto *btnLicense = msgBox.addButton(QObject::tr("License"), QMessageBox::HelpRole);
     auto *btnChangelog = msgBox.addButton(QObject::tr("Changelog"), QMessageBox::HelpRole);
     auto *btnCancel = msgBox.addButton(QObject::tr("Cancel"), QMessageBox::NoRole);
-    btnCancel->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    btnCancel->setIcon(QIcon::fromTheme("window-close"));
 
     msgBox.exec();
 
@@ -85,15 +84,15 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
         auto *text = new QTextEdit(changelog);
         text->setReadOnly(true);
         QProcess proc;
-        proc.start(QStringLiteral("zless"),
-                   {QStringLiteral("/usr/share/doc/") + QFileInfo(QCoreApplication::applicationFilePath()).fileName()
-                    + QStringLiteral("/changelog.gz")},
-                   QIODevice::ReadOnly);
+        proc.start(
+            "zless",
+            {"/usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"},
+            QIODevice::ReadOnly);
         proc.waitForFinished();
         text->setText(proc.readAllStandardOutput());
 
         auto *btnClose = new QPushButton(QObject::tr("&Close"), changelog);
-        btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+        btnClose->setIcon(QIcon::fromTheme("window-close"));
         QObject::connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
 
         auto *layout = new QVBoxLayout(changelog);
@@ -101,6 +100,5 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
         layout->addWidget(btnClose);
         changelog->setLayout(layout);
         changelog->exec();
-        delete changelog;
     }
 }
