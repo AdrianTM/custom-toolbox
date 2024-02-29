@@ -1,7 +1,7 @@
 /**********************************************************************
  *  customtoolbox.h
  **********************************************************************
- * Copyright (C) 2017-2023 MX Authors
+ * Copyright (C) 2017-2024 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -83,17 +83,17 @@ private:
     QStringList categories;
     bool firstRun {true};
     bool hideGUI {};
-    const QStringList defaultPath {qEnvironmentVariable("PATH").split(":") << "/usr/sbin"};
-    int col_count;
+    const QStringList defaultPath {qEnvironmentVariable("PATH").split(':') << "/usr/sbin"};
+    int col_count {};
     int fixed_number_col {};
     int max_elements {};
     int min_height {};
     int min_width {};
 
-    ItemInfo getDesktopFileInfo(const QString &fileName);
-    QIcon findIcon(const QString &icon_name);
-    QString getDesktopFileName(const QString &app_name) const;
-    QString getFileName();
+    [[nodiscard]] ItemInfo getDesktopFileInfo(const QString &fileName);
+    [[nodiscard]] QIcon findIcon(const QString &icon_name);
+    [[nodiscard]] QString getDesktopFileName(const QString &app_name) const;
+    [[nodiscard]] QString getFileName();
     static void fixExecItem(QString *item);
     static void fixNameItem(QString *item);
     void addButtons(const QMultiMap<QString, ItemInfo> &map);
