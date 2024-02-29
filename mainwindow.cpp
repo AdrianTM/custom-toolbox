@@ -1,7 +1,7 @@
 /**********************************************************************
  *  MainWindow.cpp
  **********************************************************************
- * Copyright (C) 2017-2023 MX Authors
+ * Copyright (C) 2017-2024 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -44,8 +44,7 @@
 MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
     : QDialog(parent),
       ui(new Ui::MainWindow),
-      file_location {"/etc/custom-toolbox"},
-      col_count {0}
+      file_location {"/etc/custom-toolbox"}
 {
 
     ui->setupUi(this);
@@ -75,7 +74,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         return {};
     }
     // Use slash to avoid matching file/folder names when is meant to match full path
-    if (QFile::exists("/" + icon_name)) {
+    if (QFile::exists('/' + icon_name)) {
         return QIcon(icon_name);
     }
 
@@ -175,7 +174,7 @@ void MainWindow::setGui()
     setMinimumSize(min_width, min_height);
 
     QSettings settings(QApplication::organizationName(),
-                       QApplication::applicationName() + "_" + QFileInfo(file_name).baseName());
+                       QApplication::applicationName() + '_' + QFileInfo(file_name).baseName());
     restoreGeometry(settings.value("geometry").toByteArray());
 
     const auto size = this->size();
@@ -208,7 +207,7 @@ void MainWindow::btn_clicked()
         system(cmd.toUtf8());
         show();
     } else {
-        system(cmd.toUtf8() + "&");
+        system(cmd.toUtf8() + '&');
     }
 }
 
@@ -292,7 +291,7 @@ QString MainWindow::getDesktopFileName(const QString &appName) const
     //        qWarning() << "Executable not found:" << appName;
     //    }
 
-    return executablePath.section("/", -1);
+    return executablePath.section('/', -1);
 }
 
 // Return the app info needed for the button
@@ -318,13 +317,13 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
 
     QRegularExpression re;
     re.setPatternOptions(QRegularExpression::MultilineOption);
-    if (lang.section("_", 0, 0) != "en") {
+    if (lang.section('_', 0, 0) != "en") {
         re.setPattern("^Name\\[" + lang + "\\]=(.*)$");
         QRegularExpressionMatch nameMatch = re.match(text);
         if (nameMatch.hasMatch()) {
             item.name = nameMatch.captured(1);
         } else {
-            re.setPattern("^Name\\[" + lang.section("_", 0, 0) + "\\]=(.*)$");
+            re.setPattern("^Name\\[" + lang.section('_', 0, 0) + "\\]=(.*)$");
             nameMatch = re.match(text);
             if (nameMatch.hasMatch()) {
                 item.name = nameMatch.captured(1);
@@ -335,7 +334,7 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
         if (commentMatch.hasMatch()) {
             item.comment = commentMatch.captured(1);
         } else {
-            re.setPattern("^Comment\\[" + lang.section("_", 0, 0) + "\\]=(.*)$");
+            re.setPattern("^Comment\\[" + lang.section('_', 0, 0) + "\\]=(.*)$");
             commentMatch = re.match(text);
             if (commentMatch.hasMatch()) {
                 item.comment = commentMatch.captured(1);
@@ -524,7 +523,7 @@ void MainWindow::readFile(const QString &file_name)
     QString comment;
     QRegularExpression re;
     re.setPatternOptions(QRegularExpression::MultilineOption);
-    if (lang.section("_", 0, 0) != QLatin1String("en")) {
+    if (lang.section('_', 0, 0) != QLatin1String("en")) {
         re.setPattern("^Name\\[" + lang + "\\]=(.*)$");
         QRegularExpressionMatch nameMatch = re.match(text);
         if (nameMatch.hasMatch()) {
@@ -541,7 +540,7 @@ void MainWindow::readFile(const QString &file_name)
         if (commentMatch.hasMatch()) {
             comment = commentMatch.captured(1);
         } else {
-            re.setPattern("^Comment\\[" + lang.section("_", 0, 0) + "\\]=(.*)$");
+            re.setPattern("^Comment\\[" + lang.section('_', 0, 0) + "\\]=(.*)$");
             commentMatch = re.match(text);
             if (commentMatch.hasMatch()) {
                 comment = commentMatch.captured(1);
@@ -565,9 +564,9 @@ void MainWindow::readFile(const QString &file_name)
     setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
-    const auto lines = text.split("\n");
+    const auto lines = text.split('\n');
     for (const QString &line : lines) {
-        if (line.startsWith("Name") || line.startsWith("Comment") || line.isEmpty() || line.startsWith("#")) {
+        if (line.startsWith("Name") || line.startsWith("Comment") || line.isEmpty() || line.startsWith('#')) {
             continue;
         }
         processLine(line);
@@ -637,10 +636,10 @@ void MainWindow::checkBoxStartup_clicked(bool checked)
         QTextStream out(&file);
         out << "[Desktop Entry]"
             << "\n"
-            << "Name=" << windowTitle() << "\n"
-            << "Comment=" << ui->commentLabel->text() << "\n"
+            << "Name=" << windowTitle() << '\n'
+            << "Comment=" << ui->commentLabel->text() << '\n'
             << "Exec="
-            << "custom-toolbox " + file_location + "/" + custom_name + ".list"
+            << "custom-toolbox " + file_location + '/' + custom_name + ".list"
             << "\n"
             << "Terminal=false"
             << "\n"
@@ -708,7 +707,7 @@ void MainWindow::pushEdit_clicked()
         editorCommands << "x-terminal-emulator -e";
     }
 
-    QString cmd = editorCommands.join(" ") + " " + editor.toUtf8() + " " + file_name;
+    QString cmd = editorCommands.join(' ') + ' ' + editor.toUtf8() + ' ' + file_name;
     system(cmd.toUtf8());
     readFile(file_name);
     setGui();
