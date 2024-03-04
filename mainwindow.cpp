@@ -78,7 +78,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         return QIcon(icon_name);
     }
 
-    const QRegularExpression re {R"(\.png$|\.svg$|\.xpm$")"};
+    const QRegularExpression re {"\\.png$|svg$|xpm$"};
     QString name_noext = icon_name;
     name_noext.remove(re);
 
@@ -117,17 +117,16 @@ QIcon MainWindow::findIcon(const QString &icon_name)
             }
         }
     }
-
     // Backup search: search all hicolor icons and return the first one found
+    search_paths.append("/usr/share/icons/hicolor/48x48/");
+    search_paths.append("/usr/share/icons/hicolor/");
+    search_paths.append("/usr/share/icons/");
     proc.start("find", {search_paths << "-iname" << name_noext + ".*"
                                      << "-print"
                                      << "-quit"});
     proc.waitForFinished();
     const QString out = proc.readAllStandardOutput().trimmed();
-    if (out.isEmpty()) {
-        return {};
-    }
-    return QIcon(out);
+    return (!out.isEmpty()) ? QIcon(out) : QIcon();
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
@@ -283,14 +282,8 @@ QString MainWindow::getDesktopFileName(const QString &appName) const
             return desktopFileIterator.next();
         }
     }
-
     // If desktop file not found in standard locations, try finding the executable
     QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
-
-    //    if (executablePath.isEmpty()) {
-    //        qWarning() << "Executable not found:" << appName;
-    //    }
-
     return executablePath.section('/', -1);
 }
 
