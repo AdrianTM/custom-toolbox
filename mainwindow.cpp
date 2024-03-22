@@ -355,7 +355,7 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
     re.setPattern("^Icon=(.*)$");
     item.icon_name = re.match(text).captured(1);
     re.setPattern("^Terminal=(.*)$");
-    item.terminal = re.match(text).captured(1);
+    item.terminal = re.match(text).captured(1).toLower() == "true";
     return item;
 }
 
@@ -414,7 +414,7 @@ void MainWindow::addButtons(const QMultiMap<QString, ItemInfo> &map)
                     col = 0;
                     ++row;
                 }
-                if (item.terminal == "true") {
+                if (item.terminal) {
                     exec.push_front("x-terminal-emulator -e ");
                 }
                 if (item.root == "true" && getuid() != 0) {
