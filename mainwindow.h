@@ -64,7 +64,7 @@ private:
         QString comment;
         QString icon_name;
         QString exec;
-        QString terminal;
+        bool terminal;
         QString root;
     };
 
