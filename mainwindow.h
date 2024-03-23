@@ -65,7 +65,8 @@ private:
         QString icon_name;
         QString exec;
         bool terminal;
-        QString root;
+        bool root;
+        bool user;
     };
 
     Ui::MainWindow *ui;
