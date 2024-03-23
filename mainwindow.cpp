@@ -298,6 +298,8 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
         item.icon_name = fileName;
         item.exec = fileName;
         item.terminal = true;
+        item.root = false;
+        item.user = false;
         return item;
     }
 
@@ -417,10 +419,10 @@ void MainWindow::addButtons(const QMultiMap<QString, ItemInfo> &map)
                 if (item.terminal) {
                     exec.push_front("x-terminal-emulator -e ");
                 }
-                if (item.root == "true" && getuid() != 0) {
+                if (item.root && getuid() != 0) {
                     exec.push_front("pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
                 }
-                if (item.root == "user" && getuid() == 0) {
+                if (item.user && getuid() == 0) {
                     exec.push_front("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
                 }
                 btn->setProperty("cmd", item.exec);
@@ -464,27 +466,17 @@ void MainWindow::processLine(const QString &line)
         if (keyTokens.isEmpty()) {
             return;
         }
-
         const QString desktop_file = getDesktopFileName(keyTokens.first());
         if (!desktop_file.isEmpty()) {
             ItemInfo info = getDesktopFileInfo(desktop_file);
-
             if (keyTokens.size() > 1) {
-                if (keyTokens.contains("root")) {
-                    info.root = "true";
-                } else if (keyTokens.contains("user")) {
-                    info.root = "user";
-                } else {
-                    info.root = "false";
-                }
+                info.root = keyTokens.contains("root");
+                info.user = keyTokens.contains("user");
                 if (keyTokens.contains("alias")) {
                     const int aliasIndex = keyTokens.indexOf("alias");
                     info.name = keyTokens.mid(aliasIndex + 1).join(' ').trimmed().remove('\'').remove('"');
                 }
-            } else {
-                info.root = "false";
             }
-
             info.category = categories.last();
             category_map.insert(info.category, info);
         }
@@ -607,10 +599,10 @@ void MainWindow::textSearch_textChanged(const QString &arg1)
 
     // Create a new_map with items that match the search argument
     QMultiMap<QString, ItemInfo> new_map;
-    for (const auto &[category, name, comment, icon_name, exec, terminal, root] : category_map) {
+    for (const auto &[category, name, comment, icon_name, exec, terminal, root, user] : category_map) {
         if (name.contains(arg1, Qt::CaseInsensitive) || comment.contains(arg1, Qt::CaseInsensitive)
             || category.contains(arg1, Qt::CaseInsensitive)) {
-            new_map.insert(category, {category, name, comment, icon_name, exec, terminal, root});
+            new_map.insert(category, {category, name, comment, icon_name, exec, terminal, root, user});
         }
     }
     addButtons(new_map.empty() ? category_map : new_map);
