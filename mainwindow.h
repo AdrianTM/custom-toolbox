@@ -30,8 +30,6 @@
 #include <QMultiMap>
 #include <QProcess>
 
-#include "flatbutton.h"
-
 class QIcon;
 
 namespace Ui
@@ -64,13 +62,12 @@ private:
         QString comment;
         QString icon_name;
         QString exec;
-        bool terminal;
-        bool root;
-        bool user;
+        bool terminal {};
+        bool root {};
+        bool user {};
     };
 
     Ui::MainWindow *ui;
-    FlatButton *btn {};
     QMultiMap<QString, ItemInfo> category_map;
     QProcess proc;
     QSize icon_size;
@@ -93,11 +90,16 @@ private:
 
     [[nodiscard]] ItemInfo getDesktopFileInfo(const QString &fileName);
     [[nodiscard]] QIcon findIcon(const QString &icon_name);
+    [[nodiscard]] QString getDefaultEditor();
     [[nodiscard]] QString getDesktopFileName(const QString &app_name) const;
     [[nodiscard]] QString getFileName();
+    [[nodiscard]] QStringList buildEditorCommand(const QString &editor);
     static void fixExecItem(QString *item);
     static void fixNameItem(QString *item);
     void addButtons(const QMultiMap<QString, ItemInfo> &map);
+    void centerWindow();
+    void clearGridLayout();
+    void prepareCommand(QString &cmd, const ItemInfo &item);
     void processLine(const QString &line);
     void readFile(const QString &file_name);
     void setConnections();
