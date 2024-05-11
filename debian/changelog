@@ -1,6 +1,7 @@
-custom-toolbox (24.4) mx; urgency=medium
+custom-toolbox (24.5) mx; urgency=medium
 
   * Fix launching some CLI tools
+  * Update translations
 
  -- Adrian <adrian@mxlinux.org>  Sat, 11 May 2024 00:44:45 -0400
 
