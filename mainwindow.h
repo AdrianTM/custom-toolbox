@@ -28,7 +28,6 @@
 #include <QLocale>
 #include <QMessageBox>
 #include <QMultiMap>
-#include <QProcess>
 
 class QIcon;
 
@@ -69,7 +68,6 @@ private:
 
     Ui::MainWindow *ui;
     QMultiMap<QString, ItemInfo> category_map;
-    QProcess proc;
     QSize icon_size;
     QString custom_name;
     QString file_location;

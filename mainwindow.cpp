@@ -28,6 +28,7 @@
 #include <QDebug>
 #include <QDirIterator>
 #include <QFileDialog>
+#include <QProcess>
 #include <QRegularExpression>
 #include <QResizeEvent>
 #include <QScreen>
@@ -123,6 +124,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
     search_paths.append("/usr/share/icons/hicolor/48x48/");
     search_paths.append("/usr/share/icons/hicolor/");
     search_paths.append("/usr/share/icons/");
+    QProcess proc;
     proc.start("find", {search_paths << "-iname" << name_noext + ".*"
                                      << "-print"
                                      << "-quit"});
@@ -421,7 +423,6 @@ void MainWindow::processLine(const QString &line)
     const QString value = (tokens.size() > 1) ? tokens.at(1).trimmed().remove('"') : QString();
 
     const QString lowerKey = key.toLower();
-
     if (lowerKey == "category") {
         categories.append(value);
     } else if (lowerKey == "theme") {
@@ -612,6 +613,7 @@ void MainWindow::pushEdit_clicked()
 
 QString MainWindow::getDefaultEditor()
 {
+    QProcess proc;
     proc.start("xdg-mime", {"query", "default", "text/plain"});
     proc.waitForFinished();
     QString default_editor = proc.readAllStandardOutput().trimmed();
