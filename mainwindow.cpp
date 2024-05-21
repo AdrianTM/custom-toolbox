@@ -201,7 +201,9 @@ void MainWindow::btn_clicked()
         system(cmd.toUtf8());
         show();
     } else {
-        system(cmd.toUtf8() + '&');
+        QStringList arguments = QProcess::splitCommand(cmd);
+        QString program = arguments.takeFirst();
+        QProcess::startDetached(program, arguments);
     }
 }
 
@@ -452,12 +454,12 @@ void MainWindow::processLine(const QString &line)
 // Open the .list file and process it
 void MainWindow::readFile(const QString &file_name)
 {
-    // Reset categories, category_map when reloading the file
+    // Reset categories and category_map when reloading the file
     categories.clear();
     category_map.clear();
 
     QFile file(file_name);
-    if (!QFile::exists(file_name)) {
+    if (!file.exists()) {
         exit(EXIT_FAILURE);
     }
     custom_name = QFileInfo(file_name).baseName();
@@ -515,12 +517,13 @@ void MainWindow::readFile(const QString &file_name)
     setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
-    const auto lines = text.split('\n');
-    for (const QString &line : lines) {
-        if (line.startsWith("Name") || line.startsWith("Comment") || line.isEmpty() || line.startsWith('#')) {
+    const auto lines = text.splitRef('\n');
+    QRegularExpression skipPattern("^(Name|Comment|#|$).*");
+    for (const QStringRef &line : lines) {
+        if (skipPattern.match(line).hasMatch()) {
             continue;
         }
-        processLine(line);
+        processLine(line.toString());
     }
 }
 
@@ -643,12 +646,12 @@ QStringList MainWindow::buildEditorCommand(const QString &editor)
     bool isCliEditor = QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch();
 
     QStringList editorCommands;
-    if (!QFileInfo(file_name).isWritable() && !isEditorThatElevates && !isElectronBased) {
-        editorCommands << "pkexec";
-    }
-
-    if (isRoot && (isEditorThatElevates || isElectronBased)) {
-        editorCommands << "pkexec --user $(logname)";
+    if (!QFileInfo(file_name).isWritable()) {
+        if (!isEditorThatElevates && !isElectronBased) {
+            editorCommands << "pkexec";
+        } else if (isRoot) {
+            editorCommands << "pkexec --user $(logname)";
+        }
     }
 
     editorCommands << "env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY";
