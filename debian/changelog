@@ -1,3 +1,10 @@
+custom-toolbox (24.5.01) mx; urgency=medium
+
+  * Faster icon search (reduces startup time)
+  * Use utilities-terminal icon as backup for applications without icon
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 23 May 2024 22:28:39 -0400
+
 custom-toolbox (24.5) mx; urgency=medium
 
   * Fix launching some CLI tools

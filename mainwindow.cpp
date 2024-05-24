@@ -72,15 +72,16 @@ MainWindow::~MainWindow()
 QIcon MainWindow::findIcon(const QString &icon_name)
 {
     if (icon_name.isEmpty()) {
-        return {};
+        return findIcon("utilities-terminal");
     }
-    // Use slash to avoid matching file/folder names when is meant to match full path
-    if (QFile::exists('/' + icon_name)) {
+
+    // Check if the icon name is an absolute path and exists
+    if (QFileInfo(icon_name).isAbsolute() && QFile::exists(icon_name)) {
         return QIcon(icon_name);
     }
 
     // Prepare regular expression to strip extension
-    const QRegularExpression re(R"(\.(png|svg|xpm)$)");
+    static const QRegularExpression re(R"(\.(png|svg|xpm)$)");
     QString name_noext = icon_name;
     name_noext.remove(re);
 
@@ -103,34 +104,44 @@ QIcon MainWindow::findIcon(const QString &icon_name)
                            [&](const QString &path) { return QFile::exists(path + icon_name); });
 
     if (it != search_paths.cend()) {
-        const QString &foundPath = *it;
-        return QIcon(foundPath + icon_name);
+        return QIcon(*it + icon_name);
     }
 
-    // Run loop again if icon not found
+    // Search for the icon without extension in the specified paths
     for (const QString &path : search_paths) {
         if (!QFile::exists(path)) {
-            search_paths.removeOne(path);
             continue;
         }
-        for (const QString ext : {".png", ".svg", ".xpm"}) {
+        for (const QString &ext : {".png", ".svg", ".xpm"}) {
             QString file = path + name_noext + ext;
             if (QFile::exists(file)) {
                 return QIcon(file);
             }
         }
     }
-    // Backup search: search all hicolor icons and return the first one found
-    search_paths.append("/usr/share/icons/hicolor/48x48/");
-    search_paths.append("/usr/share/icons/hicolor/");
-    search_paths.append("/usr/share/icons/");
-    QProcess proc;
-    proc.start("find", {search_paths << "-iname" << name_noext + ".*"
-                                     << "-print"
-                                     << "-quit"});
-    proc.waitForFinished();
-    const QString foundIconPath = proc.readAllStandardOutput().trimmed();
-    return !foundIconPath.isEmpty() ? QIcon(foundIconPath) : QIcon();
+
+    // Additional search paths
+    search_paths << "/usr/share/icons/hicolor/48x48/"
+                 << "/usr/share/icons/hicolor/"
+                 << "/usr/share/icons/";
+
+    QString foundIconPath;
+    for (const QString &path : search_paths) {
+        QDir dir(path);
+        QStringList nameFilters {name_noext + ".*"};
+        QStringList iconFiles = dir.entryList(nameFilters, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
+
+        if (!iconFiles.isEmpty()) {
+            foundIconPath = path + iconFiles.first();
+            break;
+        }
+    }
+
+    if (icon_name == "utilities-terminal" && foundIconPath.isEmpty()) {
+        return QIcon();
+    }
+
+    return !foundIconPath.isEmpty() ? QIcon(foundIconPath) : findIcon("utilities-terminal");
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
