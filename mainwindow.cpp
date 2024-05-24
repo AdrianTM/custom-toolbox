@@ -346,58 +346,80 @@ void MainWindow::addButtons(const QMultiMap<QString, ItemInfo> &map)
     clearGridLayout();
     int col = 0;
     int row = 0;
-    const int max = fixed_number_col != 0 ? fixed_number_col : width() / 200;
+    const int maxCols = fixed_number_col != 0 ? fixed_number_col : width() / 200;
 
     for (const auto &category : map.uniqueKeys()) {
         if (!category_map.values(category).isEmpty()) {
-            auto *label = new QLabel(category, this);
-            label->setFont(QFont("", -1, QFont::Bold, true)); // Set font bold and underlined
-            ui->gridLayout_btn->addWidget(label, ++row, col);
-            ui->gridLayout_btn->setRowStretch(++row, 0);
+            addCategoryLabel(category, row, col);
 
             for (const auto &item : map.values(category)) {
-                col_count = std::max(col_count, col + 1);
-                QString name = item.name;
-                QString cmd = item.exec;
-                fixNameItem(&name);
-                fixExecItem(&cmd);
-
-                auto *btn = new FlatButton(name);
-                btn->setIconSize(icon_size);
-                btn->setToolTip(item.comment);
-                auto icon = findIcon(item.icon_name);
-                btn->setIcon(icon.isNull() ? QIcon::fromTheme("utilities-terminal") : icon);
-                ui->gridLayout_btn->addWidget(btn, row, col);
-                ui->gridLayout_btn->setRowStretch(row, 0);
-
-                if (item.terminal) {
-                    cmd.prepend("x-terminal-emulator -e ");
-                }
-                if (item.root && getuid() != 0) {
-                    cmd.prepend("pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
-                } else if (item.user && getuid() == 0) {
-                    cmd = QString("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ") + cmd;
-                }
-                btn->setProperty("cmd", cmd);
-                connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
-
-                if (++col >= max) {
-                    col = 0;
-                    ++row;
-                }
+                addItemButton(item, row, col, maxCols);
             }
         }
-        // Add empty row if it's not the last key
-        if (category != map.lastKey()) {
-            col = 0;
-            auto *line = new QFrame();
-            line->setFrameShape(QFrame::HLine);
-            line->setFrameShadow(QFrame::Sunken);
-            ui->gridLayout_btn->addWidget(line, ++row, col, 1, -1);
-            ui->gridLayout_btn->setRowStretch(row, 0);
-        }
+        addEmptyRowIfNeeded(category, map, row, col);
     }
     ui->gridLayout_btn->setRowStretch(row, 1);
+}
+
+void MainWindow::addCategoryLabel(const QString &category, int &row, int &col)
+{
+    auto *label = new QLabel(category, this);
+    QFont font;
+    font.setBold(true);
+    font.setUnderline(true);
+    label->setFont(font);
+    ui->gridLayout_btn->addWidget(label, ++row, col);
+    ui->gridLayout_btn->setRowStretch(++row, 0);
+}
+
+void MainWindow::addItemButton(const ItemInfo &item, int &row, int &col, int maxCols)
+{
+    col_count = std::max(col_count, col + 1);
+    QString name = item.name;
+    QString cmd = item.exec;
+    fixNameItem(&name);
+    fixExecItem(&cmd);
+
+    auto *btn = new FlatButton(name);
+    btn->setIconSize(icon_size);
+    btn->setToolTip(item.comment);
+    auto icon = findIcon(item.icon_name);
+    btn->setIcon(icon.isNull() ? QIcon::fromTheme("utilities-terminal") : icon);
+    ui->gridLayout_btn->addWidget(btn, row, col);
+    ui->gridLayout_btn->setRowStretch(row, 0);
+
+    prepareCommand(item, cmd);
+    btn->setProperty("cmd", cmd);
+    connect(btn, &QPushButton::clicked, this, &MainWindow::btn_clicked);
+
+    if (++col >= maxCols) {
+        col = 0;
+        ++row;
+    }
+}
+
+void MainWindow::prepareCommand(const ItemInfo &item, QString &cmd)
+{
+    if (item.terminal) {
+        cmd.prepend("x-terminal-emulator -e ");
+    }
+    if (item.root && getuid() != 0) {
+        cmd.prepend("pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ");
+    } else if (item.user && getuid() == 0) {
+        cmd = QString("pkexec --user $(logname) env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ") + cmd;
+    }
+}
+
+void MainWindow::addEmptyRowIfNeeded(const QString &category, const QMultiMap<QString, ItemInfo> &map, int &row, int &col)
+{
+    if (category != map.lastKey()) {
+        col = 0;
+        auto *line = new QFrame();
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+        ui->gridLayout_btn->addWidget(line, ++row, col, 1, -1);
+        ui->gridLayout_btn->setRowStretch(row, 0);
+    }
 }
 
 void MainWindow::centerWindow()
@@ -467,73 +489,65 @@ void MainWindow::readFile(const QString &file_name)
 
     QFile file(file_name);
     if (!file.exists()) {
-        exit(EXIT_FAILURE);
+        QMessageBox::critical(this, tr("File Not Found"), tr("The file %1 does not exist.").arg(file_name));
+        return;
     }
+
     custom_name = QFileInfo(file_name).baseName();
     file_location = QFileInfo(file_name).path();
+
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::critical(this, tr("File Open Error"),
-                              tr("Could not open file: ") + file_name + '\n' + tr("Application will close."));
-        exit(EXIT_FAILURE);
+        QMessageBox::critical(this, tr("File Open Error"), tr("Could not open file: ") + file_name);
+        return;
     }
+
     const QString text = file.readAll();
     file.close();
 
-    QString name;
-    QString comment;
-    QRegularExpression re;
-    re.setPatternOptions(QRegularExpression::MultilineOption);
-    if (lang.section('_', 0, 0) != "en") {
-        re.setPattern("^Name\\[" + lang + "\\]=(.*)$");
-        QRegularExpressionMatch nameMatch = re.match(text);
-        if (nameMatch.hasMatch()) {
-            name = nameMatch.captured(1);
-        } else {
-            re.setPattern("^Name\\[" + lang.section("_", 0, 0) + "\\]=(.*)$");
-            nameMatch = re.match(text);
-            if (nameMatch.hasMatch()) {
-                name = nameMatch.captured(1);
-            }
-        }
-        re.setPattern("^Comment\\[" + lang + "\\]=(.*)$");
-        QRegularExpressionMatch commentMatch = re.match(text);
-        if (commentMatch.hasMatch()) {
-            comment = commentMatch.captured(1);
-        } else {
-            re.setPattern("^Comment\\[" + lang.section('_', 0, 0) + "\\]=(.*)$");
-            commentMatch = re.match(text);
-            if (commentMatch.hasMatch()) {
-                comment = commentMatch.captured(1);
-            }
-        }
-    }
-    if (name.isEmpty()) { // Fallback if Name is not translated
-        re.setPattern("^Name=(.*)$");
-        QRegularExpressionMatch nameFallbackMatch = re.match(text);
-        if (nameFallbackMatch.hasMatch()) {
-            name = nameFallbackMatch.captured(1);
-        }
-    }
-    if (comment.isEmpty()) { // Fallback if Comment is not translated
-        re.setPattern("^Comment=(.*)$");
-        QRegularExpressionMatch commentFallbackMatch = re.match(text);
-        if (commentFallbackMatch.hasMatch()) {
-            comment = commentFallbackMatch.captured(1);
-        }
-    }
+    QString name = extractPattern(text, "Name");
+    QString comment = extractPattern(text, "Comment");
+
     setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
     const auto lines = text.splitRef('\n');
     QRegularExpression skipPattern("^(Name|Comment|#|$).*");
     for (const QStringRef &line : lines) {
-        if (skipPattern.match(line).hasMatch()) {
-            continue;
+        if (!skipPattern.match(line).hasMatch()) {
+            processLine(line.toString());
         }
-        processLine(line.toString());
     }
 }
 
+QString MainWindow::extractPattern(const QString &text, const QString &key)
+{
+    QString pattern = QString("^%1\\[").arg(key) + lang + "]=(.*)$";
+    QString fallbackPattern = QString("^%1=(.*)$").arg(key);
+    QRegularExpression re(pattern);
+    re.setPatternOptions(QRegularExpression::MultilineOption);
+    QRegularExpressionMatch match = re.match(text);
+
+    if (match.hasMatch()) {
+        return match.captured(1);
+    }
+
+    pattern = QString("^%1\\[").arg(key) + lang.section('_', 0, 0) + "]=(.*)$";
+    re.setPattern(pattern);
+    match = re.match(text);
+
+    if (match.hasMatch()) {
+        return match.captured(1);
+    }
+
+    re.setPattern(fallbackPattern);
+    match = re.match(text);
+
+    if (match.hasMatch()) {
+        return match.captured(1);
+    }
+
+    return QString();
+}
 void MainWindow::setConnections()
 {
     connect(ui->checkBoxStartup, &QPushButton::clicked, this, &MainWindow::checkBoxStartup_clicked);
@@ -566,17 +580,22 @@ void MainWindow::pushHelp_clicked()
 
 void MainWindow::textSearch_textChanged(const QString &searchText)
 {
+    // Create a lambda function to check if an item matches the search text
+    auto matchesSearchText = [&searchText](const ItemInfo &item) {
+        return item.name.contains(searchText, Qt::CaseInsensitive) ||
+               item.comment.contains(searchText, Qt::CaseInsensitive) ||
+               item.category.contains(searchText, Qt::CaseInsensitive);
+    };
+
     // Filter category_map to only include items that match the search text
-    auto filtered_map = std::accumulate(
-        category_map.cbegin(), category_map.cend(), QMultiMap<QString, ItemInfo> {},
-        [&searchText](auto &map, const auto &item) {
-            const auto &[category, name, comment, icon_name, exec, terminal, root, user] = item;
-            if (name.contains(searchText, Qt::CaseInsensitive) || comment.contains(searchText, Qt::CaseInsensitive)
-                || category.contains(searchText, Qt::CaseInsensitive)) {
-                map.insert(category, {category, name, comment, icon_name, exec, terminal, root, user});
-            }
-            return map;
-        });
+    QMultiMap<QString, ItemInfo> filtered_map;
+    for (const auto &item : category_map) {
+        if (matchesSearchText(item)) {
+            filtered_map.insert(item.category, item);
+        }
+    }
+
+    // Update the buttons with the filtered map or the original map if no matches found
     addButtons(filtered_map.isEmpty() ? category_map : filtered_map);
 }
 

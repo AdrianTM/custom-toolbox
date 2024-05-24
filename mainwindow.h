@@ -88,6 +88,7 @@ private:
 
     [[nodiscard]] ItemInfo getDesktopFileInfo(const QString &fileName);
     [[nodiscard]] QIcon findIcon(const QString &icon_name);
+    [[nodiscard]] QString extractPattern(const QString &text, const QString &key);
     [[nodiscard]] QString getDefaultEditor();
     [[nodiscard]] QString getDesktopFileName(const QString &app_name) const;
     [[nodiscard]] QString getFileName();
@@ -95,9 +96,13 @@ private:
     static void fixExecItem(QString *item);
     static void fixNameItem(QString *item);
     void addButtons(const QMultiMap<QString, ItemInfo> &map);
+    void addCategoryLabel(const QString &category, int &row, int &col);
+    void addEmptyRowIfNeeded(const QString &category, const QMultiMap<QString, ItemInfo> &map, int &row, int &col);
+    void addItemButton(const ItemInfo &item, int &row, int &col, int maxCols);
     void centerWindow();
     void clearGridLayout();
     void prepareCommand(QString &cmd, const ItemInfo &item);
+    void prepareCommand(const ItemInfo &item, QString &cmd);
     void processLine(const QString &line);
     void readFile(const QString &file_name);
     void setConnections();
