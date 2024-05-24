@@ -320,24 +320,20 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
         return match.hasMatch() ? match.captured(1) : QString();
     };
 
-    // Attempt to match localized fields first, then fall back to non-localized
-    QString langPrefix = lang.section('_', 0, 0);
-    item.name = matchPattern("^Name\\[" + lang + "\\]=(.*)$");
-    if (item.name.isEmpty()) {
-        item.name = matchPattern("^Name\\[" + langPrefix + "\\]=(.*)$");
-    }
-    if (item.name.isEmpty()) {
-        item.name = matchPattern("^Name=(.*)$").remove(QRegularExpression("^MX "));
-    }
+    // Function to attempt matching localized fields first, then fall back to non-localized
+    auto matchLocalizedField = [&](const QString &field) -> QString {
+        QString value = matchPattern("^" + field + "\\[" + lang + "\\]=(.*)$");
+        if (value.isEmpty()) {
+            value = matchPattern("^" + field + "\\[" + lang.section('_', 0, 0) + "\\]=(.*)$");
+        }
+        if (value.isEmpty()) {
+            value = matchPattern("^" + field + "=(.*)$");
+        }
+        return value;
+    };
 
-    item.comment = matchPattern("^Comment\\[" + lang + "\\]=(.*)$");
-    if (item.comment.isEmpty()) {
-        item.comment = matchPattern("^Comment\\[" + langPrefix + "\\]=(.*)$");
-    }
-    if (item.comment.isEmpty()) {
-        item.comment = matchPattern("^Comment=(.*)$");
-    }
-
+    item.name = matchLocalizedField("Name").remove(QRegularExpression("^MX "));
+    item.comment = matchLocalizedField("Comment");
     item.exec = matchPattern("^Exec=(.*)$");
     item.icon_name = matchPattern("^Icon=(.*)$");
     item.terminal = matchPattern("^Terminal=(.*)$").toLower() == "true";
