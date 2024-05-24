@@ -122,7 +122,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         if (!QFile::exists(path)) {
             continue;
         }
-        for (const QString &ext : {".png", ".svg", ".xpm"}) {
+        for (const char *ext : {".png", ".svg", ".xpm"}) {
             QString file = path + name_noext + ext;
             if (QFile::exists(file)) {
                 return QIcon(file);
