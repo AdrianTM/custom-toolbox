@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="162"/>
         <source>Custom Toolbox</source>
         <translation>Personalizador da Caixa de Ferramentas</translation>
     </message>
@@ -80,99 +80,91 @@
         <translation>Digite aqui para pesquisar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Open List File</source>
         <translation>Abrir um Arquivo de Lista</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>List Files (*.list)</source>
         <translation>Arquivo de Lista (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocorreu um Erro ao Selecionar o Arquivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum arquivo foi selecionado. O aplicativo será finalizado gora.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
-        <location filename="../mainwindow.cpp" line="466"/>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="264"/>
+        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>File Open Error</source>
         <translation>Ocorreu um Erro ao Abrir o Arquivo</translation>
     </message>
     <message>
-        <source>Could not open file, do you want to try again?</source>
-        <translation type="vanished">Não foi possível abrir o arquivo. Você quer tentar abri-lo novamente?</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível abrir o arquivo. Você quer tentar novamente?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Could not open file: </source>
         <translation>Não foi possível abrir o arquivo:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
         <translation>O aplicativo será fechado.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="541"/>
+        <location filename="../mainwindow.cpp" line="555"/>
         <source>About %1</source>
         <translation>Sobre o %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="542"/>
+        <location filename="../mainwindow.cpp" line="556"/>
         <source>Version: </source>
         <translation>Versão: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="543"/>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>O ‘Personalizador da Caixa de Ferramentas’ ou ‘Custom Toolbox’ é uma ferramenta utilizada para criar um iniciador ou lançador de aplicativos personalizado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="560"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Direitos reservados ao (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="561"/>
         <source>%1 License</source>
         <translation>Licença do %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="554"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>%1 Help</source>
         <translation>Ajuda do %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível gravar o arquivo %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocorreu um Erro ao Remover o Arquivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not write file: </source>
-        <translation type="vanished">Não foi possível gravar o arquivo:</translation>
+        <translation>Não foi possível remover o arquivo %1</translation>
     </message>
 </context>
 <context>

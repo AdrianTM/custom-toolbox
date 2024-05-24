@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="162"/>
         <source>Custom Toolbox</source>
         <translation>Mukautettu työkalulaatikko</translation>
     </message>
@@ -80,99 +80,91 @@
         <translation>etsi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Open List File</source>
         <translation>Avaa luettelotiedosto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>List Files (*.list)</source>
         <translation>Listaa tiedostot (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedoston valintavirhe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei valittua tiedostoa. Sovellus suljetaan.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
-        <location filename="../mainwindow.cpp" line="466"/>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="264"/>
+        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>File Open Error</source>
         <translation>Tiedoston avaamisvirhe</translation>
     </message>
     <message>
-        <source>Could not open file, do you want to try again?</source>
-        <translation type="vanished">Tiedostoa ei voitu avata. Haluatko yrittää uudelleen?</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedostoa ei voitu avata. Haluatko yrittää uudelleen?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Could not open file: </source>
         <translation>Tiedostoa ei voitu avata:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
         <translation>Ohjelma sulkeutuu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="541"/>
+        <location filename="../mainwindow.cpp" line="555"/>
         <source>About %1</source>
         <translation>%1 lisätietoja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="542"/>
+        <location filename="../mainwindow.cpp" line="556"/>
         <source>Version: </source>
         <translation>Versio: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="543"/>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Custom Toolbox on työkalu, jota käytetään mukautetun käynnistysohjelman luomiseen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="560"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="561"/>
         <source>%1 License</source>
         <translation>%1 lupa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="554"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>%1 Help</source>
         <translation>%1 Apuopas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedostoa ei voitu kirjoittaa: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedoston poistovirhe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not write file: </source>
-        <translation type="vanished">Tiedostoa ei voitu kirjoittaa:</translation>
+        <translation>Tiedostoa ei voitu poistaa: %1</translation>
     </message>
 </context>
 <context>

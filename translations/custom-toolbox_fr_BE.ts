@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="162"/>
         <source>Custom Toolbox</source>
         <translation>Boîte à outils personnalisée - Custom Toolbox</translation>
     </message>
@@ -80,99 +80,91 @@
         <translation>Rechercher</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Open List File</source>
         <translation>Ouvrir le fichier liste</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>List Files (*.list)</source>
         <translation>Liste des fichiers (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de sélection de fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun fichier sélectionné. L’application va se fermer maintenant.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
-        <location filename="../mainwindow.cpp" line="466"/>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="264"/>
+        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>File Open Error</source>
         <translation>Erreur d’ouverture du fichier</translation>
     </message>
     <message>
-        <source>Could not open file, do you want to try again?</source>
-        <translation type="vanished">Impossible d’ouvrir le fichier, voulez-vous réessayer?</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’ouvrir le fichier. Voulez-vous réessayer?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Could not open file: </source>
         <translation>Impossible d’ouvrir le fichier: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
         <translation>L’application se fermera.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="541"/>
+        <location filename="../mainwindow.cpp" line="555"/>
         <source>About %1</source>
         <translation>À propos de %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="542"/>
+        <location filename="../mainwindow.cpp" line="556"/>
         <source>Version: </source>
         <translation>Version: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="543"/>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
-        <translation>La boîte à outils personnalisée « Custom Toolbox » est un outil utilisé pour créer un lanceur personnalisé</translation>
+        <translation>La boîte à outils personnalisée «&#xa0;Custom Toolbox&#xa0;» est un outil utilisé pour créer un lanceur personnalisé</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="560"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="561"/>
         <source>%1 License</source>
         <translation>%1 Licence</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="554"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>%1 Help</source>
         <translation>%1 Aide</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d’écrire le fichier: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de suppression de fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not write file: </source>
-        <translation type="vanished">Impossible d’écrire le fichier: </translation>
+        <translation>Impossible de supprimer le fichier: %1</translation>
     </message>
 </context>
 <context>
@@ -206,7 +198,7 @@
     <message>
         <location filename="../main.cpp" line="73"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
-        <translation>Ne pas afficher la case à cocher « Afficher cette boîte de dialogue au démarrage »</translation>
+        <translation>Ne pas afficher la case à cocher «&#xa0;Afficher cette boîte de dialogue au démarrage&#xa0;»</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="75"/>
@@ -221,7 +213,7 @@
     <message>
         <location filename="../main.cpp" line="86"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
-        <translation>Vous semblez être connecté en tant qu’administrateur, veuillez vous déconnecter et vous connecter en tant qu’utilisateur normal pour utiliser ce programme.</translation>
+        <translation>Vous êtes apparemment connecté en tant que root, veuillez vous déconnecter et vous connecter en tant qu’utilisateur•rice normal•e pour utiliser ce programme.</translation>
     </message>
 </context>
 </TS>

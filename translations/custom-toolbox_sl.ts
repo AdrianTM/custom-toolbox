@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="162"/>
         <source>Custom Toolbox</source>
         <translation>Prilagojena orodjarna</translation>
     </message>
@@ -80,99 +80,91 @@
         <translation>iskanje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Open List File</source>
         <translation>Odpri zadnjo datoteko</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>List Files (*.list)</source>
         <translation>Datoteke seznamov (*.list)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Napaka pri izbiri datoteke</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nobena datoteka ni izbrana. Program se bo zaprl.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
-        <location filename="../mainwindow.cpp" line="466"/>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="264"/>
+        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>File Open Error</source>
         <translation>Napaka pri odpiranju datoteke</translation>
     </message>
     <message>
-        <source>Could not open file, do you want to try again?</source>
-        <translation type="vanished">Datoteke ni bilo mogoče odpreti. Poskusim znova?</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke ni bilo mogoče odpreti. Ponovni poskus?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Could not open file: </source>
         <translation>Datoteke ni bilo mogoče odpreti:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="467"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
         <translation>Program se bo zaprl.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="541"/>
+        <location filename="../mainwindow.cpp" line="555"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="542"/>
+        <location filename="../mainwindow.cpp" line="556"/>
         <source>Version: </source>
         <translation>Različica:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="543"/>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Orodjarna je orodje za ustvarjanje zaganjalnikov po meri</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="560"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Avtorska zaščita (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="561"/>
         <source>%1 License</source>
         <translation>%1 licenca</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="554"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>%1 Help</source>
         <translation>%1 pomoč</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="591"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ni bilo mogoče pisati v datoteko: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Napaka pri odstranjevanju datoteke</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="609"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not write file: </source>
-        <translation type="vanished">Datoteke ni bilo mogoče zapisati:</translation>
+        <translation>Ni bilo mogoče odstraniti datoteke: %1</translation>
     </message>
 </context>
 <context>
