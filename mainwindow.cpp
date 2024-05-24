@@ -410,7 +410,8 @@ void MainWindow::prepareCommand(const ItemInfo &item, QString &cmd)
     }
 }
 
-void MainWindow::addEmptyRowIfNeeded(const QString &category, const QMultiMap<QString, ItemInfo> &map, int &row, int &col)
+void MainWindow::addEmptyRowIfNeeded(const QString &category, const QMultiMap<QString, ItemInfo> &map, int &row,
+                                     int &col)
 {
     if (category != map.lastKey()) {
         col = 0;
@@ -582,9 +583,9 @@ void MainWindow::textSearch_textChanged(const QString &searchText)
 {
     // Create a lambda function to check if an item matches the search text
     auto matchesSearchText = [&searchText](const ItemInfo &item) {
-        return item.name.contains(searchText, Qt::CaseInsensitive) ||
-               item.comment.contains(searchText, Qt::CaseInsensitive) ||
-               item.category.contains(searchText, Qt::CaseInsensitive);
+        return item.name.contains(searchText, Qt::CaseInsensitive)
+               || item.comment.contains(searchText, Qt::CaseInsensitive)
+               || item.category.contains(searchText, Qt::CaseInsensitive);
     };
 
     // Filter category_map to only include items that match the search text
@@ -633,7 +634,6 @@ void MainWindow::pushEdit_clicked()
                          : gui_editor;
 
     QStringList editorCommands = buildEditorCommand(editor);
-
     QString cmd = editorCommands.join(' ') + ' ' + editor + ' ' + file_name;
     system(cmd.toUtf8());
     readFile(file_name);
@@ -649,35 +649,40 @@ QString MainWindow::getDefaultEditor()
     QString desktop_file
         = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
 
-    QFile file(desktop_file);
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream in(&file);
-        QString line;
-        while (in.readLineInto(&line)) {
-            if (line.startsWith("Exec=")) {
-                break;
-            }
-        }
-        file.close();
-        return line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
+    if (desktop_file.isEmpty()) {
+        return "nano"; // Use nano as backup editor
     }
+
+    QFile file(desktop_file);
+    if (!file.open(QIODevice::ReadOnly)) {
+        return "nano"; // Use nano as backup editor
+    }
+
+    QTextStream in(&file);
+    QString line;
+    while (in.readLineInto(&line)) {
+        if (line.startsWith("Exec=")) {
+            file.close();
+            return line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
+        }
+    }
+
+    file.close();
     return "nano"; // Use nano as backup editor
 }
 
 QStringList MainWindow::buildEditorCommand(const QString &editor)
 {
-    bool isRoot = getuid() == 0;
-    bool isEditorThatElevates = QRegularExpression("(kate|kwrite|featherpad)$").match(editor).hasMatch();
-    bool isElectronBased = QRegularExpression("(atom\\.desktop|code\\.desktop)$").match(editor).hasMatch();
-    bool isCliEditor = QRegularExpression("nano|vi|vim|nvim|micro|emacs").match(editor).hasMatch();
+    const bool isRoot = getuid() == 0;
+    const bool isEditorThatElevates
+        = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
+    const bool isCliEditor = QRegularExpression(R"(nano|vi|vim|nvim|micro|emacs)").match(editor).hasMatch();
 
     QStringList editorCommands;
-    if (!QFileInfo(file_name).isWritable()) {
-        if (!isEditorThatElevates && !isElectronBased) {
-            editorCommands << "pkexec";
-        } else if (isRoot) {
-            editorCommands << "pkexec --user $(logname)";
-        }
+    if (isRoot && isEditorThatElevates) {
+        editorCommands << "pkexec --user $(logname)";
+    } else if (!QFileInfo(file_name).isWritable() && !isEditorThatElevates) {
+        editorCommands << "pkexec";
     }
 
     editorCommands << "env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY";
