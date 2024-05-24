@@ -101,8 +101,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="264"/>
-        <location filename="../mainwindow.cpp" line="479"/>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="501"/>
+        <location filename="../mainwindow.cpp" line="621"/>
         <source>File Open Error</source>
         <translation>Erreur d’ouverture du fichier</translation>
     </message>
@@ -112,57 +112,66 @@
         <translation>Impossible d’ouvrir le fichier. Voulez-vous réessayer?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
+        <location filename="../mainwindow.cpp" line="493"/>
+        <source>File Not Found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="493"/>
+        <source>The file %1 does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Impossible d’ouvrir le fichier: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
-        <translation>L’application se fermera.</translation>
+        <translation type="vanished">L’application se fermera.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation>À propos de %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="556"/>
+        <location filename="../mainwindow.cpp" line="567"/>
         <source>Version: </source>
         <translation>Version: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="557"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>La boîte à outils personnalisée «&#xa0;Custom Toolbox&#xa0;» est un outil utilisé pour créer un lanceur personnalisé</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="560"/>
+        <location filename="../mainwindow.cpp" line="571"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="561"/>
+        <location filename="../mainwindow.cpp" line="572"/>
         <source>%1 License</source>
         <translation>%1 Licence</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="568"/>
+        <location filename="../mainwindow.cpp" line="579"/>
         <source>%1 Help</source>
         <translation>%1 Aide</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="621"/>
         <source>Could not write file: %1</source>
         <translation>Impossible d’écrire le fichier: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="625"/>
         <source>File Removal Error</source>
         <translation>Erreur de suppression de fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="625"/>
         <source>Could not remove file: %1</source>
         <translation>Impossible de supprimer le fichier: %1</translation>
     </message>

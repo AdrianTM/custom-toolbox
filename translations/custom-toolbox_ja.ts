@@ -101,8 +101,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="264"/>
-        <location filename="../mainwindow.cpp" line="479"/>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="501"/>
+        <location filename="../mainwindow.cpp" line="621"/>
         <source>File Open Error</source>
         <translation>ファイルを開く際のエラー</translation>
     </message>
@@ -112,57 +112,66 @@
         <translation>ファイルを開けません。再試行しますか？</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
+        <location filename="../mainwindow.cpp" line="493"/>
+        <source>File Not Found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="493"/>
+        <source>The file %1 does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>次のファイルを開けません: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
         <source>Application will close.</source>
-        <translation>アプリケーションを終了します。</translation>
+        <translation type="vanished">アプリケーションを終了します。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="555"/>
+        <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation> %1 について</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="556"/>
+        <location filename="../mainwindow.cpp" line="567"/>
         <source>Version: </source>
         <translation>バージョン：</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="557"/>
+        <location filename="../mainwindow.cpp" line="568"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>カスタムツールボックスは、カスタムランチャの作成ツールです。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="560"/>
+        <location filename="../mainwindow.cpp" line="571"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="561"/>
+        <location filename="../mainwindow.cpp" line="572"/>
         <source>%1 License</source>
         <translation>%1 ライセンス</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="568"/>
+        <location filename="../mainwindow.cpp" line="579"/>
         <source>%1 Help</source>
         <translation>%1 ヘルプ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="621"/>
         <source>Could not write file: %1</source>
         <translation>次のファイルに書き込めません：%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="625"/>
         <source>File Removal Error</source>
         <translation>ファイルの削除エラー</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="625"/>
         <source>Could not remove file: %1</source>
         <translation>次のファイルを削除できません: %1</translation>
     </message>
