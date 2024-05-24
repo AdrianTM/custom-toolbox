@@ -71,8 +71,15 @@ MainWindow::~MainWindow()
 
 QIcon MainWindow::findIcon(const QString &icon_name)
 {
+    static QIcon defaultIcon;
+    static bool defaultIconLoaded = false;
+
     if (icon_name.isEmpty()) {
-        return findIcon("utilities-terminal");
+        if (!defaultIconLoaded) {
+            defaultIcon = findIcon("utilities-terminal");
+            defaultIconLoaded = true;
+        }
+        return defaultIcon;
     }
 
     // Check if the icon name is an absolute path and exists
@@ -96,13 +103,16 @@ QIcon MainWindow::findIcon(const QString &icon_name)
     }
 
     // Define common search paths for icons
-    QStringList search_paths {QDir::homePath() + "/.local/share/icons/", "/usr/share/pixmaps/",
-                              "/usr/local/share/icons/", "/usr/share/icons/", "/usr/share/icons/hicolor/48x48/apps/"};
+    QStringList search_paths {QDir::homePath() + "/.local/share/icons/",
+                              "/usr/share/pixmaps/",
+                              "/usr/local/share/icons/",
+                              "/usr/share/icons/",
+                              "/usr/share/icons/hicolor/48x48/apps/",
+                              "/usr/share/icons/Adwaita/48x48/legacy/"};
 
     // Optimization: search first for the full icon_name with the specified extension
     auto it = std::find_if(search_paths.cbegin(), search_paths.cend(),
                            [&](const QString &path) { return QFile::exists(path + icon_name); });
-
     if (it != search_paths.cend()) {
         return QIcon(*it + icon_name);
     }
@@ -120,28 +130,17 @@ QIcon MainWindow::findIcon(const QString &icon_name)
         }
     }
 
-    // Additional search paths
-    search_paths << "/usr/share/icons/hicolor/48x48/"
-                 << "/usr/share/icons/hicolor/"
-                 << "/usr/share/icons/";
-
-    QString foundIconPath;
-    for (const QString &path : search_paths) {
-        QDir dir(path);
-        QStringList nameFilters {name_noext + ".*"};
-        QStringList iconFiles = dir.entryList(nameFilters, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
-
-        if (!iconFiles.isEmpty()) {
-            foundIconPath = path + iconFiles.first();
-            break;
+    // If the icon is "utilities-terminal" and not found, return the default icon if it's already loaded
+    if (icon_name == "utilities-terminal") {
+        if (!defaultIconLoaded) {
+            defaultIcon = QIcon();
+            defaultIconLoaded = true;
         }
+        return defaultIcon;
     }
 
-    if (icon_name == "utilities-terminal" && foundIconPath.isEmpty()) {
-        return QIcon();
-    }
-
-    return !foundIconPath.isEmpty() ? QIcon(foundIconPath) : findIcon("utilities-terminal");
+    // If the icon is not "utilities-terminal", try to load the default icon
+    return findIcon("utilities-terminal");
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
