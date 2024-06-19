@@ -1,0 +1,28 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Automated release created for tag ${{ github.ref }}.
+            [![latest packaged version(s)](https://repology.org/badge/latest-versions/custom-toolbox.svg)](https://repology.org/project/custom-toolbox/versions)
+            [![build result](https://build.opensuse.org/projects/home:mx-packaging/packages/custom-toolbox/badge.svg?type=default)](https://software.opensuse.org//download.html?project=home%3Amx-packaging&package=custom-toolbox)
+          draft: false
+          prerelease: false
+
