@@ -16,7 +16,9 @@ jobs:
       - name: Get Latest Changelog Entry
         id: get-changelog
         run: |
-          echo "changelog=$(awk '/^custom-toolbox/{i++} i==1' debian/changelog | grep '^[[:space:]]*\*')" >> $GITHUB_ENV
+          changelog=$(awk '/^custom-toolbox/{i++} i==1' debian/changelog | grep '^[[:space:]]*\*')
+          changelog=$(echo "$changelog" | sed ':a;N;$!ba;s/\n/\\n/g')  # Format newlines for GitHub Actions
+          echo "changelog=$changelog" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
