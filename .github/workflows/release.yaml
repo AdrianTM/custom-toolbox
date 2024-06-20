@@ -17,8 +17,9 @@ jobs:
         id: get-changelog
         run: |
           changelog=$(awk '/^custom-toolbox/{i++} i==1' debian/changelog | grep '^[[:space:]]*\*')
-          changelog=$(echo "$changelog" | sed ':a;N;$!ba;s/\n/\\n/g')  # Format newlines for GitHub Actions
-          echo "changelog=$changelog" >> $GITHUB_ENV
+          echo "changelog<<EOF" >> $GITHUB_ENV
+          echo "$changelog" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
@@ -32,5 +33,6 @@ jobs:
             
             Changelog:
             ${{ env.changelog }}
+
           draft: false
           prerelease: false
