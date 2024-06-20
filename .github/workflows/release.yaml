@@ -20,8 +20,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref_name }} 
           body: |
-            Automated release created for tag ${{ github.ref }}: [![Build result](https://build.opensuse.org/projects/home:mx-packaging/packages/custom-toolbox/badge.svg?type=default)](https://software.opensuse.org//download.html?project=home%3Amx-packaging&package=custom-toolbox)
-            Commit: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-            [![Latest version in repos](https://repology.org/badge/latest-versions/custom-toolbox.svg)](https://repology.org/project/custom-toolbox/versions)
+            Automated release created for tag ${{ github.ref_name }}: [![build service (direct download link)](https://build.opensuse.org/projects/home:mx-packaging/packages/custom-toolbox/badge.svg?type=default)](https://software.opensuse.org//download.html?project=home%3Amx-packaging&package=custom-toolbox) [![latest version in repos](https://repology.org/badge/latest-versions/custom-toolbox.svg)](https://repology.org/project/custom-toolbox/versions)
           draft: false
           prerelease: false
