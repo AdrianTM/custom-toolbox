@@ -12,7 +12,7 @@
     <message>
         <location filename="../mainwindow.ui" line="63"/>
         <source>About this application</source>
-        <translation>Sobre esta aplicação</translation>
+        <translation>Sobre este aplicativo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="66"/>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="256"/>
         <source>Open List File</source>
-        <translation>Abrir um Arquivo de Lista</translation>
+        <translation>Abrir um Arquivo da Lista</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="256"/>
         <source>List Files (*.list)</source>
-        <translation>Arquivo de Lista (*.list)</translation>
+        <translation>Arquivo da Lista (*.list)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation>Ocorreu um Erro ao Selecionar o Arquivo</translation>
+        <translation>Ocorreu um erro ao selecionar o arquivo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="258"/>
@@ -104,7 +104,7 @@
         <location filename="../mainwindow.cpp" line="501"/>
         <location filename="../mainwindow.cpp" line="621"/>
         <source>File Open Error</source>
-        <translation>Ocorreu um Erro ao Abrir o Arquivo</translation>
+        <translation>Ocorreu um erro ao abrir o arquivo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="265"/>
@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>O arquivo não foi encontrado</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>O arquivo %1 não existe.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Não foi possível abrir o arquivo:</translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">O aplicativo será fechado.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>
@@ -143,7 +139,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="568"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
-        <translation>O ‘Personalizador da Caixa de Ferramentas’ ou ‘Custom Toolbox’ é uma ferramenta utilizada para criar um iniciador ou lançador de aplicativos personalizado</translation>
+        <translation>O ‘Personalizador da Caixa de Ferramentas’ ou ‘Custom Toolbox’ é uma ferramenta utilizada para criar um iniciador ou lançador de aplicativos personalizados</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="571"/>
@@ -168,7 +164,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="625"/>
         <source>File Removal Error</source>
-        <translation>Ocorreu um Erro ao Remover o Arquivo</translation>
+        <translation>Ocorreu um erro ao remover o arquivo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="625"/>
@@ -187,7 +183,7 @@
         <location filename="../about.cpp" line="71"/>
         <location filename="../about.cpp" line="81"/>
         <source>Changelog</source>
-        <translation>Relatório de Alterações</translation>
+        <translation>Relatório de alterações</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="72"/>
@@ -207,7 +203,7 @@
     <message>
         <location filename="../main.cpp" line="73"/>
         <source>Don&apos;t show &apos;show this dialog at startup&apos; checkbox</source>
-        <translation>Não exibir a caixa de seleção &apos;Exibir esta caixa de diálogo na inicialização&apos;</translation>
+        <translation>Não exibir a caixa de seleção ‘Exibir esta caixa de diálogo na inicialização’</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="75"/>
@@ -217,7 +213,7 @@
     <message>
         <location filename="../main.cpp" line="85"/>
         <source>Error</source>
-        <translation>Ocorreu um Erro</translation>
+        <translation>Ocorreu um erro</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="86"/>

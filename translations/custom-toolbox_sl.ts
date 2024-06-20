@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka ni bila najdena</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka %1 ne obstaja.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Datoteke ni bilo mogoče odpreti:</translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Program se bo zaprl.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

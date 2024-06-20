@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedostoa ei löytynyt</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedostoa %1 ei ole olemassa.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Tiedostoa ei voitu avata:</translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Ohjelma sulkeutuu.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

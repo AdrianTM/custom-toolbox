@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>No he trobat el fitxer</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>El fitxer %1 no existeix.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>No s&apos;ha pogut obrir el fitxer: </translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">L&apos;aplicació es tancarà.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

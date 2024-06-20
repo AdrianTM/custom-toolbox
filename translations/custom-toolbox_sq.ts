@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela S’u Gjet</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela %1 s’ekziston.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>S’u hap dot kartelë:</translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Aplikacioni do të mbyllet.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

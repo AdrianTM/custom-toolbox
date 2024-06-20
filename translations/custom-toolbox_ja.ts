@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルが見つかりません</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル %1 は存在しません。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>次のファイルを開けません: </translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">アプリケーションを終了します。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

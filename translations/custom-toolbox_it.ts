@@ -92,12 +92,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="258"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore di selezione del file</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="258"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessun file selezionato. L&apos;applicazione verrà ora chiusa.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="264"/>
@@ -109,26 +109,22 @@
     <message>
         <location filename="../mainwindow.cpp" line="265"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire il file. Vuoi riprovare?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>File non trovato</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il file %1 non esiste.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Non è stato possibile aprire il file:</translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">L&apos;applicazione verrà chiusa.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>
@@ -163,17 +159,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="621"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile scrivere il file: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="625"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore di rimozione del file</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="625"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile rimuovere il file: %1</translation>
     </message>
 </context>
 <context>

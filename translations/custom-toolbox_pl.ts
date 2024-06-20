@@ -127,10 +127,6 @@
         <translation>Nie można otworzyć&#xa0;pliku:</translation>
     </message>
     <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Aplikacja zostanie zamknięta.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation>O %1</translation>

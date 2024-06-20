@@ -127,10 +127,6 @@
         <translation>Konnte Datei nicht öffnen:</translation>
     </message>
     <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Die Anwendung wird beendet</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation>Über %1</translation>

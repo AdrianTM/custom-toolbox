@@ -114,21 +114,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier introuvable</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="493"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier %1 n’existe pas.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="501"/>
         <source>Could not open file: </source>
         <translation>Impossible d’ouvrir le fichier: </translation>
-    </message>
-    <message>
-        <source>Application will close.</source>
-        <translation type="vanished">L’application se fermera.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="566"/>

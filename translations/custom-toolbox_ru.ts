@@ -127,10 +127,6 @@
         <translation>Не удалось открыть файл:</translation>
     </message>
     <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Приложение закроется.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation>О %1</translation>

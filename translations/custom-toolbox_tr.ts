@@ -127,10 +127,6 @@
         <translation>Dosya açılamadı:</translation>
     </message>
     <message>
-        <source>Application will close.</source>
-        <translation type="vanished">Uygulama kapanacak.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="566"/>
         <source>About %1</source>
         <translation>%1 Hakkında </translation>
