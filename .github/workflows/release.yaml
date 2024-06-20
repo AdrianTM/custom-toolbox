@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Get Latest Changelog Entry
+        id: get-changelog
+        run: |
+          echo "changelog=$(head -n $(($(grep -n '^$' debian/changelog | head -n 1 | cut -d: -f1) - 1)) debian/changelog)" >> $GITHUB_ENV
+
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
@@ -23,7 +28,7 @@ jobs:
              - Direct download link: [![build service)](https://build.opensuse.org/projects/home:mx-packaging/packages/custom-toolbox/badge.svg?type=default)](https://software.opensuse.org//download.html?project=home%3Amx-packaging&package=custom-toolbox) 
              - In repos: [![latest packaged version](https://repology.org/badge/latest-versions/custom-toolbox.svg)](https://repology.org/project/custom-toolbox/versions)
             
-            Changlog:
-            ${{ steps.get-changelog.outputs.changelog }}
+            Changelog:
+            ${{ env.changelog }}
           draft: false
           prerelease: false
