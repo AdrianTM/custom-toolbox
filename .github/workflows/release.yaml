@@ -27,11 +27,11 @@ jobs:
         with:
           name: Release ${{ github.ref_name }} 
           body: |
-            Automated release created for tag ${{ github.ref_name }}: 
+            ### Automated release created for tag *${{ github.ref_name }}*
              - Direct download link: [![build service)](https://build.opensuse.org/projects/home:mx-packaging/packages/custom-toolbox/badge.svg?type=default)](https://software.opensuse.org//download.html?project=home%3Amx-packaging&package=custom-toolbox) 
              - In repos: [![latest packaged version](https://repology.org/badge/latest-versions/custom-toolbox.svg)](https://repology.org/project/custom-toolbox/versions)
             
-            Changelog:
+            ### Changelog
             ${{ env.changelog }}
 
           draft: false
