@@ -47,14 +47,14 @@ MainWindow::MainWindow(const QCommandLineParser &arg_parser, QWidget *parent)
       ui(new Ui::MainWindow),
       file_location {"/etc/custom-toolbox"}
 {
-
     ui->setupUi(this);
     setConnections();
+
     if (arg_parser.isSet("remove-checkbox")) {
         ui->checkBoxStartup->hide();
     }
 
-    setWindowFlags(Qt::Window); // For the close, min and max buttons
+    setWindowFlags(Qt::Window); // Enable close, minimize, and maximize buttons
     setup();
 
     const QStringList argList = arg_parser.positionalArguments();
@@ -165,7 +165,7 @@ void MainWindow::setup()
     const int default_icon_size = 40;
 
     QSettings settings("/etc/custom-toolbox/custom-toolbox.conf", QSettings::NativeFormat);
-    hideGUI = settings.value("hideGUI", "false").toBool();
+    hideGUI = settings.value("hideGUI", false).toBool();
     min_height = settings.value("min_height").toInt();
     min_width = settings.value("min_width").toInt();
     gui_editor = settings.value("gui_editor").toString();
@@ -287,10 +287,7 @@ QString MainWindow::getDesktopFileName(const QString &appName) const
     }
     // If .desktop file not found, fallback to finding the executable
     QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
-    if (!executablePath.isEmpty()) {
-        return QFileInfo(executablePath).fileName(); // Return just the executable name
-    }
-    return {};
+    return !executablePath.isEmpty() ? QFileInfo(executablePath).fileName() : QString();
 }
 
 // Return the app info needed for the button
@@ -484,7 +481,6 @@ void MainWindow::processLine(const QString &line)
 // Open the .list file and process it
 void MainWindow::readFile(const QString &file_name)
 {
-    // Reset categories and category_map when reloading the file
     categories.clear();
     category_map.clear();
 
@@ -543,12 +539,9 @@ QString MainWindow::extractPattern(const QString &text, const QString &key)
     re.setPattern(fallbackPattern);
     match = re.match(text);
 
-    if (match.hasMatch()) {
-        return match.captured(1);
-    }
-
-    return QString();
+    return match.hasMatch() ? match.captured(1) : QString();
 }
+
 void MainWindow::setConnections()
 {
     connect(ui->checkBoxStartup, &QPushButton::clicked, this, &MainWindow::checkBoxStartup_clicked);
@@ -650,25 +643,23 @@ QString MainWindow::getDefaultEditor()
         = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
 
     if (desktop_file.isEmpty()) {
-        return "nano"; // Use nano as backup editor
+        return "nano"; // Fallback to nano
     }
 
     QFile file(desktop_file);
     if (!file.open(QIODevice::ReadOnly)) {
-        return "nano"; // Use nano as backup editor
+        return "nano"; // Fallback to nano
     }
 
     QTextStream in(&file);
     QString line;
     while (in.readLineInto(&line)) {
         if (line.startsWith("Exec=")) {
-            file.close();
             return line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
         }
     }
 
-    file.close();
-    return "nano"; // Use nano as backup editor
+    return "nano"; // Fallback to nano
 }
 
 QStringList MainWindow::buildEditorCommand(const QString &editor)
