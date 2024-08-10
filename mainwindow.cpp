@@ -555,14 +555,17 @@ void MainWindow::setConnections()
 void MainWindow::pushAbout_clicked()
 {
     hide();
-    displayAboutMsgBox(
-        tr("About %1").arg(windowTitle()),
-        "<p align=\"center\"><b><h2>" + windowTitle() + "</h2></b></p><p align=\"center\">" + tr("Version: ") + VERSION
-            + "</p><p align=\"center\"><h3>" + tr("Custom Toolbox is a tool used for creating a custom launcher")
-            + "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
-              "<p align=\"center\">"
-            + tr("Copyright (c) MX Linux") + "<br /><br /></p>",
-        "/usr/share/doc/custom-toolbox/license.html", tr("%1 License").arg(windowTitle()));
+    QString aboutText
+        = QString("<p align=\"center\"><b><h2>%1</h2></b></p>"
+                  "<p align=\"center\">%2 %3</p>"
+                  "<p align=\"center\"><h3>%4</h3></p>"
+                  "<p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p>"
+                  "<p align=\"center\">%5<br /><br /></p>")
+              .arg(windowTitle(), tr("Version:"), VERSION,
+                   tr("Custom Toolbox is a tool used for creating a custom launcher"), tr("Copyright (c) MX Linux"));
+
+    displayAboutMsgBox(tr("About %1").arg(windowTitle()), aboutText, "/usr/share/doc/custom-toolbox/license.html",
+                       tr("%1 License").arg(windowTitle()));
     show();
 }
 
