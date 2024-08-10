@@ -98,8 +98,9 @@ QIcon MainWindow::findIcon(const QString &icon_name)
     }
 
     // Return the themed icon if available
-    if (QIcon::hasThemeIcon(name_noext)) {
-        return QIcon::fromTheme(name_noext);
+    QIcon themedIcon = QIcon::fromTheme(name_noext);
+    if (!themedIcon.isNull()) {
+        return themedIcon;
     }
 
     // Define common search paths for icons
@@ -120,10 +121,7 @@ QIcon MainWindow::findIcon(const QString &icon_name)
 
     // Search for the icon without extension in the specified paths
     for (const QString &path : search_paths) {
-        if (!QFile::exists(path)) {
-            continue;
-        }
-        for (const char *ext : {".png", ".svg", ".xpm"}) {
+        for (const QString &ext : {".png", ".svg", ".xpm"}) {
             QString file = path + name_noext + ext;
             if (QFile::exists(file)) {
                 return QIcon(file);
@@ -152,8 +150,11 @@ void MainWindow::fixExecItem(QString *item)
 
 void MainWindow::fixNameItem(QString *item)
 {
-    if (*item == "System Profiler and Benchmark") {
-        *item = "System Information";
+    static const QString oldName = "System Profiler and Benchmark";
+    static const QString newName = "System Information";
+
+    if (*item == oldName) {
+        *item = newName;
     }
 }
 
@@ -209,12 +210,17 @@ void MainWindow::btn_clicked()
     // pkexec cannot take &, it would block the GUI that's why we need to hide it
     if (hideGUI || cmd.startsWith("pkexec")) {
         hide();
-        system(cmd.toUtf8());
+        int exitCode = system(cmd.toUtf8());
+        if (exitCode == -1) {
+            QMessageBox::warning(this, tr("Execution Error"), tr("Failed to execute command: %1").arg(cmd));
+        }
         show();
     } else {
         QStringList arguments = QProcess::splitCommand(cmd);
         QString program = arguments.takeFirst();
-        QProcess::startDetached(program, arguments);
+        if (!QProcess::startDetached(program, arguments)) {
+            QMessageBox::warning(this, tr("Execution Error"), tr("Failed to start program: %1").arg(program));
+        }
     }
 }
 
