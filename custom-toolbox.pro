@@ -21,10 +21,20 @@
 # **********************************************************************/
 
 QT       += core gui widgets
-CONFIG   += c++17
+CONFIG   += debug_and_release warn_on strict_c++ c++17
 
 TARGET = custom-toolbox
 TEMPLATE = app
+
+CONFIG(release, debug|release) {
+    DEFINES += NDEBUG
+    QMAKE_CXXFLAGS += -flto=auto
+    QMAKE_LFLAGS += -flto=auto
+    QMAKE_CXXFLAGS_RELEASE = -O3
+}
+
+QMAKE_CXXFLAGS += -Wpedantic -pedantic -Werror=return-type -Werror=switch
+QMAKE_CXXFLAGS += -Werror=uninitialized -Werror=return-local-addr -Werror
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
