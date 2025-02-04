@@ -71,75 +71,94 @@ MainWindow::~MainWindow()
 
 QIcon MainWindow::findIcon(const QString &icon_name)
 {
-    static QIcon defaultIcon;
-    static bool defaultIconLoaded = false;
+    static const QRegularExpression re(R"(\.(png|svg|xpm)$)");
+    static const QStringList extensions {".png", ".svg", ".xpm"};
+    static const QStringList searchPaths {
+        QDir::homePath() + "/.local/share/icons/",
+        "/usr/share/pixmaps/",
+        "/usr/local/share/icons/",
+        "/usr/share/icons/",
+        "/usr/share/icons/hicolor/scalable/apps/",
+        "/usr/share/icons/hicolor/48x48/apps/",
+        "/usr/share/icons/Adwaita/48x48/legacy/"
+    };
 
-    if (icon_name.isEmpty()) {
-        if (!defaultIconLoaded) {
-            defaultIcon = findIcon("utilities-terminal");
-            defaultIconLoaded = true;
+    // Initialize default icon once
+    static const QIcon defaultIcon = []() {
+        // First try themed icon
+        QIcon icon = QIcon::fromTheme("utilities-terminal");
+        if (!icon.isNull()) {
+            return icon;
         }
+
+        // Search in paths with extensions
+        for (const auto &path : searchPaths) {
+            for (const auto &ext : extensions) {
+                QString fullPath = path + "utilities-terminal" + ext;
+                if (QFile::exists(fullPath)) {
+                    icon = QIcon(fullPath);
+                    if (!icon.isNull()) {
+                        return icon;
+                    }
+                }
+            }
+        }
+        return QIcon();
+    }();
+
+    // Return default for empty or default icon name
+    if (icon_name.isEmpty() || icon_name == "utilities-terminal") {
         return defaultIcon;
     }
 
-    // Check if the icon name is an absolute path and exists
+    // Use absolute path directly if it exists
     if (QFileInfo(icon_name).isAbsolute() && QFile::exists(icon_name)) {
         return QIcon(icon_name);
     }
 
-    // Prepare regular expression to strip extension
-    static const QRegularExpression re(R"(\.(png|svg|xpm)$)");
-    QString name_noext = icon_name;
-    name_noext.remove(re);
+    // Try themed icon first
+    QString nameNoExt = icon_name;
+    nameNoExt.remove(re);
 
-    // Set icon theme if specified
     if (!icon_theme.isEmpty()) {
         QIcon::setThemeName(icon_theme);
     }
 
-    // Return the themed icon if available
-    QIcon themedIcon = QIcon::fromTheme(name_noext);
+    QIcon themedIcon = QIcon::fromTheme(nameNoExt);
     if (!themedIcon.isNull()) {
         return themedIcon;
     }
 
-    // Define common search paths for icons
-    QStringList search_paths {QDir::homePath() + "/.local/share/icons/",
-                              "/usr/share/pixmaps/",
-                              "/usr/local/share/icons/",
-                              "/usr/share/icons/",
-                              "/usr/share/icons/hicolor/scalable/apps/",
-                              "/usr/share/icons/hicolor/48x48/apps/",
-                              "/usr/share/icons/Adwaita/48x48/legacy/"};
-
-    // Optimization: search first for the full icon_name with the specified extension
-    auto it = std::find_if(search_paths.cbegin(), search_paths.cend(),
-                           [&](const QString &path) { return QFile::exists(path + icon_name); });
-    if (it != search_paths.cend()) {
-        return QIcon(*it + icon_name);
-    }
-
-    // Search for the icon without extension in the specified paths
-    for (const QString &path : search_paths) {
-        for (const QString &ext : {".png", ".svg", ".xpm"}) {
-            QString file = path + name_noext + ext;
-            if (QFile::exists(file)) {
-                return QIcon(file);
+    // Search in all paths
+    const auto searchInPaths = [&](const QString &name) -> QIcon {
+        for (const auto &path : searchPaths) {
+            QString fullPath = path + name;
+            if (QFile::exists(fullPath)) {
+                QIcon icon(fullPath);
+                if (!icon.isNull()) {
+                    return icon;
+                }
             }
         }
+        return QIcon();
+    };
+
+    // Try original name first
+    QIcon icon = searchInPaths(icon_name);
+    if (!icon.isNull()) {
+        return icon;
     }
 
-    // If the icon is "utilities-terminal" and not found, return the default icon if it's already loaded
-    if (icon_name == "utilities-terminal") {
-        if (!defaultIconLoaded) {
-            defaultIcon = QIcon();
-            defaultIconLoaded = true;
+    // Try with each extension
+    for (const auto &ext : extensions) {
+        icon = searchInPaths(nameNoExt + ext);
+        if (!icon.isNull()) {
+            return icon;
         }
-        return defaultIcon;
     }
 
-    // If the icon is not "utilities-terminal", try to load the default icon
-    return findIcon("utilities-terminal");
+    // Fall back to the default icon if nothing else was found.
+    return defaultIcon;
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
