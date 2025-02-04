@@ -1,3 +1,10 @@
+custom-toolbox (25.2) mx; urgency=medium
+
+  * Performance fixes
+  * Update translations
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 03 Feb 2025 23:16:14 -0500
+
 custom-toolbox (24.6) mx; urgency=medium
 
   * Update translations
