@@ -297,18 +297,18 @@ QString MainWindow::getFileName()
 QString MainWindow::getDesktopFileName(const QString &appName) const
 {
     // Search for .desktop files in standard applications locations
-    QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-    searchPaths.append(defaultPath); // Include default path for executable search
+    const QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
 
+    // Search for .desktop file in each path
+    const QString desktopFileName = appName + ".desktop";
     for (const QString &searchPath : searchPaths) {
-        QDir searchDir(searchPath);
-        QStringList desktopFiles = searchDir.entryList({appName + ".desktop"}, QDir::Files, QDir::NoSort);
-        if (!desktopFiles.isEmpty()) {
-            return searchDir.absoluteFilePath(desktopFiles.first());
+        const QString fullPath = QDir(searchPath).absoluteFilePath(desktopFileName);
+        if (QFile::exists(fullPath)) {
+            return fullPath;
         }
     }
     // If .desktop file not found, fallback to finding the executable
-    QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
+    const QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
     return !executablePath.isEmpty() ? QFileInfo(executablePath).fileName() : QString();
 }
 
