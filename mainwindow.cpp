@@ -82,9 +82,9 @@ QIcon MainWindow::findIcon(const QString &iconName)
                                           "/usr/share/icons/Adwaita/48x48/legacy/"};
 
     // Helper function to search for icon in all paths
-    static const auto searchInPaths = [](const QString &name) -> QIcon {
+    static const auto searchInPaths = [&](const QString &name) -> QIcon {
         for (const auto &path : searchPaths) {
-            const QString fullPath = path + name;
+            const QString fullPath = QDir(path).filePath(name);
             if (QFile::exists(fullPath)) {
                 QIcon icon(fullPath);
                 if (!icon.isNull()) {
@@ -123,7 +123,7 @@ QIcon MainWindow::findIcon(const QString &iconName)
     }
 
     // Handle absolute paths
-    if (QFileInfo(iconName).isAbsolute() && QFile::exists(iconName)) {
+    if (QFileInfo::exists(iconName) && QFileInfo(iconName).isAbsolute()) {
         return QIcon(iconName);
     }
 
