@@ -463,16 +463,15 @@ void MainWindow::clearGridLayout()
 
 void MainWindow::processLine(const QString &line)
 {
-    const QStringList tokens = line.split('=');
-    if (tokens.isEmpty()) {
+    if (line.isEmpty()) {
         return;
     }
-    const QString key = tokens.first().trimmed();
+    const int splitPos = line.indexOf('=');
+    const QString key = (splitPos > 0) ? line.left(splitPos).trimmed() : line.trimmed();
     if (key.isEmpty()) {
         return;
     }
-    const QString value = (tokens.size() > 1) ? tokens.at(1).trimmed().remove('"') : QString();
-
+    const QString value = (splitPos > 0) ? QString(line.mid(splitPos + 1)).trimmed().remove('"') : QString();
     const QString lowerKey = key.toLower();
     if (lowerKey == "category") {
         categories.append(value);
@@ -483,19 +482,34 @@ void MainWindow::processLine(const QString &line)
         if (keyTokens.isEmpty()) {
             return;
         }
+
         const QString desktop_file = getDesktopFileName(keyTokens.first());
         if (!desktop_file.isEmpty()) {
             ItemInfo info = getDesktopFileInfo(desktop_file);
             if (keyTokens.size() > 1) {
-                info.root = keyTokens.contains("root");
-                info.user = keyTokens.contains("user");
-                if (keyTokens.contains("alias")) {
+                const bool hasRoot = keyTokens.contains("root");
+                const bool hasUser = keyTokens.contains("user");
+                const bool hasAlias = keyTokens.contains("alias");
+
+                info.root = hasRoot;
+                info.user = hasUser;
+
+                if (hasAlias) {
                     const int aliasIndex = keyTokens.indexOf("alias");
-                    info.name = keyTokens.mid(aliasIndex + 1).join(' ').trimmed().remove('\'').remove('"');
+                    if (aliasIndex >= 0 && aliasIndex + 1 < keyTokens.size()) {
+                        if (aliasIndex + 1 < keyTokens.size()) {
+                            info.name = keyTokens.mid(aliasIndex + 1).join(' ').trimmed().remove('\'').remove('"');
+                        } else {
+                            qWarning() << "Alias keyword found but no valid alias name provided.";
+                        }
+                    }
                 }
             }
-            info.category = categories.last();
-            category_map.insert(info.category, info);
+
+            if (!categories.isEmpty()) {
+                info.category = categories.last();
+                category_map.insert(info.category, info);
+            }
         }
     }
 }
@@ -667,12 +681,8 @@ QString MainWindow::getDefaultEditor()
     QString desktop_file
         = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
 
-    if (desktop_file.isEmpty()) {
-        return "nano"; // Fallback to nano
-    }
-
     QFile file(desktop_file);
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (desktop_file.isEmpty() || !file.open(QIODevice::ReadOnly)) {
         return "nano"; // Fallback to nano
     }
 
@@ -680,7 +690,10 @@ QString MainWindow::getDefaultEditor()
     QString line;
     while (in.readLineInto(&line)) {
         if (line.startsWith("Exec=")) {
-            return line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
+            // Extract the command from the Exec line and remove common desktop file parameters
+            return line.remove(QRegularExpression("^Exec="))
+                       .remove(QRegularExpression("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b"))
+                       .trimmed();
         }
     }
 
