@@ -543,11 +543,11 @@ void MainWindow::readFile(const QString &file_name)
     setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
-    const auto lines = text.splitRef('\n');
+    const auto lines = text.split('\n');
     QRegularExpression skipPattern("^(Name|Comment|#|$).*");
-    for (const QStringRef &line : lines) {
+    for (const QString &line : lines) {
         if (!skipPattern.match(line).hasMatch()) {
-            processLine(line.toString());
+            processLine(line);
         }
     }
 }

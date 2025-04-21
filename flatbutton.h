@@ -21,6 +21,8 @@
  **********************************************************************/
 #pragma once
 
+#include <QEnterEvent>
+#include <QEvent>
 #include <QPushButton>
 
 class QEvent;
@@ -35,6 +37,6 @@ public:
     void setIconSize(QSize);
 
 protected:
-    void enterEvent(QEvent *e) override;
-    void leaveEvent(QEvent *e) override;
+    void enterEvent(QEnterEvent *e);
+    void leaveEvent(QEvent *e);
 };
