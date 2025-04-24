@@ -117,79 +117,75 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="286"/>
-        <location filename="../mainwindow.cpp" line="519"/>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="533"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>File Open Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Failo atvėrimo klaida</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="287"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko atverti failo. Ar norite bandyti dar kartą?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Failas nerastas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Failo %1 nėra.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="519"/>
+        <location filename="../mainwindow.cpp" line="533"/>
         <source>Could not open file: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko atverti failo: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="586"/>
+        <location filename="../mainwindow.cpp" line="600"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versija:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="589"/>
+        <location filename="../mainwindow.cpp" line="603"/>
         <source>About %1</source>
         <translation>Apie %1</translation>
     </message>
     <message>
-        <source>Version: </source>
-        <translation type="vanished">Versija: </translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Autorių teisės (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="590"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>%1 License</source>
         <translation>%1 licencija</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="597"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>%1 Help</source>
         <translation>%1 žinynas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko rašyti failo: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Failo šalinimo klaida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko pašalinti failo: %1</translation>
     </message>
 </context>
 <context>

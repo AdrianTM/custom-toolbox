@@ -83,17 +83,17 @@
         <location filename="../mainwindow.cpp" line="231"/>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Execution Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Utförandefel</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="231"/>
         <source>Failed to execute command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Misslyckades med att utföra kommando: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Failed to start program: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Misslyckades med att starta program: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="278"/>
@@ -117,8 +117,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="286"/>
-        <location filename="../mainwindow.cpp" line="519"/>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="533"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>File Open Error</source>
         <translation>Fil-öppningsfel</translation>
     </message>
@@ -128,66 +128,62 @@
         <translation>Kunde inte öppna fil. Vill du försöka igen?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>File Not Found</source>
         <translation>Fil ej hittad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>The file %1 does not exist.</source>
         <translation>Filen %1 finns inte.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="519"/>
+        <location filename="../mainwindow.cpp" line="533"/>
         <source>Could not open file: </source>
         <translation>Kunde inte öppna fil:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="586"/>
+        <location filename="../mainwindow.cpp" line="600"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Version:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="589"/>
+        <location filename="../mainwindow.cpp" line="603"/>
         <source>About %1</source>
         <translation>Om %1</translation>
     </message>
     <message>
-        <source>Version: </source>
-        <translation type="vanished">Version:</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Inställbar Verktygslåda är ett verktyg för att skapa en anpassad startare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="590"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>%1 License</source>
         <translation>%1 Licens</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="597"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>%1 Help</source>
         <translation>%1 Hjälp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>Could not write file: %1</source>
         <translation>Kunde inte skriva fil: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>File Removal Error</source>
         <translation>Fel vid borttagning av fil</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>Could not remove file: %1</source>
         <translation>Kunde inte ta bort fil: %1</translation>
     </message>

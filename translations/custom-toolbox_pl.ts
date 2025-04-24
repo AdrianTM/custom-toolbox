@@ -83,17 +83,17 @@
         <location filename="../mainwindow.cpp" line="231"/>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Execution Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd wykonania</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="231"/>
         <source>Failed to execute command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się wykonać polecenia: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Failed to start program: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się uruchomić programu: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="278"/>
@@ -108,88 +108,84 @@
     <message>
         <location filename="../mainwindow.cpp" line="280"/>
         <source>File Selection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd wyboru pliku</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="280"/>
         <source>No file selected. Application will now exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie wybrano pliku. Aplikacja zostanie teraz zamknięta.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="286"/>
-        <location filename="../mainwindow.cpp" line="519"/>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="533"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>File Open Error</source>
         <translation>Błąd otwierania pliku</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="287"/>
         <source>Could not open file. Do you want to try again?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku. Czy chcesz spróbować ponownie?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>File Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono pliku</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>The file %1 does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik %1 nie istnieje.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="519"/>
+        <location filename="../mainwindow.cpp" line="533"/>
         <source>Could not open file: </source>
         <translation>Nie można otworzyć&#xa0;pliku:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="586"/>
+        <location filename="../mainwindow.cpp" line="600"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="589"/>
+        <location filename="../mainwindow.cpp" line="603"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
     <message>
-        <source>Version: </source>
-        <translation type="vanished">Wersja:</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Custom Toolbox is a tool used for creating a custom launcher</source>
         <translation>Custom Toolbox to narzędzie służące do tworzenia niestandardowego programu uruchamiającego</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Prawa autorskie © MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="590"/>
+        <location filename="../mainwindow.cpp" line="604"/>
         <source>%1 License</source>
         <translation>%1 Licencja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="597"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>%1 Help</source>
         <translation>%1 Pomoc</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>Could not write file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zapisać pliku: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>File Removal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd usuwania pliku</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="643"/>
+        <location filename="../mainwindow.cpp" line="657"/>
         <source>Could not remove file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można usunąć pliku: %1</translation>
     </message>
 </context>
 <context>
