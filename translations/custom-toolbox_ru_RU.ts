@@ -83,17 +83,17 @@
         <location filename="../mainwindow.cpp" line="231"/>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Execution Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка выполнения</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="231"/>
         <source>Failed to execute command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось выполнить команду: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>Failed to start program: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить программу: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="278"/>
