@@ -227,7 +227,7 @@ void MainWindow::btn_clicked()
     if (hideGUI || cmd.startsWith("pkexec")) {
         hide();
         int exitCode = system(cmd.toUtf8());
-        if (exitCode == -1) {
+        if (exitCode != 0) {
             QMessageBox::warning(this, tr("Execution Error"), tr("Failed to execute command: %1").arg(cmd));
         }
         show();
@@ -497,11 +497,9 @@ void MainWindow::processLine(const QString &line)
                 if (hasAlias) {
                     const int aliasIndex = keyTokens.indexOf("alias");
                     if (aliasIndex >= 0 && aliasIndex + 1 < keyTokens.size()) {
-                        if (aliasIndex + 1 < keyTokens.size()) {
-                            info.name = keyTokens.mid(aliasIndex + 1).join(' ').trimmed().remove('\'').remove('"');
-                        } else {
-                            qWarning() << "Alias keyword found but no valid alias name provided.";
-                        }
+                        info.name = keyTokens.mid(aliasIndex + 1).join(' ').trimmed().remove('\'').remove('"');
+                    } else {
+                        qWarning() << "Alias keyword found but no valid alias name provided.";
                     }
                 }
             }

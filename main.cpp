@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     if (loginUidFile.open(QIODevice::ReadOnly)) {
         QString loginUid = QString(loginUidFile.readAll()).trimmed();
         loginUidFile.close();
-        if (loginUid == '0') {
+        if (loginUid == "0") {
             QMessageBox::critical(
                 nullptr, QObject::tr("Error"),
                 QObject::tr(
