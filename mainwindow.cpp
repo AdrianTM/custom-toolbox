@@ -662,10 +662,8 @@ void MainWindow::pushEdit_clicked()
     QString editor = gui_editor.isEmpty() || QStandardPaths::findExecutable(gui_editor, {defaultPath}).isEmpty()
                          ? getDefaultEditor()
                          : gui_editor;
-
-    QStringList editorCommands = buildEditorCommand(editor);
-    QString cmd = editorCommands.join(' ') + ' ' + editor + ' ' + file_name;
-    system(cmd.toUtf8());
+    QStringList cmdList = buildEditorCommand(editor) << editor << file_name;
+    QProcess::startDetached(cmdList.join(' '));
     readFile(file_name);
     setGui();
 }
@@ -690,8 +688,8 @@ QString MainWindow::getDefaultEditor()
         if (line.startsWith("Exec=")) {
             // Extract the command from the Exec line and remove common desktop file parameters
             return line.remove(QRegularExpression("^Exec="))
-                       .remove(QRegularExpression("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b"))
-                       .trimmed();
+                .remove(QRegularExpression("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b"))
+                .trimmed();
         }
     }
 
