@@ -25,9 +25,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <algorithm>
 #include <QDebug>
 #include <QDirIterator>
 #include <QFileDialog>
+#include <QHash>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QResizeEvent>
@@ -71,97 +73,102 @@ MainWindow::~MainWindow()
 
 QIcon MainWindow::findIcon(const QString &iconName)
 {
+    static QHash<QString, QIcon> iconCache;
+    static QIcon defaultIcon;
+    static bool defaultIconLoaded = false;
+
+    if (iconName.isEmpty()) {
+        if (!defaultIconLoaded) {
+            defaultIcon = findIcon(QStringLiteral("utilities-terminal"));
+            defaultIconLoaded = true;
+        }
+        return defaultIcon;
+    }
+
+    // Check cache first
+    auto cacheIt = iconCache.find(iconName);
+    if (cacheIt != iconCache.end()) {
+        return *cacheIt;
+    }
+
+    // Check if the icon name is an absolute path and exists
+    if (QFileInfo(iconName).isAbsolute() && QFile::exists(iconName)) {
+        QIcon icon(iconName);
+        iconCache.insert(iconName, icon);
+        return icon;
+    }
+
+    // Prepare regular expression to strip extension
     static const QRegularExpression re(R"(\.(png|svg|xpm)$)");
-    static const QStringList extensions {".png", ".svg", ".xpm"};
-    static const QStringList searchPaths {QDir::homePath() + "/.local/share/icons/",
-                                          "/usr/share/pixmaps/",
-                                          "/usr/local/share/icons/",
-                                          "/usr/share/icons/",
-                                          "/usr/share/icons/hicolor/scalable/apps/",
-                                          "/usr/share/icons/hicolor/48x48/apps/",
-                                          "/usr/share/icons/Adwaita/48x48/legacy/"};
-
-    // Helper function to search for icon in all paths
-    static const auto searchInPaths = [&](const QString &name) -> QIcon {
-        for (const auto &path : searchPaths) {
-            const QString fullPath = QDir(path).filePath(name);
-            if (QFile::exists(fullPath)) {
-                QIcon icon(fullPath);
-                if (!icon.isNull()) {
-                    return icon;
-                }
-            }
-        }
-        return QIcon();
-    };
-
-    // Initialize default terminal icon once when needed
-    static const auto getDefaultIcon = []() {
-        static QIcon defaultIcon;
-        if (!defaultIcon.isNull()) {
-            return defaultIcon;
-        }
-
-        const QString defaultIconName = "utilities-terminal";
-        defaultIcon = QIcon::fromTheme(defaultIconName);
-        if (!defaultIcon.isNull()) {
-            return defaultIcon;
-        }
-
-        for (const auto &ext : extensions) {
-            defaultIcon = searchInPaths(defaultIconName + ext);
-            if (!defaultIcon.isNull()) {
-                return defaultIcon;
-            }
-        }
-        return QIcon();
-    };
-
-    // Handle empty or default icon name
-    if (iconName.isEmpty() || iconName == "utilities-terminal") {
-        return getDefaultIcon();
-    }
-
-    // Handle absolute paths
-    if (QFileInfo::exists(iconName) && QFileInfo(iconName).isAbsolute()) {
-        return QIcon(iconName);
-    }
-
-    // Try themed icon first
     QString nameNoExt = iconName;
     nameNoExt.remove(re);
 
+    // Set theme if specified
     if (!icon_theme.isEmpty()) {
         QIcon::setThemeName(icon_theme);
     }
 
-    QIcon icon = QIcon::fromTheme(nameNoExt);
-    if (!icon.isNull()) {
+    // Return the themed icon if available
+    if (QIcon::hasThemeIcon(nameNoExt)) {
+        QIcon icon = QIcon::fromTheme(nameNoExt);
+        iconCache.insert(iconName, icon);
         return icon;
     }
 
-    // Try original name
-    icon = searchInPaths(iconName);
-    if (!icon.isNull()) {
+    // Define common search paths for icons
+    QStringList searchPaths {QDir::homePath() + QStringLiteral("/.local/share/icons/"),
+                             QStringLiteral("/usr/share/pixmaps/"),
+                             QStringLiteral("/usr/local/share/icons/"),
+                             QStringLiteral("/usr/share/icons/"),
+                             QStringLiteral("/usr/share/icons/hicolor/scalable/apps/"),
+                             QStringLiteral("/usr/share/icons/hicolor/48x48/apps/"),
+                             QStringLiteral("/usr/share/icons/Adwaita/48x48/legacy/")};
+
+    // Optimization: search first for the full iconName with the specified extension
+    auto it = std::find_if(searchPaths.cbegin(), searchPaths.cend(),
+                           [&](const QString &path) { return QFile::exists(path + iconName); });
+    if (it != searchPaths.cend()) {
+        QIcon icon(*it + iconName);
+        iconCache.insert(iconName, icon);
         return icon;
     }
 
-    // Try with each extension
-    for (const auto &ext : extensions) {
-        icon = searchInPaths(nameNoExt + ext);
-        if (!icon.isNull()) {
-            return icon;
+    // Search for the icon without extension in the specified paths
+    for (const QString &path : searchPaths) {
+        if (!QFile::exists(path)) {
+            continue;
+        }
+        for (const auto &ext : {QStringLiteral(".png"), QStringLiteral(".svg"), QStringLiteral(".xpm")}) {
+            const QString file = path + nameNoExt + ext;
+            if (QFile::exists(file)) {
+                QIcon icon(file);
+                iconCache.insert(iconName, icon);
+                return icon;
+            }
         }
     }
 
-    // Fall back to the default icon if nothing else was found.
-    return getDefaultIcon();
+    // If the icon is "utilities-terminal" and not found, return the default icon if it's already loaded
+    if (iconName == QStringLiteral("utilities-terminal")) {
+        if (!defaultIconLoaded) {
+            defaultIcon = QIcon();
+            defaultIconLoaded = true;
+        }
+        iconCache.insert(iconName, defaultIcon);
+        return defaultIcon;
+    }
+
+    // If the icon is not "utilities-terminal", try to load the default icon
+    QIcon fallbackIcon = findIcon(QStringLiteral("utilities-terminal"));
+    iconCache.insert(iconName, fallbackIcon);
+    return fallbackIcon;
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
 void MainWindow::fixExecItem(QString *item)
 {
-    item->remove(QRegularExpression(R"( %[a-zA-Z])"));
+    static const QRegularExpression execPattern(R"( %[a-zA-Z])");
+    item->remove(execPattern);
 }
 
 void MainWindow::fixNameItem(QString *item)
@@ -296,20 +303,62 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the given app name
 QString MainWindow::getDesktopFileName(const QString &appName) const
 {
+    // Static cache to avoid repeated filesystem searches
+    static QHash<QString, QString> desktopFileCache;
+    static QHash<QString, bool> executableCache; // Cache executable existence
+    
+    // Check cache first
+    if (desktopFileCache.contains(appName)) {
+        return desktopFileCache[appName];
+    }
+    
+    QString result;
+    
     // Search for .desktop files in standard applications locations
-    const QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    static const QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
 
     // Search for .desktop file in each path
     const QString desktopFileName = appName + ".desktop";
     for (const QString &searchPath : searchPaths) {
         const QString fullPath = QDir(searchPath).absoluteFilePath(desktopFileName);
         if (QFile::exists(fullPath)) {
-            return fullPath;
+            result = fullPath;
+            break;
         }
     }
-    // If .desktop file not found, fallback to finding the executable
-    const QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
-    return !executablePath.isEmpty() ? QFileInfo(executablePath).fileName() : QString();
+    
+    // If .desktop file not found, check executable cache first
+    if (result.isEmpty()) {
+        if (executableCache.contains(appName)) {
+            // Use cached result
+            result = executableCache[appName] ? appName : QString();
+        } else {
+            // Optimized executable search - check common paths directly first
+            static const QStringList commonPaths = {"/usr/bin/", "/bin/", "/usr/sbin/", "/sbin/"};
+            bool found = false;
+            
+            for (const QString &path : commonPaths) {
+                if (QFile::exists(path + appName)) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            // Fallback to slower QStandardPaths::findExecutable only if not found
+            if (!found) {
+                const QString executablePath = QStandardPaths::findExecutable(appName, defaultPath);
+                found = !executablePath.isEmpty();
+            }
+            
+            // Cache the executable existence result
+            executableCache[appName] = found;
+            result = found ? appName : QString();
+        }
+    }
+    
+    // Cache the final result (even if empty to avoid repeated failed lookups)
+    desktopFileCache[appName] = result;
+    return result;
 }
 
 // Return the app info needed for the button
@@ -351,7 +400,8 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
         return value;
     };
 
-    item.name = matchLocalizedField("Name").remove(QRegularExpression("^MX "));
+    static const QRegularExpression mxPrefixPattern("^MX ");
+    item.name = matchLocalizedField("Name").remove(mxPrefixPattern);
     item.comment = matchLocalizedField("Comment");
     item.exec = matchPattern("^Exec=(.*)$");
     item.icon_name = matchPattern("^Icon=(.*)$");
@@ -542,7 +592,7 @@ void MainWindow::readFile(const QString &file_name)
     ui->commentLabel->setText(comment);
 
     const auto lines = text.split('\n');
-    QRegularExpression skipPattern("^(Name|Comment|#|$).*");
+    static const QRegularExpression skipPattern("^(Name|Comment|#|$).*");
     for (const QString &line : lines) {
         if (!skipPattern.match(line).hasMatch()) {
             processLine(line);
@@ -552,10 +602,19 @@ void MainWindow::readFile(const QString &file_name)
 
 QString MainWindow::extractPattern(const QString &text, const QString &key)
 {
+    static QHash<QString, QRegularExpression> regexCache;
+    
     QString pattern = QString("^%1\\[").arg(key) + lang + "]=(.*)$";
     QString fallbackPattern = QString("^%1=(.*)$").arg(key);
-    QRegularExpression re(pattern);
-    re.setPatternOptions(QRegularExpression::MultilineOption);
+    
+    // Check cache for this pattern
+    QRegularExpression re;
+    if (regexCache.contains(pattern)) {
+        re = regexCache[pattern];
+    } else {
+        re = QRegularExpression(pattern, QRegularExpression::MultilineOption);
+        regexCache[pattern] = re;
+    }
     QRegularExpressionMatch match = re.match(text);
 
     if (match.hasMatch()) {
@@ -563,14 +622,24 @@ QString MainWindow::extractPattern(const QString &text, const QString &key)
     }
 
     pattern = QString("^%1\\[").arg(key) + lang.section('_', 0, 0) + "]=(.*)$";
-    re.setPattern(pattern);
+    if (regexCache.contains(pattern)) {
+        re = regexCache[pattern];
+    } else {
+        re = QRegularExpression(pattern, QRegularExpression::MultilineOption);
+        regexCache[pattern] = re;
+    }
     match = re.match(text);
 
     if (match.hasMatch()) {
         return match.captured(1);
     }
 
-    re.setPattern(fallbackPattern);
+    if (regexCache.contains(fallbackPattern)) {
+        re = regexCache[fallbackPattern];
+    } else {
+        re = QRegularExpression(fallbackPattern, QRegularExpression::MultilineOption);
+        regexCache[fallbackPattern] = re;
+    }
     match = re.match(text);
 
     return match.hasMatch() ? match.captured(1) : QString();
@@ -687,8 +756,10 @@ QString MainWindow::getDefaultEditor()
     while (in.readLineInto(&line)) {
         if (line.startsWith("Exec=")) {
             // Extract the command from the Exec line and remove common desktop file parameters
-            return line.remove(QRegularExpression("^Exec="))
-                .remove(QRegularExpression("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b"))
+            static const QRegularExpression execPrefixPattern("^Exec=");
+            static const QRegularExpression paramPattern("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b");
+            return line.remove(execPrefixPattern)
+                .remove(paramPattern)
                 .trimmed();
         }
     }
@@ -699,9 +770,10 @@ QString MainWindow::getDefaultEditor()
 QStringList MainWindow::buildEditorCommand(const QString &editor)
 {
     const bool isRoot = getuid() == 0;
-    const bool isEditorThatElevates
-        = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
-    const bool isCliEditor = QRegularExpression(R"(nano|vi|vim|nvim|micro|emacs)").match(editor).hasMatch();
+    static const QRegularExpression elevatesPattern(R"((kate|kwrite|featherpad|code|codium)$)");
+    static const QRegularExpression cliPattern(R"(nano|vi|vim|nvim|micro|emacs)");
+    const bool isEditorThatElevates = elevatesPattern.match(editor).hasMatch();
+    const bool isCliEditor = cliPattern.match(editor).hasMatch();
 
     QStringList editorCommands;
     if (isRoot && isEditorThatElevates) {
