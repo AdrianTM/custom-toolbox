@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/i18n">
+    <file alias="custom-toolbox_en.qm">/home/adrian/Sync/programs/qt/custom-toolbox/build/custom-toolbox_en.qm</file>
+  </qresource>
+</RCC>
+

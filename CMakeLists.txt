@@ -1,0 +1,148 @@
+# **********************************************************************
+# * Copyright (C) 2017-2024 MX Authors
+# *
+# * Authors: Adrian
+# *          MX Linux <http://mxlinux.org>
+# *
+# * This file is part of custom-toolbox.
+# *
+# * custom-toolbox is free software: you can redistribute it and/or modify
+# * it under the terms of the GNU General Public License as published by
+# * the Free Software Foundation, either version 3 of the License, or
+# * (at your option) any later version.
+# *
+# * custom-toolbox is distributed in the hope that it will be useful,
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# * GNU General Public License for more details.
+# *
+# * You should have received a copy of the GNU General Public License
+# * along with custom-toolbox.  If not, see <http://www.gnu.org/licenses/>.
+# **********************************************************************/
+
+cmake_minimum_required(VERSION 3.16)
+
+project(custom-toolbox
+    VERSION 25.4
+    DESCRIPTION "Custom Toolbox - Program for creating custom launchers for MX Linux"
+    LANGUAGES CXX
+)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Option to use clang for testing builds
+option(USE_CLANG "Use clang compiler" OFF)
+if(USE_CLANG)
+    set(CMAKE_C_COMPILER clang)
+    set(CMAKE_CXX_COMPILER clang++)
+    set(CMAKE_CXX_COMPILER_ID "Clang")
+    message(STATUS "Using clang compiler")
+endif()
+
+# Find Qt6 components
+find_package(Qt6 REQUIRED COMPONENTS
+    Core
+    Gui
+    Widgets
+    LinguistTools
+)
+
+# Enable automatic MOC, UIC, and RCC processing
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# Define source files
+set(SOURCES
+    main.cpp
+    mainwindow.cpp
+    flatbutton.cpp
+    about.cpp
+)
+
+set(HEADERS
+    mainwindow.h
+    flatbutton.h
+    about.h
+    common.h
+)
+
+set(UI_FILES
+    mainwindow.ui
+)
+
+set(RESOURCE_FILES
+    images.qrc
+)
+
+set(TRANSLATION_FILES
+    translations/custom-toolbox_en.ts
+)
+
+# Create the executable
+add_executable(custom-toolbox
+    ${SOURCES}
+    ${HEADERS}
+    ${UI_FILES}
+    ${RESOURCE_FILES}
+)
+
+# Link Qt6 libraries
+target_link_libraries(custom-toolbox
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+)
+
+# Set compiler flags
+target_compile_options(custom-toolbox PRIVATE
+    -Wpedantic
+    -pedantic
+    -Werror=return-type
+    -Werror=switch
+    -Werror=uninitialized
+    -Werror
+)
+
+# Add compiler-specific flags
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR USE_CLANG)
+    target_compile_options(custom-toolbox PRIVATE -Werror=return-stack-address)
+else()
+    target_compile_options(custom-toolbox PRIVATE -Werror=return-local-addr)
+endif()
+
+# Set compile definitions
+target_compile_definitions(custom-toolbox PRIVATE
+    QT_DEPRECATED_WARNINGS
+    QT_DISABLE_DEPRECATED_BEFORE=0x060000
+)
+
+# Release-specific optimizations
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(custom-toolbox PRIVATE NDEBUG)
+    target_compile_options(custom-toolbox PRIVATE -O3)
+    
+    # Only add LTO for GCC, not Clang
+    if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT USE_CLANG)
+        target_compile_options(custom-toolbox PRIVATE -flto=auto)
+        target_link_options(custom-toolbox PRIVATE -flto=auto)
+    endif()
+endif()
+
+# Handle translations
+qt6_add_translations(custom-toolbox
+    TS_FILES ${TRANSLATION_FILES}
+)
+
+# Set target properties
+set_target_properties(custom-toolbox PROPERTIES
+    OUTPUT_NAME "custom-toolbox"
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
+# Installation
+install(TARGETS custom-toolbox
+    RUNTIME DESTINATION bin
+)
