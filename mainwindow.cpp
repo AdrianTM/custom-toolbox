@@ -25,11 +25,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <algorithm>
 #include <QDebug>
 #include <QDirIterator>
 #include <QFileDialog>
-#include <QHash>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QResizeEvent>
@@ -37,6 +35,7 @@
 #include <QScrollBar>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QStringView>
 #include <QTextEdit>
 
 #include "about.h"
@@ -73,108 +72,121 @@ MainWindow::~MainWindow()
 
 QIcon MainWindow::findIcon(const QString &iconName)
 {
+    // Simple icon cache to avoid repeated filesystem lookups
     static QHash<QString, QIcon> iconCache;
-    static QIcon defaultIcon;
-    static bool defaultIconLoaded = false;
-
-    if (iconName.isEmpty()) {
-        if (!defaultIconLoaded) {
-            defaultIcon = findIcon(QStringLiteral("utilities-terminal"));
-            defaultIconLoaded = true;
-        }
-        return defaultIcon;
-    }
 
     // Check cache first
-    auto cacheIt = iconCache.find(iconName);
-    if (cacheIt != iconCache.end()) {
-        return *cacheIt;
+    if (iconCache.contains(iconName)) {
+        return iconCache[iconName];
     }
 
-    // Check if the icon name is an absolute path and exists
-    if (QFileInfo(iconName).isAbsolute() && QFile::exists(iconName)) {
-        QIcon icon(iconName);
-        iconCache.insert(iconName, icon);
-        return icon;
-    }
-
-    // Prepare regular expression to strip extension
     static const QRegularExpression re(R"(\.(png|svg|xpm)$)");
+    static const QStringList extensions {".png", ".svg", ".xpm"};
+    static const QStringList searchPaths {QDir::homePath() + "/.local/share/icons/",
+                                          "/usr/share/pixmaps/",
+                                          "/usr/local/share/icons/",
+                                          "/usr/share/icons/",
+                                          "/usr/share/icons/hicolor/scalable/apps/",
+                                          "/usr/share/icons/hicolor/48x48/apps/",
+                                          "/usr/share/icons/Adwaita/48x48/legacy/"};
+
+    // Helper function to search for icon in all paths
+    static const auto searchInPaths = [&](const QString &name) -> QIcon {
+        for (const auto &path : searchPaths) {
+            const QString fullPath = QDir(path).filePath(name);
+            if (QFile::exists(fullPath)) {
+                QIcon icon(fullPath);
+                if (!icon.isNull()) {
+                    return icon;
+                }
+            }
+        }
+        return QIcon();
+    };
+
+    // Initialize default terminal icon once when needed
+    static const auto getDefaultIcon = []() {
+        static QIcon defaultIcon;
+        if (!defaultIcon.isNull()) {
+            return defaultIcon;
+        }
+
+        const QString defaultIconName = "utilities-terminal";
+        defaultIcon = QIcon::fromTheme(defaultIconName);
+        if (!defaultIcon.isNull()) {
+            return defaultIcon;
+        }
+
+        for (const auto &ext : extensions) {
+            defaultIcon = searchInPaths(defaultIconName + ext);
+            if (!defaultIcon.isNull()) {
+                return defaultIcon;
+            }
+        }
+        return QIcon();
+    };
+
+    // Handle empty or default icon name
+    if (iconName.isEmpty() || iconName == "utilities-terminal") {
+        QIcon result = getDefaultIcon();
+        iconCache[iconName] = result;
+        return result;
+    }
+
+    // Handle absolute paths
+    if (QFileInfo::exists(iconName) && QFileInfo(iconName).isAbsolute()) {
+        QIcon result(iconName);
+        iconCache[iconName] = result;
+        return result;
+    }
+
+    // Try themed icon first
     QString nameNoExt = iconName;
     nameNoExt.remove(re);
 
-    // Set theme if specified
     if (!icon_theme.isEmpty()) {
         QIcon::setThemeName(icon_theme);
     }
 
-    // Return the themed icon if available
-    if (QIcon::hasThemeIcon(nameNoExt)) {
-        QIcon icon = QIcon::fromTheme(nameNoExt);
-        iconCache.insert(iconName, icon);
+    QIcon icon = QIcon::fromTheme(nameNoExt);
+    if (!icon.isNull()) {
+        iconCache[iconName] = icon;
         return icon;
     }
 
-    // Define common search paths for icons
-    QStringList searchPaths {QDir::homePath() + QStringLiteral("/.local/share/icons/"),
-                             QStringLiteral("/usr/share/pixmaps/"),
-                             QStringLiteral("/usr/local/share/icons/"),
-                             QStringLiteral("/usr/share/icons/"),
-                             QStringLiteral("/usr/share/icons/hicolor/scalable/apps/"),
-                             QStringLiteral("/usr/share/icons/hicolor/48x48/apps/"),
-                             QStringLiteral("/usr/share/icons/Adwaita/48x48/legacy/")};
-
-    // Optimization: search first for the full iconName with the specified extension
-    auto it = std::find_if(searchPaths.cbegin(), searchPaths.cend(),
-                           [&](const QString &path) { return QFile::exists(path + iconName); });
-    if (it != searchPaths.cend()) {
-        QIcon icon(*it + iconName);
-        iconCache.insert(iconName, icon);
+    // Try original name
+    icon = searchInPaths(iconName);
+    if (!icon.isNull()) {
+        iconCache[iconName] = icon;
         return icon;
     }
 
-    // Search for the icon without extension in the specified paths
-    for (const QString &path : searchPaths) {
-        if (!QFile::exists(path)) {
-            continue;
-        }
-        for (const auto &ext : {QStringLiteral(".png"), QStringLiteral(".svg"), QStringLiteral(".xpm")}) {
-            const QString file = path + nameNoExt + ext;
-            if (QFile::exists(file)) {
-                QIcon icon(file);
-                iconCache.insert(iconName, icon);
-                return icon;
-            }
+    // Try with each extension
+    for (const auto &ext : extensions) {
+        icon = searchInPaths(nameNoExt + ext);
+        if (!icon.isNull()) {
+            iconCache[iconName] = icon;
+            return icon;
         }
     }
 
-    // If the icon is "utilities-terminal" and not found, return the default icon if it's already loaded
-    if (iconName == QStringLiteral("utilities-terminal")) {
-        if (!defaultIconLoaded) {
-            defaultIcon = QIcon();
-            defaultIconLoaded = true;
-        }
-        iconCache.insert(iconName, defaultIcon);
-        return defaultIcon;
-    }
-
-    // If the icon is not "utilities-terminal", try to load the default icon
-    QIcon fallbackIcon = findIcon(QStringLiteral("utilities-terminal"));
-    iconCache.insert(iconName, fallbackIcon);
-    return fallbackIcon;
+    // Fall back to the default icon if nothing else was found.
+    QIcon result = getDefaultIcon();
+    // iconCache[iconName] = result;
+    return result;
 }
 
 // Strip %f, %F, %U, etc. if exec expects a file name since it's called without an argument from this launcher.
 void MainWindow::fixExecItem(QString *item)
 {
-    static const QRegularExpression execPattern(R"( %[a-zA-Z])");
+    static const QRegularExpression execPattern(QStringLiteral(R"( %[a-zA-Z])"));
     item->remove(execPattern);
 }
 
 void MainWindow::fixNameItem(QString *item)
 {
-    static const QString oldName = "System Profiler and Benchmark";
-    static const QString newName = "System Information";
+    static const QString oldName = QStringLiteral("System Profiler and Benchmark");
+    static const QString newName = QStringLiteral("System Information");
 
     if (*item == oldName) {
         *item = newName;
@@ -303,22 +315,21 @@ QString MainWindow::getFileName()
 // Find the .desktop file for the given app name
 QString MainWindow::getDesktopFileName(const QString &appName) const
 {
-    // Static cache to avoid repeated filesystem searches
+    // Simple static cache to avoid repeated lookups
     static QHash<QString, QString> desktopFileCache;
-    static QHash<QString, bool> executableCache; // Cache executable existence
-    
+
     // Check cache first
     if (desktopFileCache.contains(appName)) {
         return desktopFileCache[appName];
     }
-    
-    QString result;
-    
+
     // Search for .desktop files in standard applications locations
-    static const QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    const QStringList searchPaths = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
 
     // Search for .desktop file in each path
     const QString desktopFileName = appName + ".desktop";
+    QString result;
+
     for (const QString &searchPath : searchPaths) {
         const QString fullPath = QDir(searchPath).absoluteFilePath(desktopFileName);
         if (QFile::exists(fullPath)) {
@@ -326,37 +337,14 @@ QString MainWindow::getDesktopFileName(const QString &appName) const
             break;
         }
     }
-    
-    // If .desktop file not found, check executable cache first
+
+    // If .desktop file not found, fallback to finding the executable
     if (result.isEmpty()) {
-        if (executableCache.contains(appName)) {
-            // Use cached result
-            result = executableCache[appName] ? appName : QString();
-        } else {
-            // Optimized executable search - check common paths directly first
-            static const QStringList commonPaths = {"/usr/bin/", "/bin/", "/usr/sbin/", "/sbin/"};
-            bool found = false;
-            
-            for (const QString &path : commonPaths) {
-                if (QFile::exists(path + appName)) {
-                    found = true;
-                    break;
-                }
-            }
-            
-            // Fallback to slower QStandardPaths::findExecutable only if not found
-            if (!found) {
-                const QString executablePath = QStandardPaths::findExecutable(appName, defaultPath);
-                found = !executablePath.isEmpty();
-            }
-            
-            // Cache the executable existence result
-            executableCache[appName] = found;
-            result = found ? appName : QString();
-        }
+        const QString executablePath = QStandardPaths::findExecutable(appName, {defaultPath});
+        result = !executablePath.isEmpty() ? QFileInfo(executablePath).fileName() : QString();
     }
-    
-    // Cache the final result (even if empty to avoid repeated failed lookups)
+
+    // Cache the result (even if empty to avoid repeated failed lookups)
     desktopFileCache[appName] = result;
     return result;
 }
@@ -400,8 +388,7 @@ MainWindow::ItemInfo MainWindow::getDesktopFileInfo(const QString &fileName)
         return value;
     };
 
-    static const QRegularExpression mxPrefixPattern("^MX ");
-    item.name = matchLocalizedField("Name").remove(mxPrefixPattern);
+    item.name = matchLocalizedField("Name").remove(QRegularExpression("^MX "));
     item.comment = matchLocalizedField("Comment");
     item.exec = matchPattern("^Exec=(.*)$");
     item.icon_name = matchPattern("^Icon=(.*)$");
@@ -566,6 +553,7 @@ void MainWindow::processLine(const QString &line)
 void MainWindow::readFile(const QString &file_name)
 {
     categories.clear();
+    categories.reserve(20); // Reserve space for typical number of categories
     category_map.clear();
 
     QFile file(file_name);
@@ -591,57 +579,58 @@ void MainWindow::readFile(const QString &file_name)
     setWindowTitle(name);
     ui->commentLabel->setText(comment);
 
-    const auto lines = text.split('\n');
-    static const QRegularExpression skipPattern("^(Name|Comment|#|$).*");
-    for (const QString &line : lines) {
-        if (!skipPattern.match(line).hasMatch()) {
-            processLine(line);
+    // Process line by line without creating intermediate QStringList
+    static const QRegularExpression skipPattern(QStringLiteral("^(Name|Comment|#|$).*"));
+
+    QStringView textView(text);
+    qsizetype pos = 0;
+    while (pos < textView.size()) {
+        qsizetype endPos = textView.indexOf(QLatin1Char('\n'), pos);
+        if (endPos == -1) {
+            endPos = textView.size();
         }
+
+        QStringView lineView = textView.mid(pos, endPos - pos);
+        if (!lineView.isEmpty() && !skipPattern.match(lineView).hasMatch()) {
+            processLine(lineView.toString());
+        }
+
+        pos = endPos + 1;
     }
 }
 
 QString MainWindow::extractPattern(const QString &text, const QString &key)
 {
+    // Cache regex patterns to avoid recompilation
     static QHash<QString, QRegularExpression> regexCache;
-    
-    QString pattern = QString("^%1\\[").arg(key) + lang + "]=(.*)$";
-    QString fallbackPattern = QString("^%1=(.*)$").arg(key);
-    
-    // Check cache for this pattern
-    QRegularExpression re;
-    if (regexCache.contains(pattern)) {
-        re = regexCache[pattern];
-    } else {
-        re = QRegularExpression(pattern, QRegularExpression::MultilineOption);
-        regexCache[pattern] = re;
-    }
-    QRegularExpressionMatch match = re.match(text);
 
+    QString pattern = QStringLiteral("^%1\\[%2]=(.*)$").arg(key, lang);
+    QString fallbackPattern = QStringLiteral("^%1=(.*)$").arg(key);
+    QString langShortPattern = QStringLiteral("^%1\\[%2]=(.*)$").arg(key, lang.section('_', 0, 0));
+
+    // Check full language pattern
+    if (!regexCache.contains(pattern)) {
+        regexCache[pattern] = QRegularExpression(pattern, QRegularExpression::MultilineOption);
+    }
+    QRegularExpressionMatch match = regexCache[pattern].match(text);
     if (match.hasMatch()) {
         return match.captured(1);
     }
 
-    pattern = QString("^%1\\[").arg(key) + lang.section('_', 0, 0) + "]=(.*)$";
-    if (regexCache.contains(pattern)) {
-        re = regexCache[pattern];
-    } else {
-        re = QRegularExpression(pattern, QRegularExpression::MultilineOption);
-        regexCache[pattern] = re;
+    // Check short language pattern
+    if (!regexCache.contains(langShortPattern)) {
+        regexCache[langShortPattern] = QRegularExpression(langShortPattern, QRegularExpression::MultilineOption);
     }
-    match = re.match(text);
-
+    match = regexCache[langShortPattern].match(text);
     if (match.hasMatch()) {
         return match.captured(1);
     }
 
-    if (regexCache.contains(fallbackPattern)) {
-        re = regexCache[fallbackPattern];
-    } else {
-        re = QRegularExpression(fallbackPattern, QRegularExpression::MultilineOption);
-        regexCache[fallbackPattern] = re;
+    // Check fallback pattern
+    if (!regexCache.contains(fallbackPattern)) {
+        regexCache[fallbackPattern] = QRegularExpression(fallbackPattern, QRegularExpression::MultilineOption);
     }
-    match = re.match(text);
-
+    match = regexCache[fallbackPattern].match(text);
     return match.hasMatch() ? match.captured(1) : QString();
 }
 
@@ -680,11 +669,20 @@ void MainWindow::pushHelp_clicked()
 
 void MainWindow::textSearch_textChanged(const QString &searchText)
 {
+    // Early return for empty search - show all items
+    if (searchText.isEmpty()) {
+        addButtons(category_map);
+        return;
+    }
+
+    // Use QStringView for efficient string matching
+    const QStringView searchView(searchText);
+
     // Create a lambda function to check if an item matches the search text
-    auto matchesSearchText = [&searchText](const ItemInfo &item) {
-        return item.name.contains(searchText, Qt::CaseInsensitive)
-               || item.comment.contains(searchText, Qt::CaseInsensitive)
-               || item.category.contains(searchText, Qt::CaseInsensitive);
+    auto matchesSearchText = [&searchView](const ItemInfo &item) {
+        return QStringView(item.name).contains(searchView, Qt::CaseInsensitive)
+               || QStringView(item.comment).contains(searchView, Qt::CaseInsensitive)
+               || QStringView(item.category).contains(searchView, Qt::CaseInsensitive);
     };
 
     // Filter category_map to only include items that match the search text
@@ -758,9 +756,7 @@ QString MainWindow::getDefaultEditor()
             // Extract the command from the Exec line and remove common desktop file parameters
             static const QRegularExpression execPrefixPattern("^Exec=");
             static const QRegularExpression paramPattern("(%[a-zA-Z]|%[a-zA-Z]{1,2}|-{1,2}[a-zA-Z-]+)\\b");
-            return line.remove(execPrefixPattern)
-                .remove(paramPattern)
-                .trimmed();
+            return line.remove(execPrefixPattern).remove(paramPattern).trimmed();
         }
     }
 
