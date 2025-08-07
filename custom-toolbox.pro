@@ -43,19 +43,19 @@ QMAKE_CXXFLAGS += -Werror=uninitialized -Werror=return-local-addr -Werror
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    flatbutton.cpp \
-    about.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/flatbutton.cpp \
+    src/about.cpp
 
 HEADERS  += \
-    mainwindow.h \
-    flatbutton.h \
-    about.h \
-    common.h
+    src/mainwindow.h \
+    src/flatbutton.h \
+    src/about.h \
+    src/common.h
 
 FORMS    += \
-    mainwindow.ui
+    src/mainwindow.ui
 
 TRANSLATIONS += \
     translations/custom-toolbox_en.ts

@@ -56,21 +56,21 @@ set(CMAKE_AUTORCC ON)
 
 # Define source files
 set(SOURCES
-    main.cpp
-    mainwindow.cpp
-    flatbutton.cpp
-    about.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/flatbutton.cpp
+    src/about.cpp
 )
 
 set(HEADERS
-    mainwindow.h
-    flatbutton.h
-    about.h
-    common.h
+    src/mainwindow.h
+    src/flatbutton.h
+    src/about.h
+    src/common.h
 )
 
 set(UI_FILES
-    mainwindow.ui
+    src/mainwindow.ui
 )
 
 set(RESOURCE_FILES
