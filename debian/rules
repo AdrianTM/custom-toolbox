@@ -10,7 +10,7 @@ override_dh_auto_clean:
 
 override_dh_auto_build:
 	/usr/lib/qt6/bin/lrelease translations/*.ts
-	head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/const QString VERSION {\"\1\"};/" > version.h
+	head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/const QString VERSION {\"\1\"};/" > src/version.h
 	dh_auto_build
 
 override_dh_auto_install:
@@ -20,4 +20,4 @@ override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
 
 %:
-	dh $@ --no-automatic-dbgsym 
+	dh $@ --no-automatic-dbgsym
