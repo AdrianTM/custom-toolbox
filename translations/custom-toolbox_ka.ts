@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="uk">
+<TS version="2.1" language="ka">
 <context>
     <name>MainWindow</name>
     <message>
@@ -12,12 +12,12 @@
     <message>
         <location filename="../src/mainwindow.ui" line="63"/>
         <source>About this application</source>
-        <translation>Про цю програму</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="66"/>
         <source>About...</source>
-        <translation>Про...</translation>
+        <translation>შესახებ...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="73"/>
@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="92"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩასწორება</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="99"/>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="163"/>
         <source>Help</source>
-        <translation>Довідка</translation>
+        <translation>დახმარება</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="170"/>
@@ -57,7 +57,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="186"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="193"/>
@@ -77,7 +77,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="346"/>
         <source>search</source>
-        <translation>пошук</translation>
+        <translation>ძებნა</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="250"/>
@@ -145,12 +145,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="660"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>ვერსია:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="663"/>
         <source>About %1</source>
-        <translation>Про %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="661"/>
@@ -160,17 +160,17 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Copyright (c) MX Linux</source>
-        <translation>Авторські права (c) MX Linux</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="664"/>
         <source>%1 License</source>
-        <translation>%1 Ліцензія</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="671"/>
         <source>%1 Help</source>
-        <translation>%1 Довідка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="722"/>
@@ -193,23 +193,23 @@
     <message>
         <location filename="../src/about.cpp" line="70"/>
         <source>License</source>
-        <translation>Ліцензія</translation>
+        <translation>ლიცენზია</translation>
     </message>
     <message>
         <location filename="../src/about.cpp" line="71"/>
         <location filename="../src/about.cpp" line="81"/>
         <source>Changelog</source>
-        <translation>Список змін</translation>
+        <translation>ცვლილებების ჟურნალი</translation>
     </message>
     <message>
         <location filename="../src/about.cpp" line="72"/>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>გაუქმება</translation>
     </message>
     <message>
         <location filename="../src/about.cpp" line="94"/>
         <source>&amp;Close</source>
-        <translation>&amp;Закрити</translation>
+        <translation>&amp;დახურვა</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="80"/>
@@ -229,12 +229,12 @@
     <message>
         <location filename="../src/main.cpp" line="95"/>
         <source>Error</source>
-        <translation>Помилка</translation>
+        <translation>შეცდომა</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="96"/>
         <source>You seem to be logged in as root, please log out and log in as normal user to use this program.</source>
-        <translation>Здається, ви ввійшли як root, вийдіть із системи та увійдіть як звичайний користувач, щоб використовувати цю програму.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
