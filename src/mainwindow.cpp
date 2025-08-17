@@ -591,7 +591,11 @@ void MainWindow::readFile(const QString &file_name)
         }
 
         QStringView lineView = textView.mid(pos, endPos - pos);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+        if (!lineView.isEmpty() && !skipPattern.matchView(lineView).hasMatch()) {
+#else
         if (!lineView.isEmpty() && !skipPattern.match(lineView).hasMatch()) {
+#endif
             processLine(lineView.toString());
         }
 
