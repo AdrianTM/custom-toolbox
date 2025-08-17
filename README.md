@@ -31,40 +31,77 @@ sudo apt install custom-toolbox
 
 #### Prerequisites
 - Qt6 development libraries (Core, Gui, Widgets, LinguistTools)
-- C++20 compatible compiler (GCC 10+ or Clang 10+)
-- CMake 3.16+ or qmake6
+- C++20 compatible compiler (GCC 14+ or Clang 15+)
+- CMake 3.16+
+- Ninja build system (recommended)
 
 **Ubuntu/Debian:**
 ```bash
-sudo apt install qt6-base-dev qt6-tools-dev cmake build-essential
+sudo apt install qt6-base-dev qt6-tools-dev cmake ninja-build build-essential
 ```
 
 **Fedora:**
 ```bash
-sudo dnf install qt6-qtbase-devel qt6-qttools-devel cmake gcc-c++
+sudo dnf install qt6-qtbase-devel qt6-qttools-devel cmake ninja-build gcc-c++
 ```
 
-#### Build with CMake (Recommended)
+**For Clang (optional):**
+```bash
+sudo apt install clang  # Ubuntu/Debian
+sudo dnf install clang  # Fedora
+```
+
+#### Build with CMake + Ninja (Recommended)
 ```bash
 git clone https://github.com/MX-Linux/custom-toolbox.git
 cd custom-toolbox
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j$(nproc)
+./build.sh
 sudo cmake --install build
 ```
 
-#### Build with qmake
+#### Alternative Build Methods
+
+**Using build script with options:**
 ```bash
-git clone https://github.com/MX-Linux/custom-toolbox.git
-cd custom-toolbox
-qmake6
-make -j$(nproc)
-sudo make install
+./build.sh              # Release build
+./build.sh --debug      # Debug build
+./build.sh --clang      # Build with clang
+./build.sh --clean      # Clean rebuild
 ```
 
-#### Build Options
-- **Use Clang**: `cmake -B build -DUSE_CLANG=ON`
-- **Debug Build**: `cmake -B build -DCMAKE_BUILD_TYPE=Debug`
+**Direct CMake commands:**
+```bash
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
+```
+
+
+
+#### Build Options and Compiler Support
+
+**Compiler Selection:**
+- **GCC (default)**: Optimized builds with LTO support
+- **Clang**: Alternative compiler with different optimizations
+  ```bash
+  ./build.sh --clang
+  # OR
+  cmake -B build -DUSE_CLANG=ON
+  ```
+
+**Build Types:**
+- **Release**: Optimized build with `-O3`, LTO, and `NDEBUG`
+- **Debug**: Debug symbols, no optimization
+  ```bash
+  ./build.sh --debug
+  # OR
+  cmake -B build -DCMAKE_BUILD_TYPE=Debug
+  ```
+
+**Features:**
+- **Ninja Build System**: Fast parallel builds
+- **Colored Output**: Automatic colored diagnostics
+- **Compile Commands**: `compile_commands.json` for IDE support
+- **Automatic Version**: Version extracted from CMakeLists.txt
 
 ## Usage
 
@@ -264,39 +301,52 @@ custom-toolbox/
 ├── icons/                 # Application icons
 ├── help/                  # Help documentation
 ├── CMakeLists.txt         # CMake build configuration
-├── custom-toolbox.pro     # qmake build configuration
+├── build.sh               # Build script with options
 ├── custom-toolbox.conf    # Default configuration
 ├── example.list           # Example launcher configuration
 └── README.md             # This file
 ```
 
 ### Code Standards
-- **Language**: C++20 with strict compiler warnings
+- **Language**: C++20 with strict compiler warnings (`-Wpedantic -Werror`)
 - **Framework**: Qt6 (Core, Gui, Widgets)
-- **Build Systems**: CMake (preferred) and qmake
-- **Compiler Flags**: Pedantic warnings, treat warnings as errors
-- **Style**: Follow existing code conventions
+- **Build System**: CMake with Ninja generator
+- **Compilers**: GCC 14+ (with LTO) or Clang 15+ (default GCC)
+- **Optimizations**: `-O3` for Release, LTO for GCC builds
+- **Warnings**: All warnings as errors, pedantic mode enabled
+- **Style**: `snake_case` variables, `PascalCase` classes, minimal comments
 
 ### Contributing
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes following the code standards
-4. Test with both CMake and qmake builds
-5. Submit a pull request
+4. Test with both GCC and Clang compilers
+5. Run the application to verify functionality
+6. Submit a pull request
 
 ### Testing
 ```bash
-# Test CMake build
-cmake -B build && cmake --build build
+# Test with different compilers
+./build.sh              # GCC Release
+./build.sh --clang      # Clang Release
+./build.sh --debug      # GCC Debug
+./build.sh --clang --debug  # Clang Debug
+
+# Run the application
 ./build/custom-toolbox
 
-# Test qmake build
-qmake6 && make
-./custom-toolbox
-
 # Clean builds
-make clean  # for qmake
-rm -rf build  # for cmake
+./build.sh --clean
+```
+
+### Development Tools
+```bash
+# Generate compile_commands.json for IDEs
+cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+# Check version info
+./build/custom-toolbox --version
+./build/custom-toolbox --help
 ```
 
 ### Debug Mode
