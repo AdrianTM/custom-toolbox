@@ -33,6 +33,7 @@
 
 #include "common.h"
 #include "mainwindow.h"
+#include "version.h"
 #include <unistd.h>
 
 int main(int argc, char *argv[])
@@ -53,8 +54,10 @@ int main(int argc, char *argv[])
         qputenv("HOME", "/root");
     }
 
+    QApplication::setApplicationName("custom-toolbox");
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setOrganizationName("MX-Linux");
+    QApplication::setApplicationVersion(VERSION);
 
     QTranslator qtTran;
     if (qtTran.load("qt_" + QLocale::system().name(), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {

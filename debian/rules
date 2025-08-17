@@ -2,16 +2,20 @@
 export QT_SELECT=6
 
 override_dh_auto_configure:
-	qmake6 DEFINES+=NO_DEBUG_ON_CONSOLE
+	dh_auto_configure -- \
+		-G Ninja \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 override_dh_auto_clean:
 	dh_auto_clean
 	rm -f translations/*.qm
 
 override_dh_auto_build:
-	/usr/lib/qt6/bin/lrelease translations/*.ts
-	head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/const QString VERSION {\"\1\"};/" > src/version.h
 	dh_auto_build
+
+override_dh_auto_test:
+	# Skip tests - no tests defined in project
 
 override_dh_auto_install:
 	dh_auto_install
@@ -20,4 +24,4 @@ override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
 
 %:
-	dh $@ --no-automatic-dbgsym
+	dh $@ --buildsystem=cmake+ninja --no-automatic-dbgsym

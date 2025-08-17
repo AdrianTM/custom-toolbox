@@ -32,6 +32,19 @@ project(custom-toolbox
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Enable compile commands export for IDEs and tools
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Optimize for Ninja builds
+if(CMAKE_GENERATOR STREQUAL "Ninja")
+    # Enable colored output for Ninja
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_compile_options(-fdiagnostics-color=always)
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        add_compile_options(-fcolor-diagnostics)
+    endif()
+endif()
+
 # Option to use clang for testing builds
 option(USE_CLANG "Use clang compiler" OFF)
 if(USE_CLANG)
@@ -136,11 +149,21 @@ qt6_add_translations(custom-toolbox
     TS_FILES ${TRANSLATION_FILES}
 )
 
+# Generate version.h file
+configure_file(
+    "${CMAKE_SOURCE_DIR}/src/version.h.in"
+    "${CMAKE_BINARY_DIR}/src/version.h"
+    @ONLY
+)
+
 # Set target properties
 set_target_properties(custom-toolbox PROPERTIES
     OUTPUT_NAME "custom-toolbox"
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
+
+# Add build directory to include path for generated version.h
+target_include_directories(custom-toolbox PRIVATE ${CMAKE_BINARY_DIR}/src)
 
 # Installation
 install(TARGETS custom-toolbox
