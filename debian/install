@@ -1,7 +1,9 @@
 custom-toolbox.conf 		etc/custom-toolbox
 custom-toolbox.desktop 		usr/share/applications
 example.list			etc/custom-toolbox
-help/*				usr/share/doc/custom-toolbox
+help/*.html			usr/share/doc/custom-toolbox
+help/*.css			usr/share/doc/custom-toolbox
+help/*.1			usr/share/man/man1
 icons/custom-toolbox.svg	usr/share/pixmaps
 obj-*/*.qm 			usr/share/custom-toolbox/locale
 obj-*/custom-toolbox 		usr/bin

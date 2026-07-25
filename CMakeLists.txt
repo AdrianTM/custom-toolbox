@@ -237,6 +237,11 @@ install(FILES icons/custom-toolbox.svg
 
 install(DIRECTORY help/
     DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/custom-toolbox
+    PATTERN "*.1" EXCLUDE
+)
+
+install(FILES help/custom-toolbox.1
+    DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
 )
 
 install(FILES debian/changelog
@@ -275,6 +280,7 @@ if(BUILD_TESTING)
                 "-DINSTALL_BINDIR=${CMAKE_INSTALL_FULL_BINDIR}"
                 "-DINSTALL_SYSCONFDIR=${CMAKE_INSTALL_FULL_SYSCONFDIR}"
                 "-DINSTALL_DATADIR=${CMAKE_INSTALL_FULL_DATADIR}"
+                "-DINSTALL_MANDIR=${CMAKE_INSTALL_FULL_MANDIR}"
                 -P "${CMAKE_SOURCE_DIR}/tests/verify-install.cmake"
         DEPENDS custom-toolbox
         USES_TERMINAL

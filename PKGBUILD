@@ -51,8 +51,13 @@ package() {
 
     # Install documentation
     install -dm755 "${pkgdir}/usr/share/doc/custom-toolbox"
+    install -dm755 "${pkgdir}/usr/share/man/man1"
+
+    install -m644 help/*.1 "${pkgdir}/usr/share/man/man1/"
     if [ -d help ]; then
-        cp -r help/* "${pkgdir}/usr/share/doc/custom-toolbox/" 2>/dev/null || true
+        for help_file in help/*.html help/*.jpg help/*.png help/*.css; do
+            [ -f "$help_file" ] && install -Dm644 "$help_file" "${pkgdir}/usr/share/doc/custom-toolbox/$(basename "$help_file")"
+        done
     fi
 
     # Install changelog
