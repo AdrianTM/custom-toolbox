@@ -14,7 +14,7 @@ jobs:
       matrix:
         compiler: [gcc, clang]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install common build dependencies
         run: |
@@ -60,7 +60,7 @@ jobs:
     name: debian package build canary
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install packaging dependencies
         run: |
