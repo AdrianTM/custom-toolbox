@@ -468,8 +468,20 @@ ApplicationWindow {
         x: (root.width - width) / 2
         y: (root.height - height) / 2
         title: qsTr("About %1").arg(root.backend.title)
-        standardButtons: Dialog.Close
         background: Rectangle { color: root.surfaceColor; radius: 16; border.color: root.borderColor }
+        footer: DialogButtonBox {
+            standardButtons: DialogButtonBox.Close
+            alignment: Qt.AlignRight
+            padding: 12
+            background: Item {}
+            delegate: SecondaryButton {
+                textColor: root.primaryTextColor
+                hoverColor: root.accentWash
+                borderColor: root.borderColor
+                accentColor: root.accentColor
+            }
+            onRejected: aboutDialog.reject()
+        }
         contentItem: ColumnLayout {
             spacing: 14
             Image {
@@ -523,7 +535,19 @@ ApplicationWindow {
         property string message: ""
         modal: true
         anchors.centerIn: Overlay.overlay
-        standardButtons: Dialog.Ok
+        footer: DialogButtonBox {
+            standardButtons: DialogButtonBox.Ok
+            alignment: Qt.AlignRight
+            padding: 12
+            background: Item {}
+            delegate: SecondaryButton {
+                textColor: root.primaryTextColor
+                hoverColor: root.accentWash
+                borderColor: root.borderColor
+                accentColor: root.accentColor
+            }
+            onAccepted: errorDialog.accept()
+        }
         contentItem: Text {
             text: errorDialog.message
             color: root.primaryTextColor
