@@ -36,6 +36,7 @@ ApplicationWindow {
     readonly property color inactiveControlColor: systemPalette.mid
     readonly property real baseFontSize: Application.font.pixelSize > 0 ? Application.font.pixelSize : 13
     readonly property bool compactNavigation: width < 900
+    property bool condensedView: false
 
     Component.onCompleted: {
         if (backend.reloadMessage.length > 0) {
@@ -51,6 +52,7 @@ ApplicationWindow {
         property alias windowY: root.y
         property alias windowWidth: root.width
         property alias windowHeight: root.height
+        property alias condensedView: root.condensedView
     }
 
     Connections {
@@ -348,6 +350,31 @@ ApplicationWindow {
                     color: root.secondaryTextColor
                     font.pixelSize: Math.max(10, root.baseFontSize - 1)
                 }
+
+                Rectangle {
+                    Layout.preferredWidth: 1
+                    Layout.preferredHeight: 24
+                    Layout.leftMargin: 5
+                    Layout.rightMargin: 5
+                    color: root.borderColor
+                }
+
+                Text {
+                    Layout.maximumWidth: 130
+                    text: qsTr("Condensed view")
+                    color: root.secondaryTextColor
+                    font.pixelSize: Math.max(10, root.baseFontSize - 1)
+                    elide: Text.ElideRight
+                }
+                ModernSwitch {
+                    checked: root.condensedView
+                    accentColor: root.accentColor
+                    inactiveColor: root.inactiveControlColor
+                    Accessible.name: qsTr("Use condensed launcher view")
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Show more launchers at once")
+                    onToggled: root.condensedView = checked
+                }
             }
 
             Rectangle {
@@ -374,8 +401,8 @@ ApplicationWindow {
                 boundsBehavior: Flickable.StopAtBounds
                 ScrollBar.vertical: ScrollBar { policy: ScrollBar.AlwaysOn }
                 model: root.backend
-                cellWidth: width / Math.max(1, Math.floor(width / 300))
-                cellHeight: 154
+                cellWidth: width / Math.max(1, Math.floor(width / (root.condensedView ? 230 : 300)))
+                cellHeight: root.condensedView ? 112 : 154
 
                 // See the comment on the compact category Flickable above: bypass the default
                 // flick-momentum wheel handling so touchpad scrolling can reverse direction
@@ -396,10 +423,11 @@ ApplicationWindow {
                     required property string category
                     required property int sourceIndex
                     width: launcherGrid.cellWidth - 12
-                    height: 142
+                    height: launcherGrid.cellHeight - 12
                     launcherName: name
                     description: comment
                     categoryName: category
+                    condensed: root.condensedView
                     surfaceColor: root.surfaceColor
                     hoverSurfaceColor: root.raisedSurfaceColor
                     primaryTextColor: root.primaryTextColor

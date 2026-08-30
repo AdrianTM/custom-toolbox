@@ -10,6 +10,7 @@ Button {
     required property string description
     required property string categoryName
     required property string iconSource
+    property bool condensed: false
     property color surfaceColor: systemPalette.base
     property color hoverSurfaceColor: Qt.tint(systemPalette.base, Qt.alpha(systemPalette.highlight, 0.08))
     property color primaryTextColor: systemPalette.text
@@ -18,7 +19,7 @@ Button {
     property color borderColor: Qt.alpha(systemPalette.text, 0.18)
 
     hoverEnabled: true
-    padding: 18
+    padding: condensed ? 12 : 18
     Accessible.name: launcherName
     Accessible.description: description
     scale: down ? 0.985 : 1
@@ -34,17 +35,17 @@ Button {
     }
 
     contentItem: RowLayout {
-        spacing: 15
+        spacing: control.condensed ? 10 : 15
         Rectangle {
             Layout.alignment: Qt.AlignTop
-            Layout.preferredWidth: 54
-            Layout.preferredHeight: 54
-            radius: 13
+            Layout.preferredWidth: control.condensed ? 42 : 54
+            Layout.preferredHeight: control.condensed ? 42 : 54
+            radius: control.condensed ? 10 : 13
             color: Qt.alpha(control.accentColor, control.hovered ? 0.16 : 0.10)
             Image {
                 anchors.centerIn: parent
-                width: 38
-                height: 38
+                width: control.condensed ? 30 : 38
+                height: control.condensed ? 30 : 38
                 source: control.iconSource
                 sourceSize: Qt.size(48, 48)
                 fillMode: Image.PreserveAspectFit
@@ -53,12 +54,12 @@ Button {
         ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 5
+            spacing: control.condensed ? 2 : 5
             Text {
                 Layout.fillWidth: true
                 text: control.launcherName
                 color: control.primaryTextColor
-                font.pixelSize: control.font.pixelSize + 3
+                font.pixelSize: control.font.pixelSize + (control.condensed ? 1 : 3)
                 font.weight: Font.DemiBold
                 elide: Text.ElideRight
             }
@@ -71,7 +72,7 @@ Button {
                 font.pixelSize: control.font.pixelSize
                 lineHeight: 1.15
                 wrapMode: Text.Wrap
-                maximumLineCount: 3
+                maximumLineCount: control.condensed ? 2 : 3
                 elide: Text.ElideRight
             }
             Text {

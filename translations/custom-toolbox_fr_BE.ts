@@ -4,7 +4,7 @@
 <context>
     <name>LauncherCard</name>
     <message>
-        <location filename="../qml/components/LauncherCard.qml" line="69"/>
+        <location filename="../qml/components/LauncherCard.qml" line="70"/>
         <source>Open this launcher</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12,69 +12,69 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../qml/Main.qml" line="42"/>
+        <location filename="../qml/Main.qml" line="43"/>
         <source>Configuration error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="129"/>
+        <location filename="../qml/Main.qml" line="131"/>
         <source>Search launchers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="152"/>
+        <location filename="../qml/Main.qml" line="154"/>
         <source>Search launchers and tasks…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="164"/>
+        <location filename="../qml/Main.qml" line="166"/>
         <source>Clear search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="211"/>
+        <location filename="../qml/Main.qml" line="213"/>
         <source>CATEGORIES</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="247"/>
-        <location filename="../qml/Main.qml" line="401"/>
+        <location filename="../qml/Main.qml" line="249"/>
+        <location filename="../qml/Main.qml" line="459"/>
         <source>Launch at login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="254"/>
+        <location filename="../qml/Main.qml" line="256"/>
         <source>Open this toolbox automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="264"/>
-        <location filename="../qml/Main.qml" line="410"/>
+        <location filename="../qml/Main.qml" line="266"/>
+        <location filename="../qml/Main.qml" line="468"/>
         <source>Launch this toolbox at login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="313"/>
+        <location filename="../qml/Main.qml" line="332"/>
         <source>Search results</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="315"/>
+        <location filename="../qml/Main.qml" line="334"/>
         <source>All launchers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="322"/>
+        <location filename="../qml/Main.qml" line="341"/>
         <source>Results matching “%1”</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="323"/>
+        <location filename="../qml/Main.qml" line="342"/>
         <source>Choose a launcher to start an application or task</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/Main.qml" line="330"/>
+        <location filename="../qml/Main.qml" line="349"/>
         <source>%n launcher(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -82,33 +82,48 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="389"/>
+        <location filename="../qml/Main.qml" line="364"/>
+        <source>Condensed view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="373"/>
+        <source>Use condensed launcher view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="375"/>
+        <source>Show more launchers at once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="447"/>
         <source>No launchers found
 Try a different search or category.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="440"/>
+        <location filename="../qml/Main.qml" line="498"/>
         <source>About %1</source>
         <translation type="unfinished">À propos de %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="461"/>
+        <location filename="../qml/Main.qml" line="531"/>
         <source>Version %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="467"/>
+        <location filename="../qml/Main.qml" line="537"/>
         <source>Custom Toolbox creates focused collections of application launchers and system tasks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="475"/>
+        <location filename="../qml/Main.qml" line="545"/>
         <source>License</source>
         <translation type="unfinished">Licence</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="484"/>
+        <location filename="../qml/Main.qml" line="554"/>
         <source>Copyright © MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
@@ -125,7 +140,7 @@ Try a different search or category.</source>
         <translation type="vanished">À propos de cette application</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="180"/>
+        <location filename="../qml/Main.qml" line="182"/>
         <source>About...</source>
         <translation>À propos&#xa0;…</translation>
     </message>
@@ -138,7 +153,7 @@ Try a different search or category.</source>
         <translation type="vanished">Personnaliser le lanceur</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="415"/>
+        <location filename="../qml/Main.qml" line="473"/>
         <source>Edit</source>
         <translation>Éditer</translation>
     </message>
@@ -147,7 +162,7 @@ Try a different search or category.</source>
         <translation type="vanished">Alt+E</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="172"/>
+        <location filename="../qml/Main.qml" line="174"/>
         <location filename="../src/launchermodel.cpp" line="701"/>
         <source>Help</source>
         <translation>Aide</translation>
@@ -161,7 +176,7 @@ Try a different search or category.</source>
         <translation type="vanished">Fermer l’application</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="423"/>
+        <location filename="../qml/Main.qml" line="481"/>
         <source>Close</source>
         <translation>Quitter</translation>
     </message>
@@ -217,15 +232,15 @@ Try a different search or category.</source>
         <translation>Impossible de démarrer le programme: %1</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="67"/>
         <location filename="../src/launchermodel.cpp" line="414"/>
         <location filename="../src/launchermodel.cpp" line="832"/>
+        <location filename="../src/main.cpp" line="67"/>
         <source>File Open Error</source>
         <translation>Erreur d’ouverture du fichier</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="156"/>
         <location filename="../src/launchermodel.cpp" line="401"/>
+        <location filename="../src/main.cpp" line="156"/>
         <source>File Not Found</source>
         <translation>Fichier introuvable</translation>
     </message>
@@ -235,8 +250,8 @@ Try a different search or category.</source>
         <translation>Impossible de déterminer l’utilisateur•rice normal•e. Refus d’exécuter ce lanceur en tant que root.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="157"/>
         <location filename="../src/launchermodel.cpp" line="401"/>
+        <location filename="../src/main.cpp" line="157"/>
         <source>The file %1 does not exist.</source>
         <translation>Le fichier %1 n’existe pas.</translation>
     </message>
