@@ -560,14 +560,33 @@ void LauncherModel::launch(int sourceIndex)
         emit errorOccurred(QCoreApplication::translate("MainWindow", "Execution Error"), error);
         return;
     }
+    const QString trackingKey = program + QChar() + arguments.join(QChar());
+    const qint64 runningProcessId = runningLaunchers.value(trackingKey);
+    if (runningProcessId < 0
+        || (runningProcessId > 0
+            && QFileInfo::exists(QStringLiteral("/proc/%1").arg(runningProcessId)))) {
+        emit errorOccurred(QCoreApplication::translate("MainWindow", "Launcher already running"),
+                           QCoreApplication::translate("MainWindow", "%1 is already running.")
+                               .arg(allItems.at(sourceIndex).name));
+        return;
+    }
+    runningLaunchers.remove(trackingKey);
+
     if (program == QLatin1String("pkexec") || hideGui) {
-        runTracked(program, arguments);
-    } else if (!QProcess::startDetached(program, arguments)) {
+        runningLaunchers.insert(trackingKey, -1);
+        runTracked(program, arguments, trackingKey);
+        return;
+    }
+    qint64 processId = 0;
+    if (!QProcess::startDetached(program, arguments, {}, &processId)) {
         emit errorOccurred(QCoreApplication::translate("MainWindow", "Execution Error"), QCoreApplication::translate("MainWindow", "Failed to start program: %1").arg(program));
+    } else if (processId > 0) {
+        runningLaunchers.insert(trackingKey, processId);
     }
 }
 
-void LauncherModel::runTracked(const QString &program, const QStringList &arguments)
+void LauncherModel::runTracked(const QString &program, const QStringList &arguments,
+                               const QString &trackingKey)
 {
     if (hideGui) {
         emit hideRequested();
@@ -576,9 +595,15 @@ void LauncherModel::runTracked(const QString &program, const QStringList &argume
     const bool isPkexec = program == QLatin1String("pkexec");
     auto *process = new QProcess(this);
     process->setProcessChannelMode(QProcess::ForwardedChannels);
+    connect(process, &QProcess::started, this, [this, process, trackingKey] {
+        if (!trackingKey.isEmpty()) {
+            runningLaunchers.insert(trackingKey, process->processId());
+        }
+    });
     connect(process, &QProcess::errorOccurred, this,
-            [this, process, command](QProcess::ProcessError error) {
+            [this, process, command, trackingKey](QProcess::ProcessError error) {
                 if (error == QProcess::FailedToStart) {
+                    runningLaunchers.remove(trackingKey);
                     process->deleteLater();
                     if (hideGui) {
                         emit showRequested();
@@ -587,7 +612,8 @@ void LauncherModel::runTracked(const QString &program, const QStringList &argume
                 }
             });
     connect(process, &QProcess::finished, this,
-            [this, process, command, isPkexec](int exitCode, QProcess::ExitStatus status) {
+            [this, process, command, isPkexec, trackingKey](int exitCode, QProcess::ExitStatus status) {
+                runningLaunchers.remove(trackingKey);
                 process->deleteLater();
                 if (hideGui) {
                     emit showRequested();

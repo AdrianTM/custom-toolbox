@@ -160,7 +160,7 @@ Try a different search or category.</source>
     </message>
     <message>
         <location filename="../qml/Main.qml" line="174"/>
-        <location filename="../src/launchermodel.cpp" line="701"/>
+        <location filename="../src/launchermodel.cpp" line="727"/>
         <source>Help</source>
         <translation>Žinynas</translation>
     </message>
@@ -197,9 +197,9 @@ Try a different search or category.</source>
     <message>
         <location filename="../src/launchermodel.cpp" line="553"/>
         <location filename="../src/launchermodel.cpp" line="560"/>
-        <location filename="../src/launchermodel.cpp" line="566"/>
-        <location filename="../src/launchermodel.cpp" line="586"/>
-        <location filename="../src/launchermodel.cpp" line="597"/>
+        <location filename="../src/launchermodel.cpp" line="582"/>
+        <location filename="../src/launchermodel.cpp" line="611"/>
+        <location filename="../src/launchermodel.cpp" line="623"/>
         <source>Execution Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -214,23 +214,23 @@ Try a different search or category.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="586"/>
+        <location filename="../src/launchermodel.cpp" line="611"/>
         <source>Failed to start command: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="597"/>
+        <location filename="../src/launchermodel.cpp" line="623"/>
         <source>Failed to execute command: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="566"/>
+        <location filename="../src/launchermodel.cpp" line="582"/>
         <source>Failed to start program: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/launchermodel.cpp" line="414"/>
-        <location filename="../src/launchermodel.cpp" line="832"/>
+        <location filename="../src/launchermodel.cpp" line="858"/>
         <location filename="../src/main.cpp" line="67"/>
         <source>File Open Error</source>
         <translation>Failo atvėrimo klaida</translation>
@@ -279,18 +279,28 @@ Try a different search or category.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="701"/>
-        <location filename="../src/launchermodel.cpp" line="708"/>
+        <location filename="../src/launchermodel.cpp" line="568"/>
+        <source>Launcher already running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/launchermodel.cpp" line="569"/>
+        <source>%1 is already running.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/launchermodel.cpp" line="727"/>
+        <location filename="../src/launchermodel.cpp" line="734"/>
         <source>Could not open %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="755"/>
+        <location filename="../src/launchermodel.cpp" line="781"/>
         <source>Refusing to overwrite a non-Custom Toolbox autostart file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="861"/>
+        <location filename="../src/launchermodel.cpp" line="887"/>
         <source>Could not reload the configuration. The previous configuration is still in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -307,29 +317,29 @@ Try a different search or category.</source>
         <translation type="vanished">Katalogo sukūrimo klaida</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="823"/>
+        <location filename="../src/launchermodel.cpp" line="849"/>
         <source>Could not create directory: %1</source>
         <translation>Nepavyko sukurti katalogo: %1</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="687"/>
-        <location filename="../src/launchermodel.cpp" line="693"/>
-        <location filename="../src/launchermodel.cpp" line="708"/>
+        <location filename="../src/launchermodel.cpp" line="713"/>
+        <location filename="../src/launchermodel.cpp" line="719"/>
+        <location filename="../src/launchermodel.cpp" line="734"/>
         <source>Error</source>
         <translation>Klaida</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="633"/>
+        <location filename="../src/launchermodel.cpp" line="659"/>
         <source>Editor command is empty.</source>
         <translation>Redaktoriaus komanda yra tuščia.</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="693"/>
+        <location filename="../src/launchermodel.cpp" line="719"/>
         <source>Failed to launch the editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="654"/>
+        <location filename="../src/launchermodel.cpp" line="680"/>
         <source>Could not determine the unprivileged user. Refusing to launch the editor as root.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -346,8 +356,8 @@ Try a different search or category.</source>
         <translation type="vanished">%1 žinynas</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="774"/>
-        <location filename="../src/launchermodel.cpp" line="785"/>
+        <location filename="../src/launchermodel.cpp" line="800"/>
+        <location filename="../src/launchermodel.cpp" line="811"/>
         <source>Could not write file: %1</source>
         <translation>Nepavyko rašyti failo: %1</translation>
     </message>
@@ -356,7 +366,7 @@ Try a different search or category.</source>
         <translation type="vanished">Failo šalinimo klaida</translation>
     </message>
     <message>
-        <location filename="../src/launchermodel.cpp" line="828"/>
+        <location filename="../src/launchermodel.cpp" line="854"/>
         <source>Could not remove file: %1</source>
         <translation>Nepavyko pašalinti failo: %1</translation>
     </message>

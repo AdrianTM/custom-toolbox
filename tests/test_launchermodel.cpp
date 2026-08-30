@@ -1,6 +1,7 @@
 #include <QCommandLineParser>
 #include <QDir>
 #include <QFile>
+#include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QTest>
 #include <QTextStream>
@@ -28,7 +29,7 @@ void TestLauncherModel::filtersAndExposesLauncherRoles()
     QVERIFY(desktopFile.open(QFile::WriteOnly | QFile::Text));
     QTextStream desktop(&desktopFile);
     desktop << "[Desktop Entry]\nType=Application\nName=Sample Tool\nComment=A test launcher\n"
-               "Icon=applications-utilities\nExec=/bin/true\nTerminal=false\n";
+               "Icon=applications-utilities\nExec=/bin/sleep 0.2\nTerminal=false\n";
     desktopFile.close();
 
     const QString listPath = directory.path() + QStringLiteral("/model.list");
@@ -61,6 +62,17 @@ void TestLauncherModel::filtersAndExposesLauncherRoles()
     model.setSelectedCategory(QStringLiteral("First"));
     QCOMPARE(model.rowCount(), 1);
     QCOMPARE(model.data(model.index(0), LauncherModel::NameRole).toString(), QStringLiteral("First Alias"));
+
+    model.setSelectedCategory({});
+    QSignalSpy errors(&model, &LauncherModel::errorOccurred);
+    model.launch(model.data(model.index(0), LauncherModel::SourceIndexRole).toInt());
+    model.launch(model.data(model.index(1), LauncherModel::SourceIndexRole).toInt());
+    QCOMPARE(errors.count(), 1);
+    QCOMPARE(errors.constFirst().at(0).toString(), QStringLiteral("Launcher already running"));
+
+    QTest::qWait(300);
+    model.launch(model.data(model.index(1), LauncherModel::SourceIndexRole).toInt());
+    QCOMPARE(errors.count(), 1);
 }
 
 QTEST_MAIN(TestLauncherModel)

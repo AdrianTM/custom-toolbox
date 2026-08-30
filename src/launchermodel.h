@@ -118,6 +118,7 @@ private:
 
     mutable QHash<QString, QString> desktopFileCache;
     mutable QHash<QString, QString> desktopFileIndex;
+    QHash<QString, qint64> runningLaunchers;
     mutable bool desktopFileIndexBuilt {};
 
     void buildDesktopFileIndex() const;
@@ -132,7 +133,8 @@ private:
                               QString *errorMessage) const;
     bool readFile(const QString &path, bool reportErrors = true);
     void refilter();
-    void runTracked(const QString &program, const QStringList &arguments);
+    void runTracked(const QString &program, const QStringList &arguments,
+                    const QString &trackingKey = {});
 
     [[nodiscard]] QString autostartFilePath() const;
     [[nodiscard]] QString autostartSourceHash() const;
