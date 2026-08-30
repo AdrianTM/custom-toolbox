@@ -1,3 +1,14 @@
+custom-toolbox (26.08) mx; urgency=medium
+
+  * The launcher window now has a refreshed interface with category navigation,
+    clearer search controls, and dialogs that match the system theme
+  * The launcher list scrollbar is now always visible, making longer lists easier
+    to browse
+  * The custom-toolbox manual is now installed in the standard system manual
+    directory
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 30 Aug 2026 11:26:43 -0400
+
 custom-toolbox (26.07.1) mx; urgency=medium
 
   * The window title and description now update right away when the list file
