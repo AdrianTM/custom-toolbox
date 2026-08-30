@@ -2,8 +2,8 @@ custom-toolbox (26.08) mx; urgency=medium
 
   * The launcher window now has a refreshed interface with category navigation,
     clearer search controls, and dialogs that match the system theme
-  * The launcher list scrollbar is now always visible, making longer lists easier
-    to browse
+  * The launcher list scrollbar is now always visible, making longer lists
+    easier to browse
   * The custom-toolbox manual is now installed in the standard system manual
     directory
 

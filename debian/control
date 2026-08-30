@@ -8,6 +8,7 @@ Vcs-Git: git://github.com/AdrianTM/custom-toolbox
 
 Package: custom-toolbox
 Architecture: any
-Depends: menu, findutils, grep, ${misc:Depends}, ${shlibs:Depends}, qml6-module-qtcore, qml6-module-qtquick, qml6-module-qtquick-controls, qml6-module-qtquick-layouts
-Description: Custom Toolbox
- Custom Toolbox is a tool used for creating collections of icons
+Depends: menu, ${misc:Depends}, ${shlibs:Depends}, qml6-module-qtcore, qml6-module-qtquick, qml6-module-qtquick-controls, qml6-module-qtquick-layouts
+Description: customizable application launcher
+ Custom Toolbox creates focused collections of application launchers and
+ system tasks from simple configuration files.
