@@ -95,6 +95,9 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core
     Gui
     Widgets
+    Qml
+    Quick
+    QuickControls2
     LinguistTools
 )
 
@@ -104,35 +107,25 @@ endif()
 
 # Enable automatic MOC, UIC, and RCC processing
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOUIC OFF)
 set(CMAKE_AUTORCC ON)
+qt_policy(SET QTP0004 NEW)
+qt_policy(SET QTP0001 NEW)
 
 # Define source files
 set(SOURCES
     src/main.cpp
-    src/mainwindow.cpp
-    src/flatbutton.cpp
-    src/about.cpp
+    src/launchermodel.cpp
     src/launcherparser.cpp
     src/iconloader.cpp
 )
 
 set(HEADERS
-    src/mainwindow.h
-    src/flatbutton.h
-    src/about.h
+    src/launchermodel.h
     src/common.h
     src/iteminfo.h
     src/launcherparser.h
     src/iconloader.h
-)
-
-set(UI_FILES
-    src/mainwindow.ui
-)
-
-set(RESOURCE_FILES
-    images.qrc
 )
 
 # Get all translation files
@@ -143,15 +136,29 @@ list(FILTER TRANSLATION_FILES EXCLUDE REGEX "/custom-toolbox_en_US\\.ts$")
 add_executable(custom-toolbox
     ${SOURCES}
     ${HEADERS}
-    ${UI_FILES}
-    ${RESOURCE_FILES}
+)
+
+qt_add_qml_module(custom-toolbox
+    URI CustomToolbox
+    VERSION 1.0
+    QML_FILES
+        qml/Main.qml
+        qml/components/CategoryButton.qml
+        qml/components/LauncherCard.qml
+        qml/components/ModernSwitch.qml
+        qml/components/SecondaryButton.qml
+    RESOURCES
+        icons/custom-toolbox.svg
 )
 
 # Link Qt6 libraries
-target_link_libraries(custom-toolbox
+target_link_libraries(custom-toolbox PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::QuickControls2
 )
 
 # Set compiler flags
@@ -271,6 +278,37 @@ if(BUILD_TESTING)
     endif()
     target_include_directories(test-launcherparser PRIVATE src)
     add_test(NAME launcherparser COMMAND test-launcherparser)
+
+    add_executable(test-launchermodel
+        tests/test_launchermodel.cpp
+        src/launchermodel.cpp
+        src/launchermodel.h
+        src/launcherparser.cpp
+        src/launcherparser.h
+        src/iconloader.cpp
+        src/iconloader.h
+        src/iteminfo.h
+        src/common.h
+    )
+    target_link_libraries(test-launchermodel PRIVATE
+        Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Qml Qt6::Quick Qt6::Test
+    )
+    target_compile_options(test-launchermodel PRIVATE
+        -Wpedantic
+        -pedantic
+        -Werror=return-type
+        -Werror=switch
+        -Werror=uninitialized
+        -Werror
+    )
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR USE_CLANG)
+        target_compile_options(test-launchermodel PRIVATE -Werror=return-stack-address)
+    else()
+        target_compile_options(test-launchermodel PRIVATE -Werror=return-local-addr)
+    endif()
+    target_include_directories(test-launchermodel PRIVATE src)
+    add_test(NAME launchermodel COMMAND test-launchermodel)
+    set_tests_properties(launchermodel PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
     add_custom_target(check-install
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${CMAKE_BINARY_DIR}/install-smoke"

@@ -32,10 +32,11 @@
 #include <QLocale>
 #include <QMessageBox>
 #include <QProcess>
+#include <QQmlApplicationEngine>
 #include <QTranslator>
 
 #include "common.h"
-#include "mainwindow.h"
+#include "launchermodel.h"
 #include <cstdlib>
 #include <unistd.h>
 
@@ -91,7 +92,10 @@ int main(int argc, char *argv[])
     }
 
     QApplication::setApplicationName("custom-toolbox");
-    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
+    QApplication::setApplicationDisplayName(QObject::tr("Custom Toolbox"));
+    QApplication::setWindowIcon(QIcon::fromTheme(
+        QApplication::applicationName(),
+        QIcon(QStringLiteral(":/qt/qml/CustomToolbox/icons/custom-toolbox.svg"))));
     QApplication::setOrganizationName("MX-Linux");
     QApplication::setApplicationVersion(VERSION);
 
@@ -155,7 +159,14 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    MainWindow w(parser, fileName);
-    w.show();
+    auto *iconProvider = new LauncherIconProvider;
+    LauncherModel launcherModel(parser, fileName, iconProvider);
+    QQmlApplicationEngine engine;
+    engine.addImageProvider(QStringLiteral("launchericons"), iconProvider);
+    engine.setInitialProperties({{QStringLiteral("backend"), QVariant::fromValue(&launcherModel)},
+                                 {QStringLiteral("version"), QStringLiteral(VERSION)}});
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
+                     [] { QCoreApplication::exit(EXIT_FAILURE); }, Qt::QueuedConnection);
+    engine.loadFromModule(QStringLiteral("CustomToolbox"), QStringLiteral("Main"));
     return QApplication::exec();
 }

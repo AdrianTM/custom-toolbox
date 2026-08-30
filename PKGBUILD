@@ -6,8 +6,8 @@ pkgdesc="Graphical launcher toolbox for user-defined .list files"
 arch=('x86_64' 'i686')
 url="https://mxlinux.org"
 license=('GPL3')
-depends=('qt6-base' 'polkit')
-makedepends=('cmake' 'ninja' 'qt6-tools')
+depends=('qt6-base' 'qt6-declarative' 'polkit')
+makedepends=('cmake' 'ninja' 'qt6-declarative' 'qt6-tools')
 source=()
 sha256sums=()
 
